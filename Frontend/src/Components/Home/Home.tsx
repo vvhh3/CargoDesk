@@ -1,11 +1,10 @@
-import Theme from "../theme/Theme";
+
 
 const Home = () => {
-    
-    return(
+
+    return (
         <div className="">
-            ggg
-            <Theme/>
+
         </div>
     )
 }
