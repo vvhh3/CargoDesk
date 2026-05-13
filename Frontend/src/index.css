@@ -5,6 +5,7 @@
 
 html,body,#root {
     min-height: 100%;
+    background: #09090B;
 }
 
 body {
