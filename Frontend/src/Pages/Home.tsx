@@ -1,6 +1,6 @@
 
 import Header from "../Components/Home/Header"
-import { Star, MoveRight } from "lucide-react"
+import { Star, MoveRight, ArrowUp, CheckCircle2, Package, Globe, Zap, Shield, TrendingUp } from "lucide-react"
 import { Link } from "react-router-dom"
 
 // шрифт
@@ -47,7 +47,7 @@ const Home = () => {
                 </div>
 
                 {/* DashBoard demo */}
-                <div className="w-full bg-white/5 rounded-3xl max-w-6xl mx-auto shadow-cyan-700/50 shadow-2xl">
+                <div className="w-full bg-white/5 rounded-3xl max-w-6xl mx-auto shadow-cyan-700/70 shadow-2xl">
                     {/* <div className=""> */}
                     <div className="flex flex-col w-full px-10 pt-8 pb-10">
 
@@ -96,35 +96,123 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* main */}
             <section>
 
-                    <div className="flex justify-center items-center gap-5 mt-20 mb-10">
-                        <div className="flex flex-col border border-[#8B5CF6]/5 rounded-2xl px-10 py-5
-                        shadow-[#8B5CF6] shadow-2xl bg-white/5 ">
-                            <span className="text-[#8B5CF6] text-2xl">50K+</span>
-                            <span className="text-zinc-400">Active Shipments</span>
+                <div className="flex justify-center items-center gap-10 mt-35 mb-10">
+                    <div className="flex flex-col border border-[#8B5CF6]/5 rounded-2xl px-10 py-5
+                        shadow-[#8B5CF6]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        <span className="text-[#8B5CF6] text-3xl">50K+</span>
+                        <span className="text-zinc-400">Active Shipments</span>
+                    </div>
+
+                    <div className="flex flex-col border border-[#2563EB]/5 rounded-2xl px-10 py-5
+                        shadow-[#2563EB]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        <span className="text-[#2563EB] text-3xl">99%</span>
+                        <span className="text-zinc-400">Uptime SLA</span>
+                    </div>
+
+                    <div className="flex flex-col border border-[#16A34A]/5 rounded-2xl px-10 py-5
+                        shadow-[#16A34A]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        <span className="text-[#16A34A] text-3xl">~2min</span>
+                        <span className="text-zinc-400">Avg Response</span>
+                    </div>
+
+                    <div className="flex flex-col border border-[#D97706]/5 rounded-2xl px-10 py-5
+                        shadow-[#D97706]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        <span className="text-[#D97706] text-3xl">100+</span>
+                        <span className="text-zinc-400">Countries</span>
+                    </div>
+                </div>
+
+                {/* Cargo инструменты */}
+                <div className="mt-40 flex flex-col justify-center items-center">
+
+                    <div className="flex flex-col justify-center items-center mb-20 gap-3">
+                        <span className="text-white text-4xl">Powerful Features</span>
+                        <span className="text-zinc-400 text-2xl">Everything you need to manage cargo operations at scale</span>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center items-center gap-10 max-w-[1300px]">
+                        <div >
+                            <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
+                                gap-5 rounded-xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-purple-500">
+                                <div className="text-white bg-purple-500 rounded-xl w-10 h-10 justify-center items-center flex">
+                                    <TrendingUp />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-white">Real-time Analytics</span>
+                                    <span className="text-zinc-400">Monitor performance with live dashboards and AI-powered insights</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col border border-[#2563EB]/5 rounded-2xl px-10 py-5
-                        shadow-[#2563EB] shadow-2xl bg-white/5 ">
-                            <span className="text-[#2563EB] text-2xl">99%</span>
-                            <span className="text-zinc-400">Uptime SLA</span>
+                        <div className="flex flex-wrap justify-center items-center gap-10">
+                            <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
+                        gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#2563EB]">
+                                <div className="text-white bg-[#2563EB] rounded-xl w-10 h-10 justify-center items-center flex">
+                                    <Shield />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-white">Enterprise Security</span>
+                                    <span className="text-zinc-400">Bank-level encryption and compliance with global standards</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col border border-[#16A34A]/5 rounded-2xl px-10 py-5
-                        shadow-[#16A34A] shadow-2xl bg-white/5 ">
-                            <span className="text-[#16A34A] text-2xl">~2min</span>
-                            <span className="text-zinc-400">Avg Response</span>
+                        <div className="flex flex-wrap justify-center items-center gap-10">
+                            <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
+                        gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#D97706]">
+                                <div className="text-white bg-[#D97706] rounded-xl w-10 h-10 justify-center items-center flex">
+                                    <Zap />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-white">Lightning Fast</span>
+                                    <span className="text-zinc-400">Optimized performance with sub-second response times</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col border border-[#D97706]/5 rounded-2xl px-10 py-5
-                        shadow-[#D97706] shadow-2xl bg-white/5 ">
-                            <span className="text-[#D97706] text-2xl">100+</span>
-                            <span className="text-zinc-400">Countries</span>
+                        <div className="flex flex-wrap justify-center items-center gap-10">
+                            <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
+                        gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#16A34A]">
+                                <div className="text-white bg-[#16A34A] rounded-xl w-10 h-10 justify-center items-center flex">
+                                    <Globe />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-white">Global Coverage</span>
+                                    <span className="text-zinc-400">Seamless operations across 150+ countries worldwide</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap justify-center items-center gap-10">
+                            <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
+                            gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#DB2777]">
+                                <div className="text-white bg-[#DB2777] rounded-xl w-10 h-10 justify-center items-center flex">
+                                    <Package />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-white">Smart Routing</span>
+                                    <span className="text-zinc-400">AI-optimized delivery routes for maximum efficiency</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
+                                gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#7C3AED]">
+                                <div className="text-white bg-[#7C3AED] rounded-xl w-10 h-10 justify-center items-center flex">
+                                    <CheckCircle2 />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-white">Automated Workflows</span>
+                                    <span className="text-zinc-400">Reduce manual work with intelligent automation</span>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
 
+                </div>
 
             </section>
         </div>
