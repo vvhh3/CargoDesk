@@ -1,6 +1,6 @@
 
 import Logo from "../Components/Logo/Logo"
-import { User,Mail } from "lucide-react"
+import { User,Mail,Building,Lock } from "lucide-react"
 
 const Registry = () => {
 
@@ -55,15 +55,17 @@ const Registry = () => {
             {/* Right часть */}
             <div className="flex justify-center min-h-screen w-1/2">
                 <div className="flex flex-col items-start w-7/10 py-15">
+                
                     <div>
                         <Logo />
                     </div>
-                    <div className="flex flex-col gap-4 mt-20">
+
+                    <div className="flex flex-col gap-4 mt-15">
                         <span className="text-white text-5xl">Create account</span>
                         <span className="text-zinc-400 text-xl">Start your 14-day free trial today</span>
                     </div>
 
-                    <div className="mt-10 flex flex-wrap w-full flex-col gap-10">
+                    <div className="mt-10 flex flex-wrap w-full flex-col gap-6">
                         <div className="flex gap-5 w-full">
 
                             <div className="w-1/2">
@@ -95,6 +97,25 @@ const Registry = () => {
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
+
+                        <div>
+                            <label className="block text-sm text-zinc-300 mb-2">Company name</label>
+                            <div className="relative">
+                                <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+                                <input placeholder="Acme Inc."
+                                    className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-zinc-300 mb-2">Password</label>
+                            <div className="relative">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+                                <input placeholder="Create a strong password"
+                                    className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
