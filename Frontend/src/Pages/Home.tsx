@@ -10,12 +10,12 @@ const Home = () => {
 
     return (
         <div>
-            <nav>
+            <header>
                 <Header />
-            </nav>
+            </header>
 
             {/* Header-main */}
-            <section className="flex flex-col items-center">
+            <section className="flex flex-col items-center mt-30">
 
                 <div className="absolute top-10 left-1/4 bg-[#7C3AED]/20 w-96 h-96 rounded-full blur-[120px]"></div>
                 <div className="absolute top-40 right-1/4 bg-[#3B82F6]/20 w-96 h-96 rounded-full blur-[120px]"></div>
@@ -101,25 +101,25 @@ const Home = () => {
 
                 <div className="flex justify-center items-center gap-10 mt-35 mb-10">
                     <div className="flex flex-col border border-[#8B5CF6]/5 rounded-2xl px-10 py-5
-                        shadow-[#8B5CF6]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        shadow-[#8B5CF6]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#8B5CF6]/50 duration-500">
                         <span className="text-[#8B5CF6] text-3xl">50K+</span>
                         <span className="text-zinc-400">Active Shipments</span>
                     </div>
 
                     <div className="flex flex-col border border-[#2563EB]/5 rounded-2xl px-10 py-5
-                        shadow-[#2563EB]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        shadow-[#2563EB]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#2563EB]/50 duration-500">
                         <span className="text-[#2563EB] text-3xl">99%</span>
                         <span className="text-zinc-400">Uptime SLA</span>
                     </div>
 
                     <div className="flex flex-col border border-[#16A34A]/5 rounded-2xl px-10 py-5
-                        shadow-[#16A34A]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        shadow-[#16A34A]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#16A34A]/50 duration-500">
                         <span className="text-[#16A34A] text-3xl">~2min</span>
                         <span className="text-zinc-400">Avg Response</span>
                     </div>
 
                     <div className="flex flex-col border border-[#D97706]/5 rounded-2xl px-10 py-5
-                        shadow-[#D97706]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 duration-500">
+                        shadow-[#D97706]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#D97706]/50 duration-500">
                         <span className="text-[#D97706] text-3xl">100+</span>
                         <span className="text-zinc-400">Countries</span>
                     </div>
@@ -203,9 +203,37 @@ const Home = () => {
                         </div>
 
                     </div>
-
                 </div>
+            </section>
 
+            {/* Footer */}
+            <section>
+                <div className="mt-40">
+
+                    <div className="flex justify-center">
+                        <div className="flex flex-col items-center gap-5 border border-white/10 bg-white/5 px-25 py-14 rounded-4xl shadow-purple-400 shadow-2xl">
+                            {/* bg-clip-text делает фон токо на буквы text-transparent делает буквы прозрачными */}
+                            <span className="bg-gradient-to-r text-5xl from-white to-zinc-400 bg-clip-text text-transparent">Ready to Get Started?</span>
+                            <span className="text-zinc-400 text-xl mb-7">Join thousands of businesses transforming their cargo operations</span>
+                            <Link to='/registry' className="flex justify-center items-center gap-2 text-white px-8 py-4 rounded-2xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-lg hover:from-[#8B5CF6] hover:to-[#7C3AED]">
+                                Start Free Trial <MoveRight />
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="mt-40 border border-t-white/10 flex justify-between py-5 px-20">
+
+                        <div className="flex gap-3 items-center">
+                            <div className="flex justify-center items-center rounded-xl w-10 h-10 bg-linear-to-br from-[#7C3AED] to-[#3B82F6]">
+                                <Link to="/"><Package className="text-white " /> </Link>
+                            </div>
+                            <h1 className="text-white text-lg">CargoDesk</h1>
+                        </div>
+                        <div>
+                            <span className="text-white/50">© 2026 CargoDesk. All rights reserved.</span>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     )
