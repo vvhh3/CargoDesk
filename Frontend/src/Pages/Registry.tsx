@@ -98,6 +98,7 @@ const Registry = () => {
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
                                 <input placeholder="email"
+                                type="email"
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
@@ -131,7 +132,7 @@ const Registry = () => {
                                 <a href="#" className="text-purple-500 hover:underline">Privacy Policy</a>
                             </label>
                         </div>
-                        
+
                         <div>
                             <button className="p-3 gap-3 w-full flex justify-center items-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white
                             hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl">
