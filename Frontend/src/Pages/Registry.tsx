@@ -1,7 +1,10 @@
 
 import Logo from "../Components/Logo/Logo"
-import { User,Mail,Building,Lock } from "lucide-react"
+import { User, Mail, Building, Lock, ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
 
+import github from "../assets/github.svg"
+import google from "../assets/google.svg"
 const Registry = () => {
 
     return (
@@ -54,20 +57,20 @@ const Registry = () => {
 
             {/* Right часть */}
             <div className="flex justify-center min-h-screen w-1/2">
-                <div className="flex flex-col items-start w-7/10 py-15">
-                
+                <div className="flex flex-col items-start w-7/10 pt-10">
+
                     <div>
                         <Logo />
                     </div>
 
-                    <div className="flex flex-col gap-4 mt-15">
-                        <span className="text-white text-5xl">Create account</span>
+                    <div className="flex flex-col gap-4 mt-5">
+                        <span className="text-white text-4xl">Create account</span>
                         <span className="text-zinc-400 text-xl">Start your 14-day free trial today</span>
                     </div>
 
-                    <div className="mt-10 flex flex-wrap w-full flex-col gap-6">
+                    <div className="mt-10 flex flex-wrap w-full flex-col gap-5">
                         <div className="flex gap-5 w-full">
-
+                            {/* name */}
                             <div className="w-1/2">
                                 <label className="block text-sm text-zinc-300 mb-2">First name</label>
                                 <div className="relative">
@@ -78,7 +81,7 @@ const Registry = () => {
                                             focus:outline-none   focus:border-[#7C3AED] transition-all"/>
                                 </div>
                             </div>
-
+                            {/* last name */}
                             <div className="w-1/2">
                                 <label className="block text-sm text-zinc-300 mb-2">Last name</label>
                                 <input
@@ -89,6 +92,7 @@ const Registry = () => {
 
                         </div>
 
+                        {/* Email */}
                         <div>
                             <label className="block text-sm text-zinc-300 mb-2">Email</label>
                             <div className="relative">
@@ -98,6 +102,7 @@ const Registry = () => {
                             </div>
                         </div>
 
+                        {/* Company name */}
                         <div>
                             <label className="block text-sm text-zinc-300 mb-2">Company name</label>
                             <div className="relative">
@@ -106,16 +111,57 @@ const Registry = () => {
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
-
+                        {/* password */}
                         <div>
                             <label className="block text-sm text-zinc-300 mb-2">Password</label>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
                                 <input placeholder="Create a strong password"
+                                    type="password"
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
+                            {/* checkbox */}
+                        <div>
+                            <label className="block text-sm text-zinc-300 mb-2 ml-2 cursor-pointer">
+                                <input type="checkbox" className="mt-1 w-4 h-4 rounded border-white/10 bg-white/5 text-[#7C3AED] focus:ring-[#7C3AED]/50" />
+                                <span className="pl-2 ">I agree to the </span>
+                                <a href="#" className="text-purple-500 hover:underline">Terms of Service</a>
+                                <span> and </span>
+                                <a href="#" className="text-purple-500 hover:underline">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <button className="p-3 gap-3 w-full flex justify-center items-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white
+                            hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl">
+                                Create Account
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                        </div>
 
+                        {/* Sign In */}
+                        <div className="relative mt-5">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-white/10"></div>
+                            </div>
+                            <div className="relative flex justify-center text-sm">
+                                <span className="px-4 bg-[#09090B] text-zinc-500">or sign up with</span>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-center gap-4">
+                            <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
+                                <img src={`${github}`} className="w-5 h-5" />
+                            </button>
+                            <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
+                                <img src={`${google}`} className="w-5 h-5" />
+                            </button>
+
+                        </div>
+                        <div className="w-full flex justify-center ">
+                            <span className="text-zinc-400">Already have an account? <Link to="/login" className="text-purple-500">Sign in</Link></span>
+                        </div>
                     </div>
                 </div>
 
