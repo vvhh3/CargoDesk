@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./Pages/Home"
 
+import Home from "./Pages/Home"
+import Registry from "./Pages/Registry"
 function App() {
 
   return (
@@ -9,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/registry" element={<Registry />} />
         </Routes>
       </BrowserRouter>
     </div>

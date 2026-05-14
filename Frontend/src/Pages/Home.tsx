@@ -1,8 +1,8 @@
 
 import Header from "../Components/Home/Header"
-import { Star, MoveRight, ArrowUp, CheckCircle2, Package, Globe, Zap, Shield, TrendingUp } from "lucide-react"
+import { Star, MoveRight, CheckCircle2, Package, Globe, Zap, Shield, TrendingUp } from "lucide-react"
 import { Link } from "react-router-dom"
-
+import Logo from "../Components/Logo/Logo"
 // шрифт
 // @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
@@ -213,7 +213,7 @@ const Home = () => {
                     <div className="flex justify-center">
                         <div className="flex flex-col items-center gap-5 border border-white/10 bg-white/5 px-25 py-14 rounded-4xl shadow-purple-400 shadow-2xl">
                             {/* bg-clip-text делает фон токо на буквы text-transparent делает буквы прозрачными */}
-                            <span className="bg-gradient-to-r text-5xl from-white to-zinc-400 bg-clip-text text-transparent">Ready to Get Started?</span>
+                            <span className="bg-linear-to-r text-5xl from-white to-zinc-400 bg-clip-text text-transparent">Ready to Get Started?</span>
                             <span className="text-zinc-400 text-xl mb-7">Join thousands of businesses transforming their cargo operations</span>
                             <Link to='/registry' className="flex justify-center items-center gap-2 text-white px-8 py-4 rounded-2xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-lg hover:from-[#8B5CF6] hover:to-[#7C3AED]">
                                 Start Free Trial <MoveRight />
@@ -222,13 +222,7 @@ const Home = () => {
                     </div>
 
                     <div className="mt-40 border border-t-white/10 flex justify-between py-5 px-20">
-
-                        <div className="flex gap-3 items-center">
-                            <div className="flex justify-center items-center rounded-xl w-10 h-10 bg-linear-to-br from-[#7C3AED] to-[#3B82F6]">
-                                <Link to="/"><Package className="text-white " /> </Link>
-                            </div>
-                            <h1 className="text-white text-lg">CargoDesk</h1>
-                        </div>
+                        <Logo/>
                         <div>
                             <span className="text-white/50">© 2026 CargoDesk. All rights reserved.</span>
                         </div>
