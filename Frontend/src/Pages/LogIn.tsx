@@ -14,24 +14,29 @@ const LogIn = () => {
             {/* Right */}
             <div className="w-full flex flex-col justify-center items-center bg-linear-to-br from-[#7C3AED]/20 via-[#09090B] to-[#3B82F6]/20">
 
-                <div className="w-7/10 bg-white/5 p-5 flex gap-5 flex-col border border-white/10 rounded-3xl">
+                {/* Card */}
 
-                    <div className="flex w-full gap-10">
-                        <div className="w-1/2 bg-white/10 border border-white/5 flex flex-col rounded-2xl items-start pl-4 gap-3 pr-10 py-5">
+                <div className="w-6/10 h-6/10 bg-white/5 p-5 flex gap-5 flex-col border border-white/10 rounded-3xl">
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute left-1/4 top-1/3  w-96 h-96 bg-[#7C3AED]/30 rounded-full blur-[120px] animate-pulse"></div>
+                    <div className="absolute w-96 h-96 bg-[#3B82F6]/30 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+                </div>
+                    <div className="flex w-full gap-5">
+                        <div className="w-1/2 bg-white/5 border border-white/10 flex flex-col rounded-2xl items-start pl-4 gap-3 pr-10 py-5">
                             <span className="text-zinc-400 text-xl">Active Orders</span>
                             <span className="text-[#8B5CF6] text-2xl">2,547</span>
                             <span className="text-[#22C55E] text-sm">+12.5%</span>
                         </div>
-                        <div className="w-1/2 bg-white/10 border border-white/5 flex flex-col rounded-2xl items-start pl-4 gap-3 pr-10 py-5">
+                        <div className="w-1/2 bg-white/5 border border-white/10 flex flex-col rounded-2xl items-start pl-4 gap-3 pr-10 py-5">
                             <span className="text-zinc-400 text-xl">Revenue</span>
                             <span className="text-[#22C55E] text-2xl">$48.2K</span>
                             <span className="text-[#22C55E] text-sm">+8.3%</span>
                         </div>
                     </div>
 
-                    <div className="w-full bg-white/10 h-48 border border-white/5 rounded-2xl p-4">
-                        <div className="h-full flex items-end gap-2 justify-around">
-                            {[50, 70, 45,60, 69, 60,70, 85, 75, 80,95].map((height, i) => (
+                    <div className="w-full bg-white/5 h-48 border border-white/10 rounded-2xl p-4">
+                        <div className="h-full  flex items-end gap-2 justify-around">
+                            {[50, 70, 45, 60, 69, 60, 70, 85, 75, 80, 95].map((height, i) => (
                                 <div key={i}
                                     style={{ height: `${height}%` }}
                                     className={`bg-[#8B5CF6] flex-1 rounded-t-xl `}></div>
@@ -39,8 +44,31 @@ const LogIn = () => {
                         </div>
                     </div>
 
+                    <div className="w-ful flex flex-col gap-3">
+                        {["Order #2847 shipped", "New client registered", "Payment received"].map((text, i) => (
+                            <div key={i}
+                                className="flex justify-between bg-white/5 border border-white/10 rounded-2xl p-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span className="text-white">{text}</span>
+                                </div>
+                                <span className="text-zinc-400">2m ago</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-20 w-full">
+                    <div className="flex flex-col items-center">
+                        <div className="mb-5 flex flex-col items-center gap-2 text-3xl">
+                            <span className="text-white">Manage cargo operations</span>
+                            <span className="bg-linear-to-r from-[#7C3AED] to-[#3B82F6] bg-clip-text text-transparent">from anywhere</span>
+                        </div>
+                        <span className="text-zinc-400">Real-time tracking, analytics, and team collaboration in one platform</span>
+                    </div>
                 </div>
             </div>
+
 
             {/* Left screen */}
             <div className="flex justify-center w-full min-h-screen">
