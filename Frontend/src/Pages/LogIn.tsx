@@ -11,12 +11,39 @@ const LogIn = () => {
     return (
         <div className="w-full flex">
 
-            <div className="w-1/2 bg-white min-h-screen">
-                123
+            {/* Right */}
+            <div className="w-full flex flex-col justify-center items-center bg-linear-to-br from-[#7C3AED]/20 via-[#09090B] to-[#3B82F6]/20">
+
+                <div className="w-7/10 bg-white/5 p-5 flex gap-5 flex-col border border-white/10 rounded-3xl">
+
+                    <div className="flex w-full gap-10">
+                        <div className="w-1/2 bg-white/10 border border-white/5 flex flex-col rounded-2xl items-start pl-4 gap-3 pr-10 py-5">
+                            <span className="text-zinc-400 text-xl">Active Orders</span>
+                            <span className="text-[#8B5CF6] text-2xl">2,547</span>
+                            <span className="text-[#22C55E] text-sm">+12.5%</span>
+                        </div>
+                        <div className="w-1/2 bg-white/10 border border-white/5 flex flex-col rounded-2xl items-start pl-4 gap-3 pr-10 py-5">
+                            <span className="text-zinc-400 text-xl">Revenue</span>
+                            <span className="text-[#22C55E] text-2xl">$48.2K</span>
+                            <span className="text-[#22C55E] text-sm">+8.3%</span>
+                        </div>
+                    </div>
+
+                    <div className="w-full bg-white/10 h-48 border border-white/5 rounded-2xl p-4">
+                        <div className="h-full flex items-end gap-2 justify-around">
+                            {[50, 70, 45,60, 69, 60,70, 85, 75, 80,95].map((height, i) => (
+                                <div key={i}
+                                    style={{ height: `${height}%` }}
+                                    className={`bg-[#8B5CF6] flex-1 rounded-t-xl `}></div>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             {/* Left screen */}
-            <div className="flex justify-center w-1/2 min-h-screen">
+            <div className="flex justify-center w-full min-h-screen">
                 <div className="flex-col items-start w-6/10 py-20">
 
                     <div>
@@ -85,8 +112,9 @@ const LogIn = () => {
                         </div>
 
                         <div className="w-full flex justify-center mt-5">
-                            <span className="text-zinc-400">Don't have an account? <Link to="/login" className="text-purple-500">Sign up for free</Link></span>
+                            <span className="text-zinc-400">Don't have an account? <Link to="/registry" className="text-purple-500">Sign up for free</Link></span>
                         </div>
+
                     </div>
                 </div>
             </div>
