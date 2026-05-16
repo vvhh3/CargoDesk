@@ -1,4 +1,4 @@
-import { sequelize } from "../db"
+import { sequelize } from "../db.ts"
 import { DataTypes } from "sequelize"
 
 export const User = sequelize.define("User", {
@@ -12,7 +12,6 @@ export const User = sequelize.define("User", {
         allowNull: false, // НЕЛЬЗЯ оставить пустым
         unique: true //должен быть уникальным
     },
-
     password: {
         type: DataTypes.STRING,
         allowNull: false //НЕЛЬЗЯ оставить пустым
