@@ -12,7 +12,7 @@ const Header = () => {
                     <a href="#" className="hover:text-white duration-500">Workflow</a>
                     <a href="#" className="hover:text-white duration-500">Pricing</a>
                     <Link to="/login" className="hover:text-white duration-500">Sign In</Link>
-                <Link to="/registry" className="flex justify-center items-center w-28 h-13 text-white rounded-2xl bg-linear-to-br from-[#7C3AED] to-[#3B82F6] duration-300 hover:scale-102 cursor-pointer">
+                <Link to="/register" className="flex justify-center items-center w-28 h-13 text-white rounded-2xl bg-linear-to-br from-[#7C3AED] to-[#3B82F6] duration-300 hover:scale-102 cursor-pointer">
                     Get Started
                 </Link>
             </nav>

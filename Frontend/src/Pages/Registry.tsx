@@ -167,7 +167,6 @@ const Registry = () => {
                 </div>
 
             </div>
-
         </div>
     )
 }

@@ -36,7 +36,7 @@ const Home = () => {
                     </div>
 
                     <div className="flex justify-center gap-5">
-                        <Link to='/registry' className="flex justify-center items-center gap-2 text-white px-8 py-4 rounded-2xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-lg hover:from-[#8B5CF6] hover:to-[#7C3AED]">
+                        <Link to='/register' className="flex justify-center items-center gap-2 text-white px-8 py-4 rounded-2xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-lg hover:from-[#8B5CF6] hover:to-[#7C3AED]">
                             Start Free Trial <MoveRight />
                         </Link>
                         <button className="flex justify-center items-center gap-2 
@@ -215,7 +215,7 @@ const Home = () => {
                             {/* bg-clip-text делает фон токо на буквы text-transparent делает буквы прозрачными */}
                             <span className="bg-linear-to-r text-5xl from-white to-zinc-400 bg-clip-text text-transparent">Ready to Get Started?</span>
                             <span className="text-zinc-400 text-xl mb-7">Join thousands of businesses transforming their cargo operations</span>
-                            <Link to='/registry' className="flex justify-center items-center gap-2 text-white px-8 py-4 rounded-2xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-lg hover:from-[#8B5CF6] hover:to-[#7C3AED]">
+                            <Link to='/register' className="flex justify-center items-center gap-2 text-white px-8 py-4 rounded-2xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-lg hover:from-[#8B5CF6] hover:to-[#7C3AED]">
                                 Start Free Trial <MoveRight />
                             </Link>
                         </div>
