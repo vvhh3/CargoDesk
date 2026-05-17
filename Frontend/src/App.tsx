@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./Pages/Home"
 import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
+import Dashboard from "./Pages/Dashboard"
 import { useEffect } from "react"
 import { useStoreAuth } from "./Store/AuthStore"
 import axios from "axios"
@@ -13,40 +14,41 @@ function App() {
   const logout = useStoreAuth((state) => state.logout)
   const setLoading = useStoreAuth((state) => state.setLoading)
   const isAuth = useStoreAuth((store) => store.isAuth)
-  
+
   useEffect(() => {
 
     const checkAuth = async () => {
-      try{
-        const res = await axios.get("http://localhost:5000/auth/me",{
+      try {
+        const res = await axios.get("http://localhost:5000/auth/me", {
           withCredentials: true
         })
         setUser(res.data.user)
 
-      }catch{
+      } catch {
         logout()
-      }finally{
+      } finally {
         setLoading(false)
       }
     }
 
     checkAuth()
-  },[])
+  }, [])
 
-//   const isAuth = useAuthStore((state) => state.isAuth);
-// const isLoading = useAuthStore((state) => state.isLoading);
+  //   const isAuth = useAuthStore((state) => state.isAuth);
+  // const isLoading = useAuthStore((state) => state.isLoading);
+  // if (isLoading) return <div>Loading...</div>;
+  // return isAuth ? <Account /> : <Navigate to="/login" />;
 
-// if (isLoading) return <div>Loading...</div>;
-
-// return isAuth ? <Account /> : <Navigate to="/login" />;
   return (
 
     <div className="bg-[#09090B] min-h-screen dark:bg-white">
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Registry />} />
-            <Route path="/login" element={<LogIn />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Registry />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </div>
