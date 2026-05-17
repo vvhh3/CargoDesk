@@ -1,12 +1,36 @@
 
 import Logo from "../Components/Logo/Logo";
 import { Mail, Lock, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import github from "../assets/github.svg"
 import google from "../assets/google.svg"
+import axios from "axios";
 
+import {useStoreAuth} from "../Store/AuthStore"
+import { useState } from "react";
 const LogIn = () => {
+
+    const [loginForm,setLoginForm] = useState({email:"",password:""})
+
+    const setUser = useStoreAuth((state) => state.setUser)
+    const navigate = useNavigate()
+
+    const testfetch = async (email:string,password:string) => {
+        try {
+            const t = await axios.post("http://localhost:5000/auth/login", {
+                email: email,
+                password: password
+            },{
+                withCredentials:true //разрешает работать с cookie
+            })
+            setUser(t.data.user)
+            navigate("/dashboard")
+            console.log("login", t)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <div className="w-full flex">
@@ -92,6 +116,8 @@ const LogIn = () => {
                             <Mail className="absolute top-2/3 left-4 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                             <input type="email"
                                 placeholder="email"
+                                value={loginForm.email}
+                                onChange={(e) => setLoginForm({...loginForm,email: e.target.value})}
                                 className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED] transition-all" />
                         </div>
                         {/* password */}
@@ -100,6 +126,8 @@ const LogIn = () => {
                             <Lock className="absolute top-2/3 left-4 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                             <input type="password"
                                 placeholder="password"
+                                value={loginForm.password}
+                                onChange={(e) => setLoginForm({...loginForm,password:e.target.value})}
                                 className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED] transition-all" />
                         </div>
                     </div>
@@ -114,7 +142,8 @@ const LogIn = () => {
 
                     <div className="w-full mt-5">
                         <button className="flex w-full p-3 cursor-pointer justify-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] 
-                            items-center rounded-2xl text-white hover:from-[#8B5CF6] hover:to-[#7C3AED]">
+                            items-center rounded-2xl text-white hover:from-[#8B5CF6] hover:to-[#7C3AED]"
+                            onClick={() => testfetch(loginForm.email,loginForm.password)}>
                             Sign In
                             <ArrowRight className="w-5 h-5" />
                         </button>

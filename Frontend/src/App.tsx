@@ -3,10 +3,42 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./Pages/Home"
 import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
+import { useEffect } from "react"
+import { useStoreAuth } from "./Store/AuthStore"
+import axios from "axios"
 
-//ПОЧЕМУ npm i @types/jsonwebtoken сработало , а npm i jsonwebtoken нет
 function App() {
 
+  const setUser = useStoreAuth((state) => state.setUser)
+  const logout = useStoreAuth((state) => state.logout)
+  const setLoading = useStoreAuth((state) => state.setLoading)
+  const isAuth = useStoreAuth((store) => store.isAuth)
+  
+  useEffect(() => {
+
+    const checkAuth = async () => {
+      try{
+        const res = await axios.get("http://localhost:5000/auth/me",{
+          withCredentials: true
+        })
+        setUser(res.data.user)
+
+      }catch{
+        logout()
+      }finally{
+        setLoading(false)
+      }
+    }
+
+    checkAuth()
+  },[])
+
+//   const isAuth = useAuthStore((state) => state.isAuth);
+// const isLoading = useAuthStore((state) => state.isLoading);
+
+// if (isLoading) return <div>Loading...</div>;
+
+// return isAuth ? <Account /> : <Navigate to="/login" />;
   return (
 
     <div className="bg-[#09090B] min-h-screen dark:bg-white">

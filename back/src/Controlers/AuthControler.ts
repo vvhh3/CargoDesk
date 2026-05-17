@@ -1,14 +1,15 @@
-import { Request,Response } from "express"
+import type { Request,Response } from "express"
 import { User } from "../Models/User.ts"
 import {GenerateJWT} from "../utils/GenerateJWT.ts"
 import bcrypt from "bcrypt"
+import type {AuthRequest} from "../middleware/AuthMiddleware.ts"
 
 export const register = async (req: Request,res:Response) => {
     try{
         const {email,password} = req.body
         
         if(!email|| !password){
-            return res.json(400).json({
+            return res.status(400).json({
                 message:"data is faild"
             })
         }
@@ -28,15 +29,22 @@ export const register = async (req: Request,res:Response) => {
             10
         )
         const user = await User.create({
-            email,
-            hashPassword
+            email: email,
+            password: hashPassword
         })
 
         //можно писать и просто user.id ,dataValues - на всякий случай
         const token = GenerateJWT(user.dataValues.id)
 
+        //что чё значит, и какие параметры есть ещё
+        res.cookie("token",token,{
+            httpOnly: true, //Запрещает JS доступ к cookie.
+            secure: false, // если true cookie работает только через HTTPS.
+            sameSite: "lax",
+            maxAge: 2 * 60* 60* 1000 //Сколько живёт cookie. 2 часа
+        })
+
         return res.json({
-            token,
             user
         })
     }catch(e){
@@ -72,8 +80,14 @@ export const login = async (req: Request,res: Response) => {
         }
         const token = GenerateJWT(user.dataValues.id)
 
+        res.cookie("token",token,{
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            maxAge: 2 * 60 * 60 * 1000
+        })
+
         return res.json({
-            token,
             user
         })
     }catch(e){
@@ -83,13 +97,14 @@ export const login = async (req: Request,res: Response) => {
     }
 }
 
-// export const getUser = async (req: Request,res: Response) => {
-//     try{
-//         const user = await User.findByPk(req.Id)
-//         return res.json(user)
-//     }catch(e){
-//         return res.status(500).json({
-//             message:"server error"
-//         })
-//     }
-// }
+export const getUser = async (req: AuthRequest, res: Response) => {
+  try {
+    const user = await User.findByPk(req.id);
+
+    return res.json({ user });
+  } catch {
+    return res.status(500).json({
+      message: "server error",
+    });
+  }
+};

@@ -5,8 +5,21 @@ import { Link } from "react-router-dom"
 
 import github from "../assets/github.svg"
 import google from "../assets/google.svg"
+
+import axios from "axios"
 const Registry = () => {
 
+    const testfetch = async () => {
+        try{
+            const t = await axios.post("http://localhost:5000/auth/register",{
+                email: "test@gmail.com",
+                password: "asss"
+            })
+            console.log("t",t)
+        } catch(e){
+            console.log(e)
+        }
+    }
     return (
         <div className="w-full flex">
 
@@ -135,7 +148,8 @@ const Registry = () => {
 
                         <div>
                             <button className="p-3 gap-3 w-full flex justify-center items-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white
-                            hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl">
+                            hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl"
+                            onClick={testfetch}>
                                 Create Account
                                 <ArrowRight className="w-5 h-5" />
                             </button>
