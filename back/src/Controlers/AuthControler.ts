@@ -6,9 +6,9 @@ import type {AuthRequest} from "../middleware/AuthMiddleware.ts"
 
 export const register = async (req: Request,res:Response) => {
     try{
-        const {email,password} = req.body
+        const {name,lastName,email,companyName,password} = req.body
         
-        if(!email|| !password){
+        if(!name || !lastName ||!email || !companyName || !password){
             return res.status(400).json({
                 message:"data is faild"
             })
@@ -28,8 +28,12 @@ export const register = async (req: Request,res:Response) => {
             password,
             10
         )
+
         const user = await User.create({
+            name: name,
+            lastName: lastName,
             email: email,
+            companyName: companyName,
             password: hashPassword
         })
 

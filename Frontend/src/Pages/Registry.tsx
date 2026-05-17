@@ -1,22 +1,58 @@
 
 import Logo from "../Components/Logo/Logo"
 import { User, Mail, Building, Lock, ArrowRight } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import github from "../assets/github.svg"
 import google from "../assets/google.svg"
 
 import axios from "axios"
+import { useState } from "react"
+import { useStoreAuth } from "../Store/AuthStore"
+
+type RegistryType = {
+    name: string
+    lastName: string
+    email: string
+    companyName: string
+    password: string
+}
 const Registry = () => {
 
-    const testfetch = async () => {
-        try{
-            const t = await axios.post("http://localhost:5000/auth/register",{
-                email: "test@gmail.com",
-                password: "asss"
+    const [refistryForm, setRegistryForm] = useState<RegistryType>({
+        name: "",
+        lastName: "",
+        email: "",
+        companyName: "",
+        password: ""
+    })
+
+    const navigate = useNavigate()
+    const setUser = useStoreAuth((state) => state.setUser)
+
+    const registry = async (
+        name: string,
+        lastName: string,
+        email: string,
+        companyName: string,
+        password: string
+    ) => {
+        try {
+            const res = await axios.post("http://localhost:5000/auth/register",
+                {
+                    name: name,
+                    lastName: lastName,
+                    email: email,
+                    companyName: companyName,
+                    password: password
+                }, {
+                withCredentials: true
             })
-            console.log("t",t)
-        } catch(e){
+
+            setUser(res.data.user)
+            navigate("/dashboard")
+            console.log("res", res)
+        } catch (e) {
             console.log(e)
         }
     }
@@ -89,6 +125,8 @@ const Registry = () => {
                                 <div className="relative">
                                     <User className="absolute top-1/3 left-4 w-5 h-5 text-zinc-500" />
                                     <input
+                                        value={refistryForm.name}
+                                        onChange={(e) => setRegistryForm({ ...refistryForm, name: e.target.value })}
                                         placeholder="Matvei"
                                         className="w-full bg-white/5 pl-12 p-4 border border-white/10 placeholder:text-zinc-400 rounded-xl text-white 
                                             focus:outline-none   focus:border-[#7C3AED] transition-all"/>
@@ -98,7 +136,8 @@ const Registry = () => {
                             <div className="w-1/2">
                                 <label className="block text-sm text-zinc-300 mb-2">Last name</label>
                                 <input
-                                    type="text"
+                                    value={refistryForm.lastName}
+                                    onChange={(e) => setRegistryForm({ ...refistryForm, lastName: e.target.value })}
                                     placeholder="Doe"
                                     className="p-4 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#7C3AED] transition-all" />
                             </div>
@@ -110,8 +149,11 @@ const Registry = () => {
                             <label className="block text-sm text-zinc-300 mb-2">Email</label>
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                                <input placeholder="email"
-                                type="email"
+                                <input
+                                    value={refistryForm.email}
+                                    onChange={(e) => setRegistryForm({ ...refistryForm, email: e.target.value })}
+                                    placeholder="email"
+                                    type="email"
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
@@ -121,7 +163,10 @@ const Registry = () => {
                             <label className="block text-sm text-zinc-300 mb-2">Company name</label>
                             <div className="relative">
                                 <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                                <input placeholder="Acme Inc."
+                                <input
+                                    value={refistryForm.companyName}
+                                    onChange={(e) => setRegistryForm({ ...refistryForm, companyName: e.target.value })}
+                                    placeholder="Acme Inc."
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
@@ -130,12 +175,15 @@ const Registry = () => {
                             <label className="block text-sm text-zinc-300 mb-2">Password</label>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                                <input placeholder="Create a strong password"
+                                <input
+                                    value={refistryForm.password}
+                                    onChange={(e) => setRegistryForm({ ...refistryForm, password: e.target.value })}
+                                    placeholder="Create a strong password"
                                     type="password"
                                     className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                             </div>
                         </div>
-                            {/* checkbox */}
+                        {/* checkbox */}
                         <div>
                             <label className="block text-sm text-zinc-300 mb-2 ml-2 cursor-pointer">
                                 <input type="checkbox" className="mt-1 w-4 h-4 rounded border-white/10 bg-white/5 text-[#7C3AED] focus:ring-[#7C3AED]/50" />
@@ -148,8 +196,13 @@ const Registry = () => {
 
                         <div>
                             <button className="p-3 gap-3 w-full flex justify-center items-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white
-                            hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl"
-                            onClick={testfetch}>
+                            hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl cursor-pointer"
+                                onClick={() => registry(refistryForm.name,
+                                    refistryForm.lastName,
+                                    refistryForm.email,
+                                    refistryForm.companyName,
+                                    refistryForm.password
+                                )}>
                                 Create Account
                                 <ArrowRight className="w-5 h-5" />
                             </button>

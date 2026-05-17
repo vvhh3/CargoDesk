@@ -27,6 +27,9 @@ async function start() {
     try {
         await sequelize.authenticate()
         console.log("bd connect")
+
+        // await sequelize.sync({alter: true} - Это попытается изменить таблицу без удаления данных
+        //  await sequelize.sync({force: true}) - Это удалит таблицу и создаст заново уже
         await sequelize.sync()
         console.log("bd synced")
         app.listen(5000, () => {
