@@ -6,6 +6,7 @@ import type {AuthRequest} from "../middleware/AuthMiddleware.ts"
 
 export const register = async (req: Request,res:Response) => {
     try{
+
         const {name,lastName,email,companyName,password} = req.body
         
         if(!name || !lastName ||!email || !companyName || !password){
@@ -40,7 +41,6 @@ export const register = async (req: Request,res:Response) => {
         //можно писать и просто user.id ,dataValues - на всякий случай
         const token = GenerateJWT(user.dataValues.id)
 
-        //что чё значит, и какие параметры есть ещё
         res.cookie("token",token,{
             httpOnly: true, //Запрещает JS доступ к cookie.
             secure: false, // если true cookie работает только через HTTPS.
@@ -62,7 +62,7 @@ export const login = async (req: Request,res: Response) => {
     try{
         const {email,password} = req.body
 
-        const user = await User.findOne({
+        const user = await User.findOne({ //получает один объект по определенному критерию
             where: {email}
         })
 
@@ -103,7 +103,7 @@ export const login = async (req: Request,res: Response) => {
 
 export const getUser = async (req: AuthRequest, res: Response) => {
   try {
-    const user = await User.findByPk(req.id);
+    const user = await User.findByPk(req.id) // получает объект по первичному ключу
 
     return res.json({ user });
   } catch {

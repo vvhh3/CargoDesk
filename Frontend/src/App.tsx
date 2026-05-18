@@ -16,14 +16,18 @@ function App() {
   const isAuth = useStoreAuth((store) => store.isAuth)
 
   useEffect(() => {
-
+    //Закидывать isAuth в локалсторадж
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/auth/me", {
-          withCredentials: true
-        })
-        setUser(res.data.user)
 
+        if (isAuth) {
+
+          const res = await axios.get("http://localhost:5000/auth/me", {
+            withCredentials: true
+          })
+          setUser(res.data.user)
+
+        }
       } catch {
         logout()
       } finally {

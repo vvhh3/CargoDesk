@@ -22,8 +22,6 @@ const LogIn = () => {
             const t = await axios.post("http://localhost:5000/auth/login", {
                 email: email,
                 password: password
-                // email: "test@gmail.com",
-                // password: "asss"
             }, {
                 withCredentials: true //разрешает работать с cookie
             })

@@ -13,7 +13,7 @@ const TopBar = ({title} :TypeProp) => {
                 <h1 className="text-2xl font-semibold text-white">{title}</h1>
 
                 <div className="flex items-center gap-4">
-                    {/* Search */}
+                    {/* поиск */}
                     <div className="relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
                         <input
@@ -23,19 +23,18 @@ const TopBar = ({title} :TypeProp) => {
                         />
                     </div>
 
-                    {/* Notifications */}
+                    {/* уведомления */}
                     <button className="relative p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                         <Bell className="w-5 h-5" />
                         <span className="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full"></span>
                     </button>
 
-                    {/* Theme */}
+                    {/* тема */}
                     <button className="relative p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                         <Theme />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full"></span>
                     </button>
 
-                    {/* Settings */}
+                    {/* настройки */}
                     <button className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                         <Settings className="w-5 h-5" />
                     </button>

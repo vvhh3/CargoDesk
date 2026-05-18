@@ -56,6 +56,7 @@ const Registry = () => {
             console.log(e)
         }
     }
+    
     return (
         <div className="w-full flex">
 
