@@ -10,7 +10,7 @@ import { ThemeProvider } from "./Components/theme/ThemeProvider.tsx"
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
-      <GoogleOAuthProvider clientId='492254427335-glfb66iqdpu6jijderkq96dnmsgo27eg.apps.googleusercontent.com'>
+      <GoogleOAuthProvider clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}>
         <App />
       </GoogleOAuthProvider>
     </ThemeProvider>
