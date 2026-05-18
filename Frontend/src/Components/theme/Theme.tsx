@@ -9,9 +9,9 @@ const Theme = () => {
             <button
             onClick={toggleTheme}
             className="rounded-full flex justify-center items-center
-          text-white cursor-pointer transition-colors duration-300 hover:opacity-90  dark:text-black"
+        cursor-pointer transition-colors duration-500 hover:opacity-90  dark:text-black"
             >
-                {theme === 'light' ? <Moon /> : <Sun />}
+                {theme === 'light' ? <Moon className="w-5 h-5"/> : <Sun className="w-5 h-5"/>}
             </button>
         </div>
     )

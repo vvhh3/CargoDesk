@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./Pages/Home"
 import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
-import Dashboard from "./Pages/Dashboard"
+import DashboardClient from "./Pages/DashboardClient"
+
 import { useEffect } from "react"
 import { useStoreAuth } from "./Store/AuthStore"
 import axios from "axios"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
+import DashBoardLayout from "./Components/Dashboard/DashBoardlayout/DashBoardLayout"
 
 function App() {
 
@@ -41,12 +43,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Registry />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/login" element={<LogIn />} />
+
           <Route path="/dashboard" element={
             <ProtectedRoute>
-              <Dashboard />
+              <DashBoardLayout />
             </ProtectedRoute>
-          } />
+          }>
+            <Route path="/dashboard/client" element={<DashboardClient />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,5 +1,5 @@
 import {Search,Bell,Settings} from "lucide-react"
-import Theme from "../theme/Theme"
+import Theme from "../../theme/Theme"
 
 type TypeProp = {
     title: string
@@ -9,7 +9,7 @@ const TopBar = ({title} :TypeProp) => {
 
     return (
         <>
-            <div className="h-20 bg-[#111113]/50 backdrop-blur-xl border-b border-white/5 px-8 flex items-center justify-between">
+            <div className="h-20 bg-[#111113] backdrop-blur-xl border-b border-white/10 px-8 flex items-center justify-between">
                 <h1 className="text-2xl font-semibold text-white">{title}</h1>
 
                 <div className="flex items-center gap-4">
@@ -24,18 +24,20 @@ const TopBar = ({title} :TypeProp) => {
                     </div>
 
                     {/* уведомления */}
-                    <button className="relative p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                    <button className="relative p-2.5 rounded-xl cursor-pointer
+                     bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                         <Bell className="w-5 h-5" />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full"></span>
+                        {/* <span className="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full"></span> */}
                     </button>
 
                     {/* тема */}
-                    <button className="relative p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                    <div className="relative p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                         <Theme />
-                    </button>
+                    </div>
 
                     {/* настройки */}
-                    <button className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                    <button className="p-2.5 rounded-xl bg-white/5 cursor-pointer border border-white/10 hover:bg-white/10 
+                    text-zinc-400 hover:text-white transition-all">
                         <Settings className="w-5 h-5" />
                     </button>
                 </div>
