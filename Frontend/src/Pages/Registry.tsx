@@ -6,9 +6,13 @@ import { Link, useNavigate } from "react-router-dom"
 import github from "../assets/github.svg"
 import google from "../assets/google.svg"
 
+import { GoogleLogin } from "@react-oauth/google"
+
 import axios from "axios"
 import { useState } from "react"
 import { useStoreAuth } from "../Store/AuthStore"
+
+// import LoginGoogle from "./LoginGoogle"
 
 type RegistryType = {
     name: string
@@ -56,7 +60,31 @@ const Registry = () => {
             console.log(e)
         }
     }
-    
+
+    function LoginGoogle() {
+        return (
+            <GoogleLogin
+                onSuccess={async (credentialResponse) => {
+
+                    const res = await axios.post(
+                        "http://localhost:5000/auth/google",
+                        {
+                            credential: credentialResponse.credential
+                        },
+                        {
+                            withCredentials:true,
+                        }
+                    )
+
+                    console.log(res.data)
+                }}
+                onError={() => {
+                    console.log("Login Failed")
+                }}
+            />
+        )
+    }
+
     return (
         <div className="w-full flex">
 
@@ -223,9 +251,12 @@ const Registry = () => {
                             <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
                                 <img src={`${github}`} className="w-5 h-5" />
                             </button>
-                            <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
+                            <button 
+                            // onClick={LoginGoogle}
+                            className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
                                 <img src={`${google}`} className="w-5 h-5" />
                             </button>
+                            <LoginGoogle />
 
                         </div>
                         <div className="w-full flex justify-center ">

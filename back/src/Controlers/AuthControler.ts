@@ -1,25 +1,93 @@
-import type { Request,Response } from "express"
+import type { Request, Response } from "express"
 import { User, UserRole } from "../Models/User.ts"
-import {GenerateJWT} from "../utils/GenerateJWT.ts"
+import { GenerateJWT } from "../utils/GenerateJWT.ts"
 import bcrypt from "bcrypt"
-import type {AuthRequest} from "../middleware/AuthMiddleware.ts"
+import type { AuthRequest } from "../middleware/AuthMiddleware.ts"
 
-export const register = async (req: Request,res:Response) => {
-    try{
+import { OAuth2Client } from "google-auth-library"
+import dotenv from "dotenv"
 
-        const {name,lastName,email,companyName,password} = req.body
-        
-        if(!name || !lastName ||!email || !companyName || !password){
+dotenv.config()
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+
+export const registryGoogle = async (req: Request, res: Response) => {
+    try {
+        const { credential } = req.body
+
+        //Google проверяет:настоящий ли токен, не подделан ли, кем выдан.
+        const ticket = await client.verifyIdToken({
+            idToken: credential,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+        console.log("ticket",ticket)
+        //Получаем данные пользователя:
+        const payload = ticket.getPayload()
+
+        if (!payload) {
+            return res.status(400).json({ message: "invalid token" })
+        }
+
+
+        const {
+            email,
+            given_name,
+            family_name,
+            picture
+        } = payload
+
+        let user = await User.findOne({
+            where: { email }
+        })
+
+        if (!user) {
+            user = await User.create({
+                role: UserRole.client,
+                name: given_name,
+                lastName: family_name,
+                email,
+                companyName: "Google User",
+                password: "",
+                avatar:picture
+            })
+        }
+
+        const token = GenerateJWT(user.dataValues.id)
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false, // если true cookie работает только через HTTPS.
+            sameSite: "lax",
+            maxAge: 2 * 60 * 60 * 1000
+        })
+
+        return res.json({
+            user
+        })
+
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({ message: "server error" })
+    }
+}
+
+
+export const register = async (req: Request, res: Response) => {
+    try {
+
+        const { name, lastName, email, companyName, password } = req.body
+
+        if (!name || !lastName || !email || !companyName || !password) {
             return res.status(400).json({
-                message:"data is faild"
+                message: "data is faild"
             })
         }
 
         const candidate = await User.findOne({
-            where: {email}
+            where: { email }
         })
 
-        if(candidate !== null) {
+        if (candidate !== null) {
             return res.status(400).json({
                 message: "user already exists"
             })
@@ -42,32 +110,32 @@ export const register = async (req: Request,res:Response) => {
         //можно писать и просто user.id ,dataValues - на всякий случай
         const token = GenerateJWT(user.dataValues.id)
 
-        res.cookie("token",token,{
+        res.cookie("token", token, {
             httpOnly: true, //Запрещает JS доступ к cookie.
             secure: false, // если true cookie работает только через HTTPS.
             sameSite: "lax",
-            maxAge: 2 * 60* 60* 1000 //Сколько живёт cookie. 2 часа
+            maxAge: 2 * 60 * 60 * 1000 //Сколько живёт cookie. 2 часа
         })
 
         return res.json({
             user
         })
-    }catch(e){
+    } catch (e) {
         return res.status(500).json({
-            message:"server error"
+            message: "server error"
         })
     }
 }
 
-export const login = async (req: Request,res: Response) => {
-    try{
-        const {email,password} = req.body
+export const login = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body
 
         const user = await User.findOne({ //получает один объект по определенному критерию
-            where: {email}
+            where: { email }
         })
 
-        if(!user){
+        if (!user) {
             return res.status(400).json({
                 message: "not find user"
             })
@@ -78,14 +146,14 @@ export const login = async (req: Request,res: Response) => {
             user.dataValues.password
         )
 
-        if(!pas){
+        if (!pas) {
             return res.status(400).json({
                 message: "wrong password"
             })
         }
         const token = GenerateJWT(user.dataValues.id)
 
-        res.cookie("token",token,{
+        res.cookie("token", token, {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
@@ -95,7 +163,7 @@ export const login = async (req: Request,res: Response) => {
         return res.json({
             user
         })
-    }catch(e){
+    } catch (e) {
         res.status(500).json({
             message: "error server"
         })
@@ -103,13 +171,13 @@ export const login = async (req: Request,res: Response) => {
 }
 
 export const getUser = async (req: AuthRequest, res: Response) => {
-  try {
-    const user = await User.findByPk(req.id) // получает объект по первичному ключу
+    try {
+        const user = await User.findByPk(req.id) // получает объект по первичному ключу
 
-    return res.json({ user });
-  } catch {
-    return res.status(500).json({
-      message: "server error",
-    });
-  }
+        return res.json({ user });
+    } catch {
+        return res.status(500).json({
+            message: "server error",
+        });
+    }
 };

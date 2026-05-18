@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import dotenv from 'dotenv'
-import {register, login,getUser} from "./Controlers/AuthControler.ts"
+import {register, login,getUser,registryGoogle} from "./Controlers/AuthControler.ts"
 import {authMiddleware} from "./middleware/AuthMiddleware.ts"
 import { sequelize } from "./db.ts"
 
@@ -23,6 +23,8 @@ app.use(cookieParser())
 
 app.post("/auth/register", register)
 app.post("/auth/login", login)
+app.post("/auth/google",registryGoogle)
+
 app.get("/auth/me",authMiddleware, getUser)
 
 // app.get("/client/dashboard",authMiddleware,RoleMiddleware([UserRole.client]), getClientDashboard)
@@ -34,7 +36,7 @@ async function start() {
 
         // await sequelize.sync({alter: true} - Это попытается изменить таблицу без удаления данных
         //  await sequelize.sync({force: true}) - Это удалит таблицу и создаст заново уже
-        await sequelize.sync()
+        await sequelize.sync({force:true})
         console.log("bd synced")
         app.listen(5000, () => {
             console.log("server started on 5000 port")

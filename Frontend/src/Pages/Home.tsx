@@ -3,6 +3,8 @@ import Header from "../Components/Home/Header"
 import { Star, MoveRight, CheckCircle2, Package, Globe, Zap, Shield, TrendingUp } from "lucide-react"
 import { Link } from "react-router-dom"
 import Logo from "../Components/Logo/Logo"
+
+// import LoginGoogle from "./LoginGoogle"
 // шрифт
 // @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
@@ -16,7 +18,6 @@ const Home = () => {
 
             {/* Header-main */}
             <section className="flex flex-col items-center mt-30">
-
                 <div className="absolute top-10 left-1/4 bg-[#7C3AED]/20 w-96 h-96 rounded-full blur-[120px]"></div>
                 <div className="absolute top-40 right-1/4 bg-[#3B82F6]/20 w-96 h-96 rounded-full blur-[120px]"></div>
 
@@ -24,6 +25,7 @@ const Home = () => {
                     <div><Star className="w-4 h-4 text-[#7C3AED]" /></div>
                     <span className="text-sm text-zinc-300">Trusted by 10,000+ businesses worldwide</span>
                 </div>
+                {/* <LoginGoogle/> */}
 
                 <div className="mt-4 mb-25">
                     <div className="flex items-center flex-col text-7xl gap-0">
