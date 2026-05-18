@@ -20,7 +20,6 @@ export const registryGoogle = async (req: Request, res: Response) => {
             idToken: credential,
             audience: process.env.GOOGLE_CLIENT_ID
         })
-        console.log("ticket",ticket)
         //Получаем данные пользователя:
         const payload = ticket.getPayload()
 
@@ -44,10 +43,10 @@ export const registryGoogle = async (req: Request, res: Response) => {
             user = await User.create({
                 role: UserRole.client,
                 name: given_name,
-                lastName: family_name,
+                lastName: family_name || "",
                 email,
                 companyName: "Google User",
-                password: "",
+                password: null,
                 avatar:picture
             })
         }

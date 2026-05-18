@@ -4,11 +4,14 @@ import { Mail, Lock, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 import github from "../assets/github.svg"
-import google from "../assets/google.svg"
+// import google from "../assets/google.svg"
 import axios from "axios";
 
 import { useStoreAuth } from "../Store/AuthStore"
 import { useState } from "react";
+
+import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle";
+
 const LogIn = () => {
 
     const [loginForm, setLoginForm] = useState({ email: "", password: "" })
@@ -19,15 +22,16 @@ const LogIn = () => {
 
     const login = async (email: string, password: string) => {
         try {
-            const t = await axios.post("http://localhost:5000/auth/login", {
+            const res = await axios.post("http://localhost:5000/auth/login", {
                 email: email,
                 password: password
             }, {
                 withCredentials: true //разрешает работать с cookie
             })
-            setUser(t.data.user)
-            navigate("/dashboard")
-            console.log("login", t)
+            setUser(res.data.user)
+            console.log(`/dashboard/${res.data.user.role}`)
+            navigate(`/dashboard/${res.data.user.role}`)
+            console.log("login", res)
         } catch (e) {
             console.log(e)
         }
@@ -163,9 +167,7 @@ const LogIn = () => {
                         <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
                             <img src={`${github}`} className="w-5 h-5" />
                         </button>
-                        <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
-                            <img src={`${google}`} className="w-5 h-5" />
-                        </button>
+                        <AuthGoogle/>
 
                     </div>
 

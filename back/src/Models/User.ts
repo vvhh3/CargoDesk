@@ -24,7 +24,7 @@ export const User = sequelize.define("User", {
     },
     lastName:{
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
@@ -37,7 +37,7 @@ export const User = sequelize.define("User", {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: true //НЕЛЬЗЯ оставить пустым
+        allowNull: true //Может быть пустым для гугл аккаунтов
     },
     googleId:{
         type: DataTypes.STRING,

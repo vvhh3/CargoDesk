@@ -4,15 +4,14 @@ import { User, Mail, Building, Lock, ArrowRight } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
 
 import github from "../assets/github.svg"
-import google from "../assets/google.svg"
+// import google from "../assets/google.svg"
 
-import { GoogleLogin } from "@react-oauth/google"
 
 import axios from "axios"
 import { useState } from "react"
 import { useStoreAuth } from "../Store/AuthStore"
 
-// import LoginGoogle from "./LoginGoogle"
+import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle"
 
 type RegistryType = {
     name: string
@@ -54,35 +53,11 @@ const Registry = () => {
             })
 
             setUser(res.data.user)
-            navigate("/dashboard")
+            navigate(`/dashboard/${res.data.user.role}`)
             console.log("res", res)
         } catch (e) {
             console.log(e)
         }
-    }
-
-    function LoginGoogle() {
-        return (
-            <GoogleLogin
-                onSuccess={async (credentialResponse) => {
-
-                    const res = await axios.post(
-                        "http://localhost:5000/auth/google",
-                        {
-                            credential: credentialResponse.credential
-                        },
-                        {
-                            withCredentials:true,
-                        }
-                    )
-
-                    console.log(res.data)
-                }}
-                onError={() => {
-                    console.log("Login Failed")
-                }}
-            />
-        )
     }
 
     return (
@@ -251,13 +226,7 @@ const Registry = () => {
                             <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
                                 <img src={`${github}`} className="w-5 h-5" />
                             </button>
-                            <button 
-                            // onClick={LoginGoogle}
-                            className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
-                                <img src={`${google}`} className="w-5 h-5" />
-                            </button>
-                            <LoginGoogle />
-
+                            <AuthGoogle />
                         </div>
                         <div className="w-full flex justify-center ">
                             <span className="text-zinc-400">Already have an account? <Link to="/login" className="text-purple-500">Sign in</Link></span>
