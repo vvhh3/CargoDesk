@@ -1,5 +1,5 @@
 import type { Request,Response } from "express"
-import { User } from "../Models/User.ts"
+import { User, UserRole } from "../Models/User.ts"
 import {GenerateJWT} from "../utils/GenerateJWT.ts"
 import bcrypt from "bcrypt"
 import type {AuthRequest} from "../middleware/AuthMiddleware.ts"
@@ -31,6 +31,7 @@ export const register = async (req: Request,res:Response) => {
         )
 
         const user = await User.create({
+            role: UserRole.client,
             name: name,
             lastName: lastName,
             email: email,

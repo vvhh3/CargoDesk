@@ -1,11 +1,22 @@
 import { sequelize } from "../db.ts"
 import { DataTypes } from "sequelize"
 
+export enum UserRole {
+    client = "client",
+    manager = "manager",
+    admin = "admin"
+}
+
 export const User = sequelize.define("User", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
+    },
+    role: {
+        type: DataTypes.ENUM("client","manager", "admin"),
+        allowNull: false,
+        defaultValue: UserRole.client
     },
     name:{
         type: DataTypes.STRING,

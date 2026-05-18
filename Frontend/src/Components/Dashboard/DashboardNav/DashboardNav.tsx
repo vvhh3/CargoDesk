@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import Logo from "../../Logo/Logo";
 import { useStoreAuth } from "../../../Store/AuthStore";
-import { use } from "react";
 
 interface SidebarProps {
   role?: 'client' | 'manager' | 'admin'

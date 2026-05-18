@@ -6,6 +6,8 @@ import {authMiddleware} from "./middleware/AuthMiddleware.ts"
 import { sequelize } from "./db.ts"
 
 import cookieParser from "cookie-parser"
+import { RoleMiddleware } from "./middleware/RoleMiddleware.ts"
+import { UserRole } from "./Models/User.ts"
 
 dotenv.config()
 
@@ -22,6 +24,8 @@ app.use(cookieParser())
 app.post("/auth/register", register)
 app.post("/auth/login", login)
 app.get("/auth/me",authMiddleware, getUser)
+
+// app.get("/client/dashboard",authMiddleware,RoleMiddleware([UserRole.client]), getClientDashboard)
 
 async function start() {
     try {
