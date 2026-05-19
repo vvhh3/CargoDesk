@@ -31,7 +31,7 @@ const TopBar = ({title} :TypeProp) => {
                     </button>
 
                     {/* тема */}
-                    <div className="relative p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                    <div className="relative rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                         <Theme />
                     </div>
 

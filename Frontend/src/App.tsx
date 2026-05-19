@@ -4,6 +4,7 @@ import Home from "./Pages/Home"
 import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
 import DashboardClient from "./Pages/DashboardClient"
+import DashboardAdmin from "./Pages/DashboardAdmin"
 
 import { useEffect } from "react"
 import { useStoreAuth } from "./Store/AuthStore"
@@ -50,6 +51,7 @@ function App() {
             </ProtectedRoute>
           }>
             <Route path="/dashboard/client" element={<DashboardClient />} />
+            <Route path="/dashboard/admin" element={<DashboardAdmin />} />
           </Route>
 
         </Routes>
