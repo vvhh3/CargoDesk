@@ -25,7 +25,7 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
   const clientLinks = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard/client' },
     { icon: ShoppingCart, label: 'Orders', path: '/dashboard/client/orders' },
-    { icon: PlusCircle, label: 'New Request', path: 'dashboard/client/create-request' },
+    { icon: PlusCircle, label: 'New Request', path: '/dashboard/client/create-request' },
     { icon: Bell, label: 'Notifications', path: '/notifications' },
   ]
 

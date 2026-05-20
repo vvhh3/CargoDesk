@@ -5,7 +5,7 @@ import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
 import DashboardClient from "./Pages/DashboardClient"
 import DashboardAdmin from "./Pages/DashboardAdmin"
-
+import ClientCreate from "./Pages/ClientCreate"
 import { useEffect } from "react"
 import { useStoreAuth } from "./Store/AuthStore"
 import axios from "axios"
@@ -45,12 +45,13 @@ function App() {
           <Route path="/register" element={<Registry />} />
           <Route path="/login" element={<LogIn />} />
 
-          <Route path="/dashboard" element={
+          <Route element={
             <ProtectedRoute>
               <DashBoardLayout />
             </ProtectedRoute>
           }>
             <Route path="/dashboard/client" element={<DashboardClient />} />
+            <Route path="/dashboard/client/create-request" element={<ClientCreate />} />
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
           </Route>
 
