@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import {register, login,getUser,registryGoogle} from "./Controlers/AuthControler.ts"
 import {authMiddleware} from "./middleware/AuthMiddleware.ts"
 import {createRequest} from "./Controlers/OrderControler.ts"
+import { setRole } from "./utils/setRole.ts"
 
 import { sequelize } from "./db.ts"
 
@@ -27,6 +28,7 @@ app.post("/auth/register", register)
 app.post("/auth/login", login)
 app.post("/auth/google",registryGoogle)
 app.post("/order",authMiddleware,createRequest)
+app.patch("/users/role",authMiddleware,RoleMiddleware([UserRole.admin]),setRole)
 
 app.get("/auth/me",authMiddleware, getUser)
 
