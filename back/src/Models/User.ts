@@ -46,5 +46,10 @@ export const User = sequelize.define("User", {
     avatar:{
         type:DataTypes.STRING,
         allowNull:true
+    },
+    isDeleted:{
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 })

@@ -29,7 +29,7 @@ const LogIn = () => {
                 withCredentials: true //разрешает работать с cookie
             })
             setUser(res.data.user)
-            console.log(`/dashboard/${res.data.user.role}`)
+
             navigate(`/dashboard/${res.data.user.role}`)
             console.log("login", res)
         } catch (e) {
