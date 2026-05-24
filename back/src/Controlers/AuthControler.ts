@@ -48,12 +48,12 @@ export const registryGoogle = async (req: Request, res: Response) => {
                 email,
                 companyName: "Google User",
                 password: null,
-                avatar:picture,
+                avatar: picture,
                 isDeleted: false
             })
         }
 
-        if(user.dataValues.isDeleted){
+        if (user.dataValues.isDeleted) {
             return res.status(403).json({
                 message: "account deleted"
             })
@@ -69,12 +69,16 @@ export const registryGoogle = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            user
+            success: true,
+            message: "Успешно!"
         })
 
     } catch (e) {
         console.log(e)
-        return res.status(500).json({ message: "server error" })
+        return res.status(500).json({
+            success: false,
+            message: "server error"
+        })
     }
 }
 
@@ -125,11 +129,13 @@ export const register = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            user
+            success: true,
+            message: "Успешно!"
         })
     } catch (e) {
         console.log(e)
         return res.status(500).json({
+            success: false,
             message: "server error"
         })
     }
@@ -149,7 +155,7 @@ export const login = async (req: Request, res: Response) => {
             })
         }
 
-        if(user.dataValues.isDeleted){
+        if (user.dataValues.isDeleted) {
             return res.status(403).json({
                 message: "account deleted"
             })
@@ -175,10 +181,12 @@ export const login = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            user
+            success: true,
+            message: "Успешно!"
         })
     } catch (e) {
         res.status(500).json({
+            success: false,
             message: "error server"
         })
     }
@@ -188,9 +196,20 @@ export const getUser = async (req: AuthRequest, res: Response) => {
     try {
         const user = await User.findByPk(req.id) // получает объект по первичному ключу
 
-        return res.json({ user });
+        return res.json({
+            user: {
+                id: user?.dataValues.id,
+                role: user?.dataValues.role,
+                name: user?.dataValues.name,
+                lastName: user?.dataValues.lastName,
+                email: user?.dataValues.email,
+                companyName: user?.dataValues.companyName,
+                avatar: user?.dataValues.avatar,
+            }
+        });
     } catch {
         return res.status(500).json({
+            success: false,
             message: "server error",
         });
     }

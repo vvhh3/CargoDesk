@@ -12,6 +12,8 @@ import { useState } from "react";
 
 import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle";
 
+import Notifications from "../Components/Notifications/Notifications";
+
 const LogIn = () => {
 
     const [loginForm, setLoginForm] = useState({ email: "", password: "" })
@@ -40,7 +42,7 @@ const LogIn = () => {
     return (
         <div className="w-full flex">
 
-            {/* Right */}
+            {/* Left */}
             <div className="w-full flex flex-col justify-center items-center bg-linear-to-br from-[#7C3AED]/20 via-[#09090B] to-[#3B82F6]/20">
 
                 {/* Card */}
@@ -100,8 +102,9 @@ const LogIn = () => {
             </div>
 
 
-            {/* Left screen */}
+            {/* Right screen */}
             <div className="flex justify-center w-full min-h-screen">
+                <Notifications type={true} text={"Успешно!"} isShown={true} />
                 <div className="flex-col items-start w-6/10 py-20">
 
                     <div>
