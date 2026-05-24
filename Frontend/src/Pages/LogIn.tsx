@@ -12,7 +12,7 @@ import { useState } from "react";
 
 import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle";
 
-import Notifications from "../Components/Notifications/Notifications";
+import { toast } from "react-hot-toast"
 
 const LogIn = () => {
 
@@ -30,11 +30,14 @@ const LogIn = () => {
             }, {
                 withCredentials: true //разрешает работать с cookie
             })
-            setUser(res.data.user)
 
+            setUser(res.data.user)
+            toast.success(res.data.message)
             navigate(`/dashboard/${res.data.user.role}`)
-            console.log("login", res)
-        } catch (e) {
+
+        } catch (e: any) {
+            const message = e?.response?.data?.message || "Попробуйте ещё раз"
+            toast.error(message)
             console.log(e)
         }
     }
@@ -46,7 +49,6 @@ const LogIn = () => {
             <div className="w-full flex flex-col justify-center items-center bg-linear-to-br from-[#7C3AED]/20 via-[#09090B] to-[#3B82F6]/20">
 
                 {/* Card */}
-
                 <div className="relative w-6/10 h-6/10 bg-white/5 p-5 flex gap-5 flex-col border border-white/10 rounded-3xl">
 
                     {/* пулбсирующие фигни */}
@@ -104,7 +106,7 @@ const LogIn = () => {
 
             {/* Right screen */}
             <div className="flex justify-center w-full min-h-screen">
-                <Notifications type={true} text={"Успешно!"} isShown={true} />
+                {/* <Notifications type={true} text={"Успешно!"} /> */}
                 <div className="flex-col items-start w-6/10 py-20">
 
                     <div>
@@ -170,7 +172,7 @@ const LogIn = () => {
                         <button className="p-3 cursor-pointer flex justify-center items-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-2xl">
                             <img src={`${github}`} className="w-5 h-5" />
                         </button>
-                        <AuthGoogle/>
+                        <AuthGoogle />
 
                     </div>
 

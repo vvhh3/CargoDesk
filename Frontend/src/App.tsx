@@ -11,6 +11,7 @@ import { useStoreAuth } from "./Store/AuthStore"
 import axios from "axios"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import DashBoardLayout from "./Components/Dashboard/DashBoardlayout/DashBoardLayout"
+import { Toaster } from "react-hot-toast"
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
   const setLoading = useStoreAuth((state) => state.setLoading)
 
   useEffect(() => {
+
     const checkAuth = async () => {
       try {
         const res = await axios.get("http://localhost:5000/auth/me", {
@@ -39,6 +41,37 @@ function App() {
   return (
 
     <div className="bg-[#09090B] min-h-screen dark:bg-white">
+
+      {/* уведомления */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+
+          success: {
+            style: {
+              background: "#22c55e",
+              color: "#fff",
+            },
+            iconTheme: {
+              primary: "#fff",
+              secondary: "#22c55e",
+            },
+          },
+
+          error: {
+            style: {
+              background: "#ef4444",
+              color: "#fff",
+            },
+            iconTheme: {
+              primary: "#fff",
+              secondary: "#ef4444",
+            },
+          },
+        }}
+      />
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

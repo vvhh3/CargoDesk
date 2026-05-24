@@ -42,7 +42,7 @@ async function start() {
 
         // await sequelize.sync({alter: true} - Это попытается изменить таблицу без удаления данных
         //  await sequelize.sync({force: true}) - Это удалит таблицу и создаст заново уже
-        await sequelize.sync()
+        await sequelize.sync({alter: true})
         console.log("bd synced")
         app.listen(5000, () => {
             console.log("server started on 5000 port")

@@ -69,14 +69,15 @@ export const registryGoogle = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            success: true,
+            user: {
+                role: user.dataValues.role 
+            },
             message: "Успешно!"
         })
 
     } catch (e) {
         console.log(e)
         return res.status(500).json({
-            success: false,
             message: "server error"
         })
     }
@@ -129,13 +130,14 @@ export const register = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            success: true,
+            user: {
+                role: user.dataValues.role 
+            },
             message: "Успешно!"
         })
     } catch (e) {
         console.log(e)
         return res.status(500).json({
-            success: false,
             message: "server error"
         })
     }
@@ -181,12 +183,13 @@ export const login = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            success: true,
+            user:{
+                role: user.dataValues.role,
+            },
             message: "Успешно!"
         })
     } catch (e) {
         res.status(500).json({
-            success: false,
             message: "error server"
         })
     }
@@ -209,7 +212,6 @@ export const getUser = async (req: AuthRequest, res: Response) => {
         });
     } catch {
         return res.status(500).json({
-            success: false,
             message: "server error",
         });
     }

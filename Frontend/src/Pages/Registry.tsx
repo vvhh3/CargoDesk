@@ -12,6 +12,7 @@ import { useState } from "react"
 import { useStoreAuth } from "../Store/AuthStore"
 
 import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle"
+import toast from "react-hot-toast"
 
 type RegistryType = {
     name: string
@@ -54,8 +55,11 @@ const Registry = () => {
 
             setUser(res.data.user)
             navigate(`/dashboard/${res.data.user.role}`)
-            console.log("res", res)
-        } catch (e) {
+            toast.success(res.data.message)
+
+        } catch (e: any) {
+            const mes = e.response.data.message || "Попробуйте ещё раз"
+            toast.error(mes)
             console.log(e)
         }
     }

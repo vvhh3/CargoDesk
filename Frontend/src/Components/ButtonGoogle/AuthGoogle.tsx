@@ -2,6 +2,7 @@ import { GoogleLogin } from "@react-oauth/google"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useStoreAuth } from "../../Store/AuthStore"
+import toast from "react-hot-toast"
 
 export default function AuthGoogle() {
     const navigate = useNavigate()
@@ -24,11 +25,11 @@ export default function AuthGoogle() {
                 )
 
                 navigate(`/dashboard/${res.data.user.role}`)
+                toast.success(res.data.message)
                 setUser(res.data.user)
-                console.log(res.data)
             }}
             onError={() => {
-                console.log("Login Failed")
+                toast.error("Login Failed")
             }}
         />
     )
