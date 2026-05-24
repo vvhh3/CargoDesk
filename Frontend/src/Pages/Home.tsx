@@ -4,7 +4,6 @@ import { Star, MoveRight, CheckCircle2, Package, Globe, Zap, Shield, TrendingUp 
 import { Link } from "react-router-dom"
 import Logo from "../Components/Logo/Logo"
 
-// import LoginGoogle from "./LoginGoogle"
 // шрифт
 // @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 

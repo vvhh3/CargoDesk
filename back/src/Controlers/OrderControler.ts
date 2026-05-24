@@ -24,7 +24,10 @@ export const createRequest = async (req: AuthRequest, res: Response) => {
             status: OrderStatus.waitingManager,
         })
 
-        return res.json({order})
+        return res.json({
+            message: "order creadet",
+            order
+        })
     } catch (e) {
         console.log(e)
         res.status(500).json({

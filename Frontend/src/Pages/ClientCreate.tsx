@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 
 export default function ClientCreate() {
@@ -8,19 +9,20 @@ export default function ClientCreate() {
 
     const create = async () => {
         try{
-            
-            const res = axios.post("http://localhost:5000/order",{
+            const res = await axios.post("http://localhost:5000/order",{
                 product:createRequest
             },{
                 withCredentials: true
             })
-
             console.log("res",res)
-
-        }catch(e){
+            toast.success(res.data.message)
+        }catch(e: any){
+            const mes = e.respone.data.message || "error"
+            toast.error(mes)
             console.log(e)
         }
     }
+    
     return (
         <div>
             <div className="flex flex-col mt-10 gap-5">
