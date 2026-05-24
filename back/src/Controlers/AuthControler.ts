@@ -11,6 +11,7 @@ dotenv.config()
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
+
 export const registryGoogle = async (req: Request, res: Response) => {
     try {
         const { credential } = req.body
@@ -20,13 +21,13 @@ export const registryGoogle = async (req: Request, res: Response) => {
             idToken: credential,
             audience: process.env.GOOGLE_CLIENT_ID
         })
+
         //Получаем данные пользователя:
         const payload = ticket.getPayload()
 
         if (!payload) {
             return res.status(400).json({ message: "invalid token" })
         }
-
 
         const {
             email,
@@ -47,7 +48,14 @@ export const registryGoogle = async (req: Request, res: Response) => {
                 email,
                 companyName: "Google User",
                 password: null,
-                avatar:picture
+                avatar:picture,
+                isDeleted: false
+            })
+        }
+
+        if(user.dataValues.isDeleted){
+            return res.status(403).json({
+                message: "account deleted"
             })
         }
 
@@ -138,6 +146,12 @@ export const login = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(400).json({
                 message: "not find user"
+            })
+        }
+
+        if(user.dataValues.isDeleted){
+            return res.status(403).json({
+                message: "account deleted"
             })
         }
 

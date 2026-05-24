@@ -27,8 +27,9 @@ app.use(cookieParser())
 app.post("/auth/register", register)
 app.post("/auth/login", login)
 app.post("/auth/google",registryGoogle)
-app.post("/order",authMiddleware,createRequest)
-app.patch("/users/role",authMiddleware,RoleMiddleware([UserRole.admin]),setRole)
+app.post("/order", authMiddleware, createRequest)
+
+app.patch("/users/role", authMiddleware, RoleMiddleware([UserRole.admin]),setRole)
 
 app.get("/auth/me",authMiddleware, getUser)
 
