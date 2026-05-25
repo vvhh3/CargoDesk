@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import Logo from "../../Logo/Logo";
 import { useStoreAuth } from "../../../Store/AuthStore";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface SidebarProps {
   role?: 'client' | 'manager' | 'admin'
@@ -18,7 +20,7 @@ interface SidebarProps {
 
 export function Sidebar({ role = 'client' }: SidebarProps) {
   const location = useLocation()
-
+  const navigation = useNavigate()
   const user = useStoreAuth(store => store.user)
 
   const avatar = user.avatar
@@ -45,6 +47,18 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
 
   const links = role === 'admin' ? adminLinks : role === 'manager' ? managerLinks : clientLinks;
 
+  const logout = async () => {
+    try{
+      const res =await axios.post("http://localhost:5000/logout",{},{
+        withCredentials:true
+      })
+
+      toast.success(res.data.message)
+      navigation("/")
+    }catch(e: any){
+      toast.error(e.response.data.message)
+    }
+  }
   return (
     <div className="fixed top-0 w-64 h-screen bg-[#111113] border-r border-white/5 flex flex-col">
       {/* Logo */}
@@ -54,6 +68,7 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1">
+
         {links.map((link) => {
           const isActive = location.pathname === link.path;
           return (
@@ -93,7 +108,9 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
           </div>
         </div>
 
-        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 hover:text-white hover:bg-white/5 transition-all">
+        <button 
+        onClick={logout}
+        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer">
           <LogOut className="w-5 h-5" />
           <span>Sign Out</span>
         </button>

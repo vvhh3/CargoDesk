@@ -11,6 +11,7 @@ import { sequelize } from "./db.ts"
 import cookieParser from "cookie-parser"
 import { RoleMiddleware } from "./middleware/RoleMiddleware.ts"
 import { UserRole } from "./Models/User.ts"
+import { logout } from "./Controlers/ProfileController.ts"
 
 dotenv.config()
 
@@ -27,6 +28,9 @@ app.use(cookieParser())
 app.post("/auth/register", register)
 app.post("/auth/login", login)
 app.post("/auth/google",registryGoogle)
+
+app.post("/logout",logout)
+
 app.post("/order", authMiddleware, createRequest)
 
 app.patch("/users/role", authMiddleware, RoleMiddleware([UserRole.admin]),setRole)

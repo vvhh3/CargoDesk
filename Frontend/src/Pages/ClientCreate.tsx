@@ -17,7 +17,7 @@ export default function ClientCreate() {
             console.log("res",res)
             toast.success(res.data.message)
         }catch(e: any){
-            const mes = e.respone.data.message || "error"
+            const mes = e.response.data.message || "error"
             toast.error(mes)
             console.log(e)
         }
