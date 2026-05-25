@@ -19,6 +19,16 @@ type Order = {
     price: number | null,
 }
 
+const statusConfig: Record<string, { label: string, color: string }> = {
+    waitingManager: { label: "Waiting", color: "text-[#F59E0B] bg-[#F59E0B]/10" },
+    approved: { label: "Approved", color: "text-[#22C55E] bg-[#22C55E]/10" },
+    rejected: { label: "Rejected", color: "text-[#EF4444] bg-[#EF4444]/10" },
+    processing: { label: "Processing", color: "text-[#3B82F6] bg-[#3B82F6]/10" },
+    inTransit: { label: "In Transit", color: "text-[#A78BFA] bg-[#A78BFA]/10" },
+    delivered: { label: "Delivered", color: "text-[#22C55E] bg-[#22C55E]/10" },
+    cancelled: { label: "Cancelled", color: "text-[#EF4444] bg-[#EF4444]/10" },
+}
+
 export default function RecentOrder() {
 
     const [orders, setOrders] = useState<Order[]>([])
@@ -66,9 +76,9 @@ export default function RecentOrder() {
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{order.id}</td>
                                 <td className="p-4 text-sm text-white">{order.product}</td>
                                 <td className="p-4">
-                                    {/* <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium ${order.statusColor}`}> */}
-                                    <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium`}>
-                                        {order.status}
+                                    <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium ${statusConfig[order.status].color}`}>
+                                    {/* <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium`}> */}
+                                        {statusConfig[order.status].label}
                                     </span>
                                 </td>
                                 <td className="p-4 text-sm text-zinc-400">{order.whenCamedate}</td>
