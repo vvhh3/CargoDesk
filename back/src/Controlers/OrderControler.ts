@@ -42,7 +42,8 @@ export const getAllOrderManager = async (req: AuthRequest,res: Response) => {
         const orders = await Order.findAll({
             where: {status: {[Op.ne] :  OrderStatus.cancelled}}
         })
-
+        // [Op.and]: [{ authorId: 12 }, { status: 'active' }], это оператор И
+        // [Op.or]: [{ authorId: 12 }, { authorId: 13 }], это оператор ИЛИ
         return res.json({
             orders      
         })

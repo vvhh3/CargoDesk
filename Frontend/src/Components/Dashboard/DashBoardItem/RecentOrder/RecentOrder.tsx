@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useStoreAuth } from "../../../../Store/AuthStore";
 
-const recentOrders = [
-    { id: '#ORD-2847', product: 'iPhone 15 Pro Max', status: 'Delivered', date: '2 hours ago', amount: '$1,299', statusColor: 'text-[#22C55E] bg-[#22C55E]/10' },
-    { id: '#ORD-2846', product: 'MacBook Pro 16"', status: 'In Transit', date: '5 hours ago', amount: '$2,499', statusColor: 'text-[#3B82F6] bg-[#3B82F6]/10' },
-    { id: '#ORD-2845', product: 'AirPods Pro', status: 'Processing', date: '1 day ago', amount: '$249', statusColor: 'text-[#F59E0B] bg-[#F59E0B]/10' },
-    { id: '#ORD-2844', product: 'iPad Air', status: 'Delivered', date: '2 days ago', amount: '$599', statusColor: 'text-[#22C55E] bg-[#22C55E]/10' },
-    { id: '#ORD-2843', product: 'Apple Watch Series 9', status: 'Cancelled', date: '3 days ago', amount: '$429', statusColor: 'text-[#EF4444] bg-[#EF4444]/10' },
-];
+// const recentOrders = [
+//     { id: '#ORD-2847', product: 'iPhone 15 Pro Max', status: 'Delivered', date: '2 hours ago', amount: '$1,299', statusColor: 'text-[#22C55E] bg-[#22C55E]/10' },
+//     { id: '#ORD-2846', product: 'MacBook Pro 16"', status: 'In Transit', date: '5 hours ago', amount: '$2,499', statusColor: 'text-[#3B82F6] bg-[#3B82F6]/10' },
+//     { id: '#ORD-2845', product: 'AirPods Pro', status: 'Processing', date: '1 day ago', amount: '$249', statusColor: 'text-[#F59E0B] bg-[#F59E0B]/10' },
+//     { id: '#ORD-2844', product: 'iPad Air', status: 'Delivered', date: '2 days ago', amount: '$599', statusColor: 'text-[#22C55E] bg-[#22C55E]/10' },
+//     { id: '#ORD-2843', product: 'Apple Watch Series 9', status: 'Cancelled', date: '3 days ago', amount: '$429', statusColor: 'text-[#EF4444] bg-[#EF4444]/10' },
+// ];
 
 type Order = {
     id: number,

@@ -4,8 +4,6 @@ import RecentOrder from "../Components/Dashboard/DashBoardItem/RecentOrder/Recen
 
 export default function ManagerOrders() {
 
-    const [orders,setOrders] = useState([])
-
     return (
         <div>
             <RecentOrder/>
