@@ -14,16 +14,16 @@ import { useStoreAuth } from "../../../Store/AuthStore";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-interface SidebarProps {
-  role?: 'client' | 'manager' | 'admin'
-}
 
-export function Sidebar({ role = 'client' }: SidebarProps) {
+export function Sidebar() {
+  
   const location = useLocation()
   const navigation = useNavigate()
+
   const user = useStoreAuth(store => store.user)
 
   const avatar = user.avatar
+  
   const clientLinks = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard/client' },
     { icon: ShoppingCart, label: 'Orders', path: '/dashboard/client/orders' },
@@ -32,9 +32,9 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
   ]
 
   const managerLinks = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/manager/dashboard' },
-    { icon: ShoppingCart, label: 'Orders', path: '/manager/orders' },
-    { icon: Users, label: 'Clients', path: '/manager/clients' },
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard/manager' },
+    { icon: ShoppingCart, label: 'Orders', path: '/dashboard/manager/orders' },
+    { icon: Users, label: 'Clients', path: '/dashboard/manager/clients' },
     { icon: Bell, label: 'Notifications', path: '/notifications' },
   ]
 
@@ -45,7 +45,7 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
     { icon: Settings, label: 'Settings', path: '/admin/settings' },
   ]
 
-  const links = role === 'admin' ? adminLinks : role === 'manager' ? managerLinks : clientLinks;
+  const links = user.role === 'admin' ? adminLinks : user.role === 'manager' ? managerLinks : clientLinks;
 
   const logout = async () => {
     try{
@@ -75,7 +75,7 @@ export function Sidebar({ role = 'client' }: SidebarProps) {
             <Link
               key={link.path}
               to={link.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl duration-500 transition-all ${isActive
                 ? 'bg-linear-to-r from-[#7C3AED]/20 to-[#8B5CF6]/20 text-white border border-[#7C3AED]/30'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}

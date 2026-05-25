@@ -5,13 +5,17 @@ import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
 import DashboardClient from "./Pages/DashboardClient"
 import DashboardAdmin from "./Pages/DashboardAdmin"
-import ClientCreate from "./Pages/ClientCreate"
+import ClientCreateRequest from "./Pages/ClientCreateRequest"
+
 import { useEffect } from "react"
 import { useStoreAuth } from "./Store/AuthStore"
+
 import axios from "axios"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import DashBoardLayout from "./Components/Dashboard/DashBoardlayout/DashBoardLayout"
+
 import { Toaster } from "react-hot-toast"
+import ManagerOrders from "./Pages/ManagerOrders"
 
 function App() {
 
@@ -84,8 +88,11 @@ function App() {
             </ProtectedRoute>
           }>
             <Route path="/dashboard/client" element={<DashboardClient />} />
-            <Route path="/dashboard/client/create-request" element={<ClientCreate />} />
+            <Route path="/dashboard/client/create-request" element={<ClientCreateRequest />} />
+
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+
+            <Route path="/dashboard/manager/orders" element={<ManagerOrders />} />
           </Route>
 
         </Routes>

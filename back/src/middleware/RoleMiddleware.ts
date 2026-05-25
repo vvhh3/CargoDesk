@@ -12,7 +12,7 @@ export const RoleMiddleware = (roles: UserRole[]) => {
                 return res.status(400).json({ message: "user not found" })
             }
             if (!roles.includes(user?.dataValues.role)) {
-                return res.status(400).json({ message: "no access" })
+                return res.status(403).json({ message: "no access" })
             }
 
             next()

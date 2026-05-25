@@ -2,8 +2,10 @@ import axios from "axios"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
+import { Mail } from "lucide-react"
 
-export default function ClientCreate() {
+
+export default function ClientCreateRequest() {
 
     const [createRequest, setCreateRequest] = useState('')
 
@@ -14,7 +16,8 @@ export default function ClientCreate() {
             },{
                 withCredentials: true
             })
-            console.log("res",res)
+
+            setCreateRequest("")
             toast.success(res.data.message)
         }catch(e: any){
             const mes = e.response.data.message || "error"
@@ -26,10 +29,11 @@ export default function ClientCreate() {
     return (
         <div>
             <div className="flex flex-col mt-10 gap-5">
-                {/* email */}
+
+                {/* product */}
                 <div className="relative flex flex-col gap-3">
-                    <label className="text-zinc-300">Email</label>
-                    {/* <Mail className="absolute top-2/3 left-4 -translate-y-1/2 w-5 h-5 text-zinc-400" /> */}
+                    <label className="text-zinc-300">product</label>
+                    <Mail className="absolute top-2/3 left-4 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                     <input
                         placeholder="product"
                         value={createRequest}
@@ -43,7 +47,6 @@ export default function ClientCreate() {
                             items-center rounded-2xl text-white hover:from-[#8B5CF6] hover:to-[#7C3AED]"
                     onClick={ create}>
                     create
-                    {/* <ArrowRight className="w-5 h-5" /> */}
                 </button>
             </div>
         </div>
