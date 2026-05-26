@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./Pages/Home"
 import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
-import DashboardClient from "./Pages/DashboardClient"
-import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
+
+// import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
 import ClientCreateRequest from "./Pages/DashBoard/User/ClientCreateRequest"
 
 import { useEffect } from "react"
@@ -16,6 +16,8 @@ import DashBoardLayout from "./Components/Dashboard/DashBoardlayout/DashBoardLay
 
 import { Toaster } from "react-hot-toast"
 import ManagerOrders from "./Pages/DashBoard/Manager/ManagerOrders"
+import DashboardClient from "./Pages/DashBoard/User/DashboardClient"
+import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
 
 function App() {
 

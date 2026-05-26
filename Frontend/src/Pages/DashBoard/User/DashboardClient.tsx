@@ -1,9 +1,9 @@
-import { useStoreAuth } from "../Store/AuthStore"
 import { Package, Clock, CheckCircle2, TrendingUp } from "lucide-react"
-import Graf from "../Components/Dashboard/DashBoardItem/Graf"
-import Card from "../Components/Dashboard/DashBoardItem/Card"
-import RecentActivity from "../Components/Dashboard/DashBoardItem/RecentActivity"
-import RecentOrder from "../Components/Dashboard/DashBoardItem/RecentOrder/RecentOrder"
+import { useStoreAuth } from "../../../Store/AuthStore"
+import Card from "../../../Components/Dashboard/DashBoardItem/Card"
+import Graf from "../../../Components/Dashboard/DashBoardItem/Graf"
+import RecentActivity from "../../../Components/Dashboard/DashBoardItem/RecentActivity"
+import RecentOrder from "../../../Components/Dashboard/DashBoardItem/Table/RecentOrder"
 
 const DashboardClient = () => {
 
