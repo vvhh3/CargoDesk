@@ -4,8 +4,8 @@ import Home from "./Pages/Home"
 import Registry from "./Pages/Registry"
 import LogIn from "./Pages/LogIn"
 import DashboardClient from "./Pages/DashboardClient"
-import DashboardAdmin from "./Pages/DashboardAdmin"
-import ClientCreateRequest from "./Pages/ClientCreateRequest"
+import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
+import ClientCreateRequest from "./Pages/DashBoard/User/ClientCreateRequest"
 
 import { useEffect } from "react"
 import { useStoreAuth } from "./Store/AuthStore"
@@ -15,7 +15,7 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import DashBoardLayout from "./Components/Dashboard/DashBoardlayout/DashBoardLayout"
 
 import { Toaster } from "react-hot-toast"
-import ManagerOrders from "./Pages/ManagerOrders"
+import ManagerOrders from "./Pages/DashBoard/Manager/ManagerOrders"
 
 function App() {
 

@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser"
 import { RoleMiddleware } from "./middleware/RoleMiddleware.ts"
 import { UserRole } from "./Models/User.ts"
 import { logout } from "./Controlers/ProfileController.ts"
+import { getAllUser, getUsersByManager } from "./Controlers/GetControler.ts"
 
 dotenv.config()
 
@@ -38,7 +39,11 @@ app.patch("/users/role", authMiddleware, RoleMiddleware([UserRole.admin]),setRol
 //GET
 app.get("/auth/me",authMiddleware, getUser)
 app.get("/client/orders", authMiddleware , RoleMiddleware([UserRole.client]), getAllOrderUser)
+
 app.get("/manager/orders", authMiddleware , RoleMiddleware([UserRole.manager]), getAllOrderManager)
+app.get("/manager/users", authMiddleware , RoleMiddleware([UserRole.manager]), getUsersByManager)
+
+app.get("/admin/users", authMiddleware , RoleMiddleware([UserRole.admin]), getAllUser)
 
 async function start() {
     try {

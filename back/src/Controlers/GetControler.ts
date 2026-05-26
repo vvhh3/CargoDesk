@@ -3,7 +3,7 @@ import type { Response } from "express"
 import { User, UserRole } from "../Models/User";
 import { Op } from "sequelize";
 
-
+//ПРОВЕРИТЬ РАБОТУ ЭТИХ РУЧЕК
 export const getUsersByManager = async (req: AuthRequest, res: Response) => {
     try {
         const users = await User.findAll({
