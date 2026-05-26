@@ -77,7 +77,6 @@ export default function RecentOrder() {
                                 <td className="p-4 text-sm text-white">{order.product}</td>
                                 <td className="p-4">
                                     <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium ${statusConfig[order.status].color}`}>
-                                    {/* <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium`}> */}
                                         {statusConfig[order.status].label}
                                     </span>
                                 </td>

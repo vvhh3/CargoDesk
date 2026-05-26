@@ -1,4 +1,4 @@
-import type { Request, Response } from "express"
+import type {  Response } from "express"
 import { Order, OrderStatus } from "../Models/Order"
 import { AuthRequest } from "../middleware/AuthMiddleware"
 import { User } from "../Models/User"
