@@ -14,9 +14,22 @@ export const getUsersByManager = async (req: AuthRequest, res: Response) => {
                 ]
             }
         })
-        
+
+        return res.json(users)
+
     } catch (e) {
         console.log(e)
+        return res.status(500).json({
+            message: "server error"
+        })
+    }
+}
+
+export const getAllUser = async (req: AuthRequest,res: Response) => {
+    try{
+        const users = await User.findAll()
+        return res.json(users)
+    }catch(e){
         return res.status(500).json({
             message: "server error"
         })
