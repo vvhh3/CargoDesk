@@ -22,6 +22,10 @@ export const Order = sequelize.define("Order", {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    link: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     product: {
         type: DataTypes.STRING,
         allowNull: false

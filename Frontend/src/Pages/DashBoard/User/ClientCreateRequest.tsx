@@ -63,20 +63,6 @@ export default function ClientCreateRequest() {
                                     </div>
                                     <div className="grid grid-cols-3 gap-4">
                                         <div>
-                                            <label className="block text-sm text-zinc-300 mb-2">Color</label>
-                                            <select className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50">
-                                                <option>Space Black</option>
-                                                <option>Silver</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm text-zinc-300 mb-2">Size</label>
-                                            <select className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50">
-                                                <option>256GB</option>
-                                                <option>512GB</option>
-                                            </select>
-                                        </div>
-                                        <div>
                                             <label className="block text-sm text-zinc-300 mb-2">Quantity</label>
                                             <input type="number" min="1" defaultValue="1" className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50" />
                                         </div>
