@@ -9,10 +9,20 @@ export const createRequest = async (req: AuthRequest, res: Response) => {
 
         const {
             product,
+            link,
+            brand,
+            quantity,
+            productImages = [],
         } = req.body
 
-        if (!product) {
+        const parsedQuantity = Number(quantity)
+
+        if (!product || !link || !brand || !Number.isInteger(parsedQuantity) || parsedQuantity < 1) {
             return res.status(400).json({ message: "data is faild" })
+        }
+
+        if (!Array.isArray(productImages)) {
+            return res.status(400).json({ message: "productImages must be array" })
         }
 
         if (!req.id) {
@@ -21,7 +31,11 @@ export const createRequest = async (req: AuthRequest, res: Response) => {
 
         await Order.create({
             userId: req.id,
-            product: product,
+            link,
+            product,
+            brand,
+            quantity: parsedQuantity,
+            productImages,
             status: OrderStatus.waitingManager,
         })
 

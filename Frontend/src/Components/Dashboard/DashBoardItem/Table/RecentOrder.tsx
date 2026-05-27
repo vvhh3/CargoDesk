@@ -14,6 +14,8 @@ type Order = {
     id: number,
     userId: number,
     product: string,
+    brand: string,
+    quantity: number,
     status: string | any,
     whenCamedate: string | null,
     price: number | null,
@@ -65,6 +67,8 @@ export default function RecentOrder() {
                         <tr className="border-b border-white/10 bg-white/5">
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Order ID</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Product</th>
+                            <th className="text-left p-4 text-sm font-medium text-zinc-400">Brand</th>
+                            <th className="text-left p-4 text-sm font-medium text-zinc-400">Qty</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Status</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Date</th>
                             <th className="text-right p-4 text-sm font-medium text-zinc-400">Amount</th>
@@ -75,6 +79,8 @@ export default function RecentOrder() {
                             <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{order.id}</td>
                                 <td className="p-4 text-sm text-white">{order.product}</td>
+                                <td className="p-4 text-sm text-zinc-300">{order.brand}</td>
+                                <td className="p-4 text-sm text-zinc-300">{order.quantity}</td>
                                 <td className="p-4">
                                     <span className={`inline-flex px-3 py-1 rounded-lg text-xs font-medium ${statusConfig[order.status].color}`}>
                                         {statusConfig[order.status].label}

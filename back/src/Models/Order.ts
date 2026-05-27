@@ -30,6 +30,20 @@ export const Order = sequelize.define("Order", {
         type: DataTypes.STRING,
         allowNull: false
     },
+    brand: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+    },
+    productImages: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: []
+    },
     status: {
         type: DataTypes.ENUM(
             OrderStatus.waitingManager,
