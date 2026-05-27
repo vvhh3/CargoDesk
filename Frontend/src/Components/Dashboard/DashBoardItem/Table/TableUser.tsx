@@ -59,8 +59,8 @@ export default function TableUser() {
                         {users.map((user, i) => (
                             <tr key={i} className="border-b border-white/5 hover:bg-white/5">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{user.id}</td>
-                                <td className="p-4 text-sm ">{user.role}</td>
-                                <td className="p-4 text-sm ">{user.name}</td>
+                                <td className="p-4 text-sm">{user.role}</td>
+                                <td className="p-4 text-sm">{user.name}</td>
                                 <td className="text-sm font-medium">{user.lastName}</td>
                                 <td className="p-4 text-sm font-medium ">{user.email}</td>
                                 <td className="p-4 text-sm font-medium ">{user.companyName}</td>
