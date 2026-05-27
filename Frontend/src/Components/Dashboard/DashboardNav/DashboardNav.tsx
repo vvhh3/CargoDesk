@@ -45,7 +45,7 @@ export function Sidebar() {
     { icon: Settings, label: 'Settings', path: '/admin/settings' },
   ]
 
-  const links = user.role === 'admin' ? adminLinks : user.role === 'manager' ? managerLinks : clientLinks;
+  const links = user.role === 'admin' ? adminLinks : user.role === 'manager' ? managerLinks : clientLinks
 
   const logout = async () => {
     try{

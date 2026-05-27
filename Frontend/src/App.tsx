@@ -18,6 +18,8 @@ import { Toaster } from "react-hot-toast"
 import ManagerOrders from "./Pages/DashBoard/Manager/ManagerOrders"
 import DashboardClient from "./Pages/DashBoard/User/DashboardClient"
 import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
+import ManagerUsers from "./Pages/DashBoard/Manager/ManagerUsers"
+import DashboardManager from "./Pages/DashBoard/Manager/DashboardManager"
 
 function App() {
 
@@ -94,7 +96,10 @@ function App() {
 
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
 
+            <Route path="/dashboard/manager" element={<DashboardManager />} />
             <Route path="/dashboard/manager/orders" element={<ManagerOrders />} />
+            <Route path="/dashboard/manager/clients" element={<ManagerUsers />} />
+
           </Route>
 
         </Routes>

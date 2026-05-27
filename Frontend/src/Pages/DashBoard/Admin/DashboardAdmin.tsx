@@ -4,7 +4,7 @@ import TableUser from "../../../Components/Dashboard/DashBoardItem/Table/TableUs
 export default function DashboardAdmin() {
     
   return (
-    <div>
+    <div className="p-5">
       <TableUser/>
 
     </div>
