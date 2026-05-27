@@ -46,6 +46,7 @@ export function Sidebar() {
   ]
 
   const links = user.role === 'admin' ? adminLinks : user.role === 'manager' ? managerLinks : clientLinks
+  const logoutStore = useStoreAuth(store => store.logout)
 
   const logout = async () => {
     try{
@@ -54,6 +55,7 @@ export function Sidebar() {
       })
 
       toast.success(res.data.message)
+      logoutStore()
       navigation("/")
     }catch(e: any){
       toast.error(e.response.data.message)

@@ -50,21 +50,21 @@ export default function TableUser() {
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">role</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">name</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">lastName</th>
-                            <th className="text-right p-4 text-sm font-medium text-zinc-400">email</th>
-                            <th className="text-right p-4 text-sm font-medium text-zinc-400">companyName</th>
-                            <th className="text-right p-4 text-sm font-medium text-zinc-400">isDeleted</th>
+                            <th className="text-left p-4 text-sm font-medium text-zinc-400">email</th>
+                            <th className="text-left p-4 text-sm font-medium text-zinc-400">companyName</th>
+                            <th className="text-left p-4 text-sm font-medium text-zinc-400">isDeleted</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user, i) => (
-                            <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <tr key={i} className="border-b border-white/5 hover:bg-white/5">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{user.id}</td>
-                                <td className="p-4 text-sm text-white">{user.role}</td>
-                                <td className="p-4 text-sm text-zinc-400">{user.name}</td>
-                                <td className="p-4 text-sm font-medium text-right">{user.lastName}</td>
-                                <td className="p-4 text-sm font-medium text-right">{user.email}</td>
-                                <td className="p-4 text-sm font-medium text-right">{user.companyName}</td>
-                                <td className="p-4 text-sm font-medium text-right">{user.isDeleted}</td>
+                                <td className="p-4 text-sm ">{user.role}</td>
+                                <td className="p-4 text-sm ">{user.name}</td>
+                                <td className="text-sm font-medium">{user.lastName}</td>
+                                <td className="p-4 text-sm font-medium ">{user.email}</td>
+                                <td className="p-4 text-sm font-medium ">{user.companyName}</td>
+                                <td className="p-4 text-sm font-medium ">{user.isDeleted ? "удалён" : "не удалён"}</td>
                             </tr>
                         ))}
                     </tbody>
