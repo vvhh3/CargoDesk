@@ -21,6 +21,7 @@ import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
 import ManagerUsers from "./Pages/DashBoard/Manager/ManagerUsers"
 import DashboardManager from "./Pages/DashBoard/Manager/DashboardManager"
 import ClientOrders from "./Pages/DashBoard/User/ClientOrders"
+import { ClientNotifications } from "./Pages/DashBoard/User/ClientNotifications"
 
 function App() {
 
@@ -95,6 +96,7 @@ function App() {
             <Route path="/dashboard/client" element={<DashboardClient />} />
             <Route path="/dashboard/client/orders" element={<ClientOrders />} />
             <Route path="/dashboard/client/create-request" element={<ClientCreateRequest />} />
+            <Route path="/notifications" element={<ClientNotifications />} />
 
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
 

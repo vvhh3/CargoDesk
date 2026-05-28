@@ -1,28 +1,6 @@
 import { Search, Filter, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import RecentOrder from "../../../Components/Dashboard/DashBoardItem/Table/RecentOrder";
 
-const orders = [
-    { id: '#ORD-2847', client: 'John Smith', product: 'iPhone 15 Pro Max', status: 'Delivered', date: 'May 11, 2026', amount: '$1,299', payment: 'Paid' },
-    { id: '#ORD-2846', client: 'Sarah Johnson', product: 'MacBook Pro 16"', status: 'In Transit', date: 'May 11, 2026', amount: '$2,499', payment: 'Paid' },
-    { id: '#ORD-2845', client: 'Michael Brown', product: 'AirPods Pro', status: 'Processing', date: 'May 10, 2026', amount: '$249', payment: 'Pending' },
-    { id: '#ORD-2844', client: 'Emily Davis', product: 'iPad Air', status: 'Delivered', date: 'May 09, 2026', amount: '$599', payment: 'Paid' },
-    { id: '#ORD-2843', client: 'David Wilson', product: 'Apple Watch Series 9', status: 'Cancelled', date: 'May 08, 2026', amount: '$429', payment: 'Refunded' },
-];
-
-const statusStyles = {
-    Delivered: 'bg-[#22C55E]/10 text-[#22C55E]',
-    'In Transit': 'bg-[#3B82F6]/10 text-[#3B82F6]',
-    Processing: 'bg-[#F59E0B]/10 text-[#F59E0B]',
-    Cancelled: 'bg-[#EF4444]/10 text-[#EF4444]',
-};
-
-const paymentStyles = {
-    Paid: 'bg-[#22C55E]/10 text-[#22C55E]',
-    Pending: 'bg-[#F59E0B]/10 text-[#F59E0B]',
-    Refunded: 'bg-[#71717A]/10 text-[#71717A]',
-};
-
-
 export default function ClientOrders() {
 
     return (
