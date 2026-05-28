@@ -20,6 +20,7 @@ import DashboardClient from "./Pages/DashBoard/User/DashboardClient"
 import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
 import ManagerUsers from "./Pages/DashBoard/Manager/ManagerUsers"
 import DashboardManager from "./Pages/DashBoard/Manager/DashboardManager"
+import ClientOrders from "./Pages/DashBoard/User/ClientOrders"
 
 function App() {
 
@@ -92,6 +93,7 @@ function App() {
             </ProtectedRoute>
           }>
             <Route path="/dashboard/client" element={<DashboardClient />} />
+            <Route path="/dashboard/client/orders" element={<ClientOrders />} />
             <Route path="/dashboard/client/create-request" element={<ClientCreateRequest />} />
 
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
