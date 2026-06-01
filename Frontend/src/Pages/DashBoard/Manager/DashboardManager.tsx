@@ -63,7 +63,7 @@ export default function DashboardManager() {
               <span>Filters</span>
             </button>
           </div>
-          
+
           <div className="grid grid-cols-1 gap-4">
             {filteredRequests.map((request, i) => (
               <div key={i} className="p-6 rounded-2xl bg-[#111113] border border-white/10 hover:border-[#7C3AED]/30 transition-all">
@@ -102,6 +102,7 @@ export default function DashboardManager() {
                 </div>
               </div>
             ))}
+            
           </div>
         </div>
       </div>
