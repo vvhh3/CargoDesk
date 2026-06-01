@@ -102,7 +102,6 @@ export default function DashboardManager() {
                 </div>
               </div>
             ))}
-            
           </div>
         </div>
       </div>
