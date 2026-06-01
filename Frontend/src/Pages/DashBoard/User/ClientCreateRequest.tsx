@@ -130,6 +130,7 @@ export default function ClientCreateRequest() {
                                     <p className="text-sm text-zinc-400 mb-4">PNG, JPG or WebP (Max. 10MB)</p>
                                 </button>
                             </div>
+
                             <div className="flex items-center gap-4">
                                 <button type="submit" className="flex-1 py-4 rounded-xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED] transition-all text-lg font-medium">
                                     Submit Request
@@ -138,6 +139,7 @@ export default function ClientCreateRequest() {
                                     Save Draft
                                 </button>
                             </div>
+                            
                         </form>
                     </div>
                 </div>

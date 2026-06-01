@@ -42,6 +42,7 @@ export default function DashboardManager() {
               </div>
             ))}
           </div>
+
           <div className="mb-6">
             <div className="flex items-center gap-2 p-1 rounded-xl bg-white/5 border border-white/10 w-fit">
               {tabs.map((tab) => (
@@ -51,6 +52,7 @@ export default function DashboardManager() {
               ))}
             </div>
           </div>
+
           <div className="flex items-center gap-4 mb-6">
             <div className="relative flex-1">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
@@ -61,6 +63,7 @@ export default function DashboardManager() {
               <span>Filters</span>
             </button>
           </div>
+          
           <div className="grid grid-cols-1 gap-4">
             {filteredRequests.map((request, i) => (
               <div key={i} className="p-6 rounded-2xl bg-[#111113] border border-white/10 hover:border-[#7C3AED]/30 transition-all">
