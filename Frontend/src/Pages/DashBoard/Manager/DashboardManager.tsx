@@ -94,10 +94,12 @@ export default function DashboardManager() {
                         <div className="text-sm text-white font-medium">{request.amount}</div>
                       </div>
                     </div>
+
                     <button className="px-4 py-2 rounded-lg bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED] transition-all text-sm flex items-center gap-2">
                       <Eye className="w-4 h-4" />
                       View Details
                     </button>
+                    
                   </div>
                 </div>
               </div>
