@@ -11,7 +11,9 @@ const Home = () => {
 
     return (
         <div>
+            
             <header>
+                
                 <Header />
             </header>
 
