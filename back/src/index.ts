@@ -14,6 +14,8 @@ import { UserRole } from "./Models/User.ts"
 import { logout } from "./Controlers/ProfileController.ts"
 import { getAllUser, getUsersByManager } from "./Controlers/GetControler.ts"
 
+import {generateData} from "./seed.ts"
+
 dotenv.config()
 
 const app = express()
@@ -53,10 +55,13 @@ async function start() {
         // await sequelize.sync({alter: true} - Это попытается изменить таблицу без удаления данных
         //  await sequelize.sync({force: true}) - Это удалит таблицу и создаст заново уже
         await sequelize.sync({alter: true})
+        
         console.log("bd synced")
         app.listen(5000, () => {
             console.log("server started on 5000 port")
         })
+
+        await generateData()
 
     } catch (e) {
         console.log(e)
