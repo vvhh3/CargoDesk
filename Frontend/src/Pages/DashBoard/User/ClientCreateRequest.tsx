@@ -12,24 +12,24 @@ export default function ClientCreateRequest() {
         product: "",
         brand: "",
         quantity: 1,
-        productImages: "",
+        productImages: [] as File[],
     })
 
-    const [files, setFiles] = useState<File[]>([])
-
-    const create = async (e: FormEvent<HTMLFormElement>) => {
+    const create = async (e: FormEvent) => {
         e.preventDefault()
 
+        // some — проходит по каждому файлу и возвращает true, если хотя бы один превышает 10MB.
+        if(form.productImages.some(file  => file.size > 10 * 1024 * 1024)) {
+            toast.error("image size < 10MB")
+            return
+        }
         try {
             const res = await axios.post("http://localhost:5000/order", {
                 link: form.link,
                 product: form.product,
                 brand: form.brand,
                 quantity: form.quantity,
-                productImages: form.productImages
-                    .split("\n")
-                    .map((image) => image.trim())
-                    .filter(Boolean),
+                productImages: form.productImages.map((file: File) => file.name),
             }, {
                 withCredentials: true
             })
@@ -39,7 +39,7 @@ export default function ClientCreateRequest() {
                 product: "",
                 brand: "",
                 quantity: 1,
-                productImages: "",
+                productImages: [],
             })
             toast.success(res.data.message)
         } catch (e: any) {
@@ -48,12 +48,6 @@ export default function ClientCreateRequest() {
             console.log(e)
         }
     }
-
-    // const handleFileChange = (e: any) => {
-    //     const selectedFiles :File[] = Array.from(e.target.files || []);
-    //     console.log(selectedFiles)
-    //     setFiles(prev => [...prev, ...selectedFiles]);
-    // }
 
     return (
         <div className="flex h-screen bg-[#09090B] text-white overflow-hidden">
@@ -140,18 +134,18 @@ export default function ClientCreateRequest() {
                                         accept=".jpg,.jpeg,.png,.webp"
                                         multiple
                                         hidden
-                                        onChange={(e) => setFiles(Array.from(e.target.files ?? []))}/>
+                                        onChange={(e) => setForm({...form, productImages: Array.from(e.target.files ?? []) })}/>
                                     <h4 className="text-lg font-medium mb-2">Drop files here</h4>
                                     <p className="text-sm text-zinc-400 mb-4">PNG, JPG or WebP (Max. 10MB)</p>
-                                    <div>
-                                        {files.length > 0 && (
+                                    <div className="flex justify-center">
+                                        {form.productImages.length > 0 && (
                                             <div>
-                                                {files.map(file => (
-                                                    <div>
+                                                {form.productImages.map((file: File) => (
+                                                    <div key={file.name}>
+                                                        <img src={URL.createObjectURL(file)} alt="photo" className="w-70 h-70"/>
                                                         <p className="text-sm text-zinc-300">{file.name}</p>
                                                     </div>
                                                 ))}
-
                                             </div>
                                         )}
                                     </div>
