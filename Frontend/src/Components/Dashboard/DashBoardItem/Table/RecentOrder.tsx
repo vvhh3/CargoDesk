@@ -22,9 +22,11 @@ const statusConfig: Record<string, { label: string, color: string }> = {
     delivered: { label: "Delivered", color: "text-[#22C55E] bg-[#22C55E]/10" },
     cancelled: { label: "Cancelled", color: "text-[#EF4444] bg-[#EF4444]/10" },
 }
+
 type PropsOrder ={
-    search?: string| undefined
+    search?: string | undefined
 }
+
 export default function RecentOrder({search}: PropsOrder) {
 
     const [orders, setOrders] = useState<Order[]>([])

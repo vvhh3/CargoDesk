@@ -63,7 +63,7 @@ const Home = () => {
                         <div className="flex mt-7 gap-5 w-full">
 
                             <div>
-                                <div className="w-70 border border-white/10 rounded-2xl p-5 h-[450px]">
+                                <div className="w-70 border border-white/10 rounded-2xl p-5 h-112.5">
                                     <div className="space-y-3">
                                         {[1, 2, 3, 4, 5, 6].map(i => (
                                             <div className="h-12 rounded-xl bg-white/5 backdrop-blur-sm" key={i}></div>
@@ -84,7 +84,7 @@ const Home = () => {
                                     ))}
                                 </div>
 
-                                <div className="h-[350px] w-full rounded-2xl border border-white/10 backdrop-blur-xl p-6 mt-5">
+                                <div className="h-87.5 w-full rounded-2xl border border-white/10 backdrop-blur-xl p-6 mt-5">
                                     <div className="flex items-end justify-between h-full">
                                         {[40, 70, 55, 85, 60, 68, 90, 75, 95].map((height, i) => (
                                             <div key={i} className="flex-1 max-w-12 rounded-t-xl bg-[#7C3AED] " style={{ height: `${height}%` }}></div>
@@ -104,25 +104,25 @@ const Home = () => {
 
                 <div className="flex justify-center items-center gap-10 mt-35 mb-10">
                     <div className="flex flex-col border border-[#8B5CF6]/5 rounded-2xl px-10 py-5
-                        shadow-[#8B5CF6]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#8B5CF6]/50 duration-500">
+                        shadow-[#8B5CF6]/40 shadow-xl bg-white/5 w-75 max-w-75 hover:scale-102 hover:border-[#8B5CF6]/50 duration-500">
                         <span className="text-[#8B5CF6] text-3xl">50K+</span>
                         <span className="text-zinc-400">Active Shipments</span>
                     </div>
 
                     <div className="flex flex-col border border-[#2563EB]/5 rounded-2xl px-10 py-5
-                        shadow-[#2563EB]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#2563EB]/50 duration-500">
+                        shadow-[#2563EB]/40 shadow-xl bg-white/5 w-75 max-w-75 hover:scale-102 hover:border-[#2563EB]/50 duration-500">
                         <span className="text-[#2563EB] text-3xl">99%</span>
                         <span className="text-zinc-400">Uptime SLA</span>
                     </div>
 
                     <div className="flex flex-col border border-[#16A34A]/5 rounded-2xl px-10 py-5
-                        shadow-[#16A34A]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#16A34A]/50 duration-500">
+                        shadow-[#16A34A]/40 shadow-xl bg-white/5 w-75 max-w-75 hover:scale-102 hover:border-[#16A34A]/50 duration-500">
                         <span className="text-[#16A34A] text-3xl">~2min</span>
                         <span className="text-zinc-400">Avg Response</span>
                     </div>
 
                     <div className="flex flex-col border border-[#D97706]/5 rounded-2xl px-10 py-5
-                        shadow-[#D97706]/40 shadow-xl bg-white/5 w-[300px] max-w-[300px] hover:scale-102 hover:border-[#D97706]/50 duration-500">
+                        shadow-[#D97706]/40 shadow-xl bg-white/5 w-75 max-w-75 hover:scale-102 hover:border-[#D97706]/50 duration-500">
                         <span className="text-[#D97706] text-3xl">100+</span>
                         <span className="text-zinc-400">Countries</span>
                     </div>
@@ -136,10 +136,10 @@ const Home = () => {
                         <span className="text-zinc-400 text-2xl">Everything you need to manage cargo operations at scale</span>
                     </div>
 
-                    <div className="flex flex-wrap justify-center items-center gap-10 max-w-[1300px]">
+                    <div className="flex flex-wrap justify-center items-center gap-10 max-w-325">
 
                         <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
-                                gap-5 rounded-xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-purple-500">
+                                gap-5 rounded-xl p-10 w-100 max-w-100 hover:scale-102 duration-500 hover:border-purple-500">
                             <div className="text-white bg-purple-500 rounded-xl w-10 h-10 justify-center items-center flex">
                                 <TrendingUp />
                             </div>
@@ -150,7 +150,7 @@ const Home = () => {
                         </div>
 
                         <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
-                        gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#2563EB]">
+                        gap-5 rounded-2xl p-10 w-100 max-w-100 hover:scale-102 duration-500 hover:border-[#2563EB]">
                             <div className="text-white bg-[#2563EB] rounded-xl w-10 h-10 justify-center items-center flex">
                                 <Shield />
                             </div>
@@ -161,7 +161,7 @@ const Home = () => {
                         </div>
 
                         <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
-                        gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#D97706]">
+                        gap-5 rounded-2xl p-10 w-100 max-w-100 hover:scale-102 duration-500 hover:border-[#D97706]">
                             <div className="text-white bg-[#D97706] rounded-xl w-10 h-10 justify-center items-center flex">
                                 <Zap />
                             </div>
@@ -172,7 +172,7 @@ const Home = () => {
                         </div>
 
                         <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
-                        gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#16A34A]">
+                        gap-5 rounded-2xl p-10 w-100 max-w-100 hover:scale-102 duration-500 hover:border-[#16A34A]">
                             <div className="text-white bg-[#16A34A] rounded-xl w-10 h-10 justify-center items-center flex">
                                 <Globe />
                             </div>
@@ -183,7 +183,7 @@ const Home = () => {
                         </div>
 
                         <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
-                            gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#DB2777]">
+                            gap-5 rounded-2xl p-10 w-100 max-w-100 hover:scale-102 duration-500 hover:border-[#DB2777]">
                             <div className="text-white bg-[#DB2777] rounded-xl w-10 h-10 justify-center items-center flex">
                                 <Package />
                             </div>
@@ -195,7 +195,7 @@ const Home = () => {
 
 
                         <div className="bg-white/5 flex flex-col justify-center items-start border border-white/10 
-                                gap-5 rounded-2xl p-10 w-[400px] max-w-[400px] hover:scale-102 duration-500 hover:border-[#7C3AED]">
+                                gap-5 rounded-2xl p-10 w-100 max-w-100 hover:scale-102 duration-500 hover:border-[#7C3AED]">
                             <div className="text-white bg-[#7C3AED] rounded-xl w-10 h-10 justify-center items-center flex">
                                 <CheckCircle2 />
                             </div>

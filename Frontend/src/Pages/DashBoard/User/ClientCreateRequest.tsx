@@ -15,6 +15,8 @@ export default function ClientCreateRequest() {
         productImages: "",
     })
 
+    const [files, setFiles] = useState<File[]>([])
+
     const create = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
@@ -46,6 +48,12 @@ export default function ClientCreateRequest() {
             console.log(e)
         }
     }
+
+    // const handleFileChange = (e: any) => {
+    //     const selectedFiles :File[] = Array.from(e.target.files || []);
+    //     console.log(selectedFiles)
+    //     setFiles(prev => [...prev, ...selectedFiles]);
+    // }
 
     return (
         <div className="flex h-screen bg-[#09090B] text-white overflow-hidden">
@@ -122,24 +130,43 @@ export default function ClientCreateRequest() {
                                     </div>
                                     <h3 className="text-lg font-semibold">Product Images</h3>
                                 </div>
-                                <button className="border-2 border-dashed border-white/20 rounded-xl p-12 text-center hover:border-white/30 transition-all">
+
+                                <label className="rounded-xl p-12 text-center hover:border-white/30 transition-all cursor-pointer">
                                     <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
                                         <Upload className="w-8 h-8 text-zinc-400" />
                                     </div>
+                                    <input
+                                        type="file"
+                                        accept=".jpg,.jpeg,.png,.webp"
+                                        multiple
+                                        hidden
+                                        onChange={(e) => setFiles(Array.from(e.target.files ?? []))}/>
                                     <h4 className="text-lg font-medium mb-2">Drop files here</h4>
                                     <p className="text-sm text-zinc-400 mb-4">PNG, JPG or WebP (Max. 10MB)</p>
-                                </button>
+                                    <div>
+                                        {files.length > 0 && (
+                                            <div>
+                                                {files.map(file => (
+                                                    <div>
+                                                        <p className="text-sm text-zinc-300">{file.name}</p>
+                                                    </div>
+                                                ))}
+
+                                            </div>
+                                        )}
+                                    </div>
+                                </label>
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <button type="submit" className="flex-1 py-4 rounded-xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED] transition-all text-lg font-medium">
+                                <button type="submit" className="flex-1 py-4 rounded-xl bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED] transition-all text-lg font-medium cursor-pointer">
                                     Submit Request
                                 </button>
-                                <button type="button" className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10">
+                                <button type="button" className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 cursor-pointer">
                                     Save Draft
                                 </button>
                             </div>
-                            
+
                         </form>
                     </div>
                 </div>
