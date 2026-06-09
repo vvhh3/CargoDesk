@@ -2,14 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useStoreAuth } from "../../../../Store/AuthStore";
 
-// const recentOrders = [
-//     { id: '#ORD-2847', product: 'iPhone 15 Pro Max', status: 'Delivered', date: '2 hours ago', amount: '$1,299', statusColor: 'text-[#22C55E] bg-[#22C55E]/10' },
-//     { id: '#ORD-2846', product: 'MacBook Pro 16"', status: 'In Transit', date: '5 hours ago', amount: '$2,499', statusColor: 'text-[#3B82F6] bg-[#3B82F6]/10' },
-//     { id: '#ORD-2845', product: 'AirPods Pro', status: 'Processing', date: '1 day ago', amount: '$249', statusColor: 'text-[#F59E0B] bg-[#F59E0B]/10' },
-//     { id: '#ORD-2844', product: 'iPad Air', status: 'Delivered', date: '2 days ago', amount: '$599', statusColor: 'text-[#22C55E] bg-[#22C55E]/10' },
-//     { id: '#ORD-2843', product: 'Apple Watch Series 9', status: 'Cancelled', date: '3 days ago', amount: '$429', statusColor: 'text-[#EF4444] bg-[#EF4444]/10' },
-// ];
-
 type Order = {
     id: number,
     userId: number,
@@ -31,7 +23,7 @@ const statusConfig: Record<string, { label: string, color: string }> = {
     cancelled: { label: "Cancelled", color: "text-[#EF4444] bg-[#EF4444]/10" },
 }
 
-export default function RecentOrder() {
+export default function RecentOrder({search}: {search:string}) {
 
     const [orders, setOrders] = useState<Order[]>([])
     const user = useStoreAuth(store => store.user)
@@ -49,6 +41,16 @@ export default function RecentOrder() {
             console.log(e)
         }
     }
+
+    const filtered = orders.filter(order => {
+        return order.id.toString().includes(search) ||
+        order.product.toLowerCase().includes(search.toLowerCase()) ||
+        order.brand.toLowerCase().includes(search.toLowerCase()) ||
+        order.quantity.toString().includes(search) ||
+        order.status.toLowerCase().includes(search.toLowerCase())||
+        order.whenCamedate?.toLowerCase().includes(search.toLowerCase())||
+        order.price?.toString().includes(search)
+    })
 
     useEffect(() => {
         getOrder()
@@ -71,11 +73,11 @@ export default function RecentOrder() {
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Qty</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Status</th>
                             <th className="text-left p-4 text-sm font-medium text-zinc-400">Date</th>
-                            <th className="text-right p-4 text-sm font-medium text-zinc-400">Amount</th>
+                            <th className="text-right p-4 text-sm font-medium text-zinc-400">Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order, i) => (
+                        {filtered.map((order, i) => (
                             <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{order.id}</td>
                                 <td className="p-4 text-sm text-white">{order.product}</td>

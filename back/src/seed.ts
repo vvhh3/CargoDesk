@@ -13,7 +13,7 @@ export const generateData = async () => {
             console.log("already user in db")
         } else {
             await sequelize.query(`ALTER SEQUENCE "Users_id_seq" RESTART WITH 1`)
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 await User.create({
                     role: faker.helpers.arrayElement(Object.values(UserRole)),
                     name: faker.person.firstName(),
