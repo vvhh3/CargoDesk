@@ -7,9 +7,7 @@ import RecentOrder from "../../../Components/Dashboard/DashBoardItem/Table/Recen
 
 const DashboardClient = () => {
 
-    const user = useStoreAuth((store) => store.user)
-    console.log("user", user)
-
+    // const user = useStoreAuth((store) => store.user)
 
     return (
         <div className="p-5">

@@ -22,8 +22,10 @@ const statusConfig: Record<string, { label: string, color: string }> = {
     delivered: { label: "Delivered", color: "text-[#22C55E] bg-[#22C55E]/10" },
     cancelled: { label: "Cancelled", color: "text-[#EF4444] bg-[#EF4444]/10" },
 }
-
-export default function RecentOrder({search}: {search:string}) {
+type PropsOrder ={
+    search?: string| undefined
+}
+export default function RecentOrder({search}: PropsOrder) {
 
     const [orders, setOrders] = useState<Order[]>([])
     const user = useStoreAuth(store => store.user)
@@ -36,20 +38,21 @@ export default function RecentOrder({search}: {search:string}) {
                     withCredentials: true
                 })
             setOrders(res.data.orders)
-            console.log(res.data.orders)
         } catch (e) {
             console.log(e)
         }
     }
 
     const filtered = orders.filter(order => {
-        return order.id.toString().includes(search) ||
-        order.product.toLowerCase().includes(search.toLowerCase()) ||
-        order.brand.toLowerCase().includes(search.toLowerCase()) ||
-        order.quantity.toString().includes(search) ||
-        order.status.toLowerCase().includes(search.toLowerCase())||
-        order.whenCamedate?.toLowerCase().includes(search.toLowerCase())||
-        order.price?.toString().includes(search)
+        const searchLower = search?.toLowerCase() || ''
+
+        return order.id.toString().includes(searchLower) ||
+        order.product.toLowerCase().includes(searchLower) ||
+        order.brand.toString().toLowerCase().includes(searchLower) ||
+        order.quantity.toString().includes(searchLower) ||
+        order.status.toString().toLowerCase().includes(searchLower)||
+        order.whenCamedate?.toString().toLowerCase().includes(searchLower) ||
+        order.price?.toString().includes(searchLower)
     })
 
     useEffect(() => {
