@@ -65,7 +65,7 @@ export default function RecentOrder({search, onOrderLoader}: PropsOrder) {
     }, [])
 
     return (
-        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-5 text-white">
+        <div className="w-full rounded-t-2xl border border-white/10 bg-white/5 p-5 text-white">
             <div className="mb-5 flex items-center justify-between">
                 <span className="text-xl">Recent Orders</span>
                 <span className="text-sm text-zinc-400">Latest activity</span>

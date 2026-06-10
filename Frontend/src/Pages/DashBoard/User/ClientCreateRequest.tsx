@@ -20,8 +20,10 @@ export default function ClientCreateRequest() {
 
         // Метод some() проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
         // size 114567 байт
- 
-       if (form.productImages.some(file => file.size > 10 * 1024 * 1024)) {
+        let size = form.productImages.map(p => p.size)
+        let totalSize = size.reduce((acc, curr) => acc + curr, 0)
+        console.log(totalSize)
+        if (totalSize > 10 * 1024 * 1024) {
             toast.error("max image size 10MB")
             return
         }
@@ -152,14 +154,14 @@ export default function ClientCreateRequest() {
                                             {form.productImages.map((file, i) => (
                                                 <div key={i} className="relative">
 
-                                                    <button className="text-lg absolute -top-3 -right-2 text-white cursor-pointer" 
-                                                    type="button"
-                                                    onClick={() => setForm(prev => ({
-                                                        ...prev,
-                                                        productImages: form.productImages.filter((_,id) => id !== i)
-                                                    }))}>✕</button>
+                                                    <button className="text-lg absolute -top-3 -right-2 text-white cursor-pointer"
+                                                        type="button"
+                                                        onClick={() => setForm(prev => ({
+                                                            ...prev,
+                                                            productImages: form.productImages.filter((_, id) => id !== i)
+                                                        }))}>✕</button>
 
-                                                    <img src={URL.createObjectURL(file)} alt={file.name} className="w-35 h-35"/>
+                                                    <img src={URL.createObjectURL(file)} alt={file.name} className="w-35 h-35" />
                                                     <p className="text-zinc-300 mt-1 truncate max-w-24">{file.name}</p>
                                                 </div>
                                             ))}
@@ -167,7 +169,7 @@ export default function ClientCreateRequest() {
                                         </div>
                                     )}
                                 </div>
-                            
+
                             </div>
 
                             <div className="flex items-center gap-4">

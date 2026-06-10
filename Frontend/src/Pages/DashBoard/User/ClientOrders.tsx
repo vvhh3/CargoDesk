@@ -3,6 +3,7 @@ import RecentOrder from "../../../Components/Dashboard/DashBoardItem/Table/Recen
 import { useState } from "react";
 import toast from "react-hot-toast"
 import * as XLSX from "xlsx";
+
 type Order = {
     id: number,
     userId: number,
@@ -34,8 +35,11 @@ export default function ClientOrders() {
                     : "—",
             }))
 
+            // превращает данные  в таблицу Excel
             const worksheet = XLSX.utils.json_to_sheet(rows)
+            // создание новой книги
             const workbook = XLSX.utils.book_new()
+            // добавление листа в книгу , с данными 
             XLSX.utils.book_append_sheet(workbook, worksheet, "Orders")
 
             worksheet["!cols"] = [
@@ -43,11 +47,14 @@ export default function ClientOrders() {
                 { wch: 12 }, { wch: 18 }, { wch: 10 }, { wch: 15 }
             ]
 
+            //Сохраняет Excel файл на компьютер
             XLSX.writeFile(workbook, `orders_${new Date().toLocaleDateString("ru-RU")}.xlsx`)
+            toast.success("Success")
         } catch (e) {
-            toast.error("Failed to eexport orders")
+            toast.error("Failed to export orders")
         }
     }
+    
     return (
 
         <div className="flex h-screen bg-[#09090B] text-white overflow-hidden">
@@ -80,11 +87,11 @@ export default function ClientOrders() {
                         </div>
                     </div>
 
-                    <div className="rounded-2xl bg-[#111113] border border-white/10 overflow-hidden">
+                    <div className="rounded-2xl bg-[#111113] border  border-white/10 overflow-hidden">
                         <RecentOrder search={search} onOrderLoader={setOrders} />
-                        <div className="flex items-center justify-between p-4 border-t border-white/10 bg-white/5">
+                        <div className="flex items-center justify-between p-4 border-t border-white/10 bg-white/5 ">
                             <div className="text-sm text-zinc-400">
-                                Showing 1-5 of 248 orders
+                                All {orders.length} orders
                             </div>
                             <div className="flex items-center gap-2">
 
