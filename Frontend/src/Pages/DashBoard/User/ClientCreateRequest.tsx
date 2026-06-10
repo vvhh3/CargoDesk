@@ -135,7 +135,11 @@ export default function ClientCreateRequest() {
                                         accept=".jpg,.jpeg,.png,.webp"
                                         multiple
                                         hidden
-                                        onChange={(e) => setForm({ ...form, productImages: Array.from(e.target.files ?? []) })} />
+                                        onChange={(e) => setForm(prev => ({
+                                            ...prev,
+                                            productImages: [...prev.productImages, ...Array.from(e.target.files || [])]
+
+                                        }))} />
                                     <h4 className="text-lg font-medium mb-2">Drop files here</h4>
                                     <p className="text-zinc-400 mb-4">PNG, JPG or WebP (Max. 10MB)</p>
                                 </label>
@@ -145,15 +149,16 @@ export default function ClientCreateRequest() {
                                         <div className="flex flex-wrap gap-3 justify-center">
 
                                             {form.productImages.map((file, i) => (
-                                                <div key={i}>
-                                                    <img src={URL.createObjectURL(file)} alt={file.name} className="w-35 h-35"/>
-                                                    <button className="text-white cursor-pointer" 
+                                                <div key={i} className="relative">
+
+                                                    <button className="text-lg absolute -top-3 -right-2 text-white cursor-pointer" 
                                                     type="button"
                                                     onClick={() => setForm(prev => ({
                                                         ...prev,
                                                         productImages: form.productImages.filter((_,id) => id !== i)
                                                     }))}>✕</button>
 
+                                                    <img src={URL.createObjectURL(file)} alt={file.name} className="w-35 h-35"/>
                                                     <p className="text-zinc-300 mt-1 truncate max-w-24">{file.name}</p>
                                                 </div>
                                             ))}
