@@ -25,9 +25,10 @@ const statusConfig: Record<string, { label: string, color: string }> = {
 
 type PropsOrder ={
     search?: string | undefined
+    onOrderLoader?: (orders: Order[]) => void 
 }
 
-export default function RecentOrder({search}: PropsOrder) {
+export default function RecentOrder({search, onOrderLoader}: PropsOrder) {
 
     const [orders, setOrders] = useState<Order[]>([])
     const user = useStoreAuth(store => store.user)
@@ -40,6 +41,8 @@ export default function RecentOrder({search}: PropsOrder) {
                     withCredentials: true
                 })
             setOrders(res.data.orders)
+            //Зачем точка и почему именно так? и как рабоатет вообще это 
+            onOrderLoader?.(res.data.orders)
         } catch (e) {
             console.log(e)
         }

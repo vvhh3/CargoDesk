@@ -19,8 +19,9 @@ export default function ClientCreateRequest() {
         e.preventDefault()
 
         // Метод some() проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
-        console.log("image", form.productImages)
-        if (form.productImages.some(file => file.size > 10 * 1024 * 1024)) {
+        // size 114567 байт
+ 
+       if (form.productImages.some(file => file.size > 10 * 1024 * 1024)) {
             toast.error("max image size 10MB")
             return
         }
@@ -133,11 +134,11 @@ export default function ClientCreateRequest() {
                                     <input
                                         type="file"
                                         accept=".jpg,.jpeg,.png,.webp"
-                                        multiple
-                                        hidden
+                                        multiple  // можно выбрать несколько файлов сразу 
+                                        hidden // hidden — прячет стандартный некрасивый инпут браузера. Клик на него передаётся через родительский <label>
                                         onChange={(e) => setForm(prev => ({
-                                            ...prev,
-                                            productImages: [...prev.productImages, ...Array.from(e.target.files || [])]
+                                            ...prev, //копируем все остальные поля формы без изменений.
+                                            productImages: [...prev.productImages, ...e.target.files || []] //  без ...prev.productImages каждый раз список перезаписывался бы заново.
 
                                         }))} />
                                     <h4 className="text-lg font-medium mb-2">Drop files here</h4>
