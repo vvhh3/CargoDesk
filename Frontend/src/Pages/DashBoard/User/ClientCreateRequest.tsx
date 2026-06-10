@@ -18,9 +18,10 @@ export default function ClientCreateRequest() {
     const create = async (e: FormEvent) => {
         e.preventDefault()
 
-        // some — проходит по каждому файлу и возвращает true, если хотя бы один превышает 10MB.
-        if(form.productImages.some(file  => file.size > 10 * 1024 * 1024)) {
-            toast.error("image size < 10MB")
+        // Метод some() проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
+        console.log("image", form.productImages)
+        if (form.productImages.some(file => file.size > 10 * 1024 * 1024)) {
+            toast.error("max image size 10MB")
             return
         }
         try {
@@ -29,7 +30,7 @@ export default function ClientCreateRequest() {
                 product: form.product,
                 brand: form.brand,
                 quantity: form.quantity,
-                productImages: form.productImages.map((file: File) => file.name),
+                productImages: form.productImages.map(file => file.name),
             }, {
                 withCredentials: true
             })
@@ -125,31 +126,42 @@ export default function ClientCreateRequest() {
                                     <h3 className="text-lg font-semibold">Product Images</h3>
                                 </div>
 
-                                <label className="rounded-xl p-12 text-center hover:border-white/30 transition-all cursor-pointer">
+                                <label className="p-12 text-center transition-all cursor-pointer">
                                     <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
-                                        <Upload className="w-8 h-8 text-zinc-400" />
+                                        <Upload className="w-8 h-8 text-zinc-300" />
                                     </div>
                                     <input
                                         type="file"
                                         accept=".jpg,.jpeg,.png,.webp"
                                         multiple
                                         hidden
-                                        onChange={(e) => setForm({...form, productImages: Array.from(e.target.files ?? []) })}/>
+                                        onChange={(e) => setForm({ ...form, productImages: Array.from(e.target.files ?? []) })} />
                                     <h4 className="text-lg font-medium mb-2">Drop files here</h4>
-                                    <p className="text-sm text-zinc-400 mb-4">PNG, JPG or WebP (Max. 10MB)</p>
-                                    <div className="flex justify-center">
-                                        {form.productImages.length > 0 && (
-                                            <div>
-                                                {form.productImages.map((file: File) => (
-                                                    <div key={file.name}>
-                                                        <img src={URL.createObjectURL(file)} alt="photo" className="w-70 h-70"/>
-                                                        <p className="text-sm text-zinc-300">{file.name}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
+                                    <p className="text-zinc-400 mb-4">PNG, JPG or WebP (Max. 10MB)</p>
                                 </label>
+
+                                <div className="flex justify-center">
+                                    {form.productImages.length > 0 && (
+                                        <div className="flex flex-wrap gap-3 justify-center">
+
+                                            {form.productImages.map((file, i) => (
+                                                <div key={i}>
+                                                    <img src={URL.createObjectURL(file)} alt={file.name} className="w-35 h-35"/>
+                                                    <button className="text-white cursor-pointer" 
+                                                    type="button"
+                                                    onClick={() => setForm(prev => ({
+                                                        ...prev,
+                                                        productImages: form.productImages.filter((_,id) => id !== i)
+                                                    }))}>✕</button>
+
+                                                    <p className="text-zinc-300 mt-1 truncate max-w-24">{file.name}</p>
+                                                </div>
+                                            ))}
+
+                                        </div>
+                                    )}
+                                </div>
+                            
                             </div>
 
                             <div className="flex items-center gap-4">
