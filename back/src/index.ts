@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser"
 import { RoleMiddleware } from "./middleware/RoleMiddleware.ts"
 import { UserRole } from "./Models/User.ts"
 import { logout } from "./Controlers/ProfileController.ts"
-import { getAllUser, getUsersByManager } from "./Controlers/GetControler.ts"
+import { getAllUser, getRequsetByManager, getUsersByManager } from "./Controlers/GetControler.ts"
 
 import {generateData} from "./seed.ts"
 
@@ -44,6 +44,7 @@ app.get("/client/orders", authMiddleware , RoleMiddleware([UserRole.client]), ge
 
 app.get("/manager/orders", authMiddleware , RoleMiddleware([UserRole.manager]), getAllOrderManager)
 app.get("/manager/users", authMiddleware , RoleMiddleware([UserRole.manager]), getUsersByManager)
+app.get("/manager/request",authMiddleware, RoleMiddleware([UserRole.manager]), getRequsetByManager)
 
 app.get("/admin/users", authMiddleware , RoleMiddleware([UserRole.admin]), getAllUser)
 
