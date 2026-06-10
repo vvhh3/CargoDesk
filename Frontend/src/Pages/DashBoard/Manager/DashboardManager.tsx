@@ -2,16 +2,9 @@ import axios from "axios";
 import { Search, Filter, Eye, CheckCircle, AlertCircle, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import ModalRequestCard from "../../../Components/Dashboard/DashBoardItem/ModalRequestCard";
 
 const tabs = ['waitingManager', 'approved', 'rejected', 'processing', 'inTransit', 'delivered', 'cancelled'];
-
-// const requests = [
-//   { id: '#REQ-2847', client: 'John Smith', product: 'iPhone 15 Pro Max', amount: '$1,299', date: '2 hours ago', priority: 'high', tab: 'На рассмотрении', description: '256GB, Space Black' },
-//   { id: '#REQ-2846', client: 'Sarah Johnson', product: 'MacBook Pro 16"', amount: '$2,499', date: '5 hours ago', priority: 'high', tab: 'В работе', description: 'M3 Max, 64GB RAM' },
-//   { id: '#REQ-2845', client: 'Michael Brown', product: 'AirPods Pro', amount: '$249', date: '1 day ago', priority: 'medium', tab: 'В работе', description: '2nd Generation, USB-C' },
-//   { id: '#REQ-2844', client: 'Emily Davis', product: 'iPad Air', amount: '$599', date: '2 days ago', priority: 'low', tab: 'Ожидает оплаты', description: '11-inch, Wi-Fi, 256GB' },
-//   { id: '#REQ-2843', client: 'David Wilson', product: 'Apple Watch Series 9', amount: '$429', date: '3 days ago', priority: 'medium', tab: 'Завершён', description: 'GPS + Cellular, 45mm' },
-// ];
 
 const stats = [
   { label: 'На рассмотрении', value: '12', color: 'from-[#F59E0B] to-[#D97706]', icon: AlertCircle },
@@ -36,6 +29,8 @@ export default function DashboardManager() {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [requests, setRequests] = useState<RequestOrder[]>([])
   const [search, setSearch] = useState('')
+
+  const [selectedOrder, setSelectedOrder] = useState<RequestOrder | null>(null)
 
   const filteredRequests = requests.filter((req) => req.status === activeTab).filter((req) => {
     const s = search.toLowerCase()
@@ -62,6 +57,7 @@ export default function DashboardManager() {
   useEffect(() => {
     getRequests()
   }, [])
+
   return (
     <div className="flex h-screen bg-[#09090B] text-white overflow-hidden">
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -137,7 +133,8 @@ export default function DashboardManager() {
                       </div>
                     </div>
 
-                    <button className="px-4 py-2 rounded-lg bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED] transition-all text-sm flex items-center gap-2">
+                    <button className="px-4 py-2 rounded-lg bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED] transition-all text-sm flex items-center gap-2 cursor-pointer"
+                      onClick={() => setSelectedOrder(request)}>
                       <Eye className="w-4 h-4" />
                       View Details
                     </button>
@@ -146,6 +143,7 @@ export default function DashboardManager() {
                 </div>
               </div>
             ))}
+            <ModalRequestCard selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
           </div>
         </div>
       </div>
