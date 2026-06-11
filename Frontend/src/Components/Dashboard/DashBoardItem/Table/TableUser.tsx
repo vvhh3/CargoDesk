@@ -53,12 +53,12 @@ export default function TableUser({search} : TableUserProps) {
     })
 
     return (
-        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-5 text-white">
-            <div className="mb-5 flex items-center justify-between">
+        <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-5 text-white dark:text-black dark:border-black dark:bg-amber-50">
+            <div className="mb-5 flex items-cen ter justify-between">
                 <span className="text-xl">Table Users</span>
             </div>
 
-            <div className="overflow-hidden rounded-xl border border-white/10">
+            <div className="overflow-hidden rounded-xl border border-white/10 dark:border-black">
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-white/10 bg-white/5">
@@ -73,7 +73,7 @@ export default function TableUser({search} : TableUserProps) {
                     </thead>
                     <tbody>
                         {filterUser.map((user, i) => (
-                            <tr key={i} className="border-b border-white/5 hover:bg-white/5">
+                            <tr key={i} className="border-b border-white/5 hover:bg-white/5 dark:border-black">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{user.id}</td>
                                 <td className="p-4 text-sm">{user.role}</td>
                                 <td className="p-4 text-sm">{user.name}</td>

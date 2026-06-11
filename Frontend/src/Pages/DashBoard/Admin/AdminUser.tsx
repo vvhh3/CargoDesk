@@ -1,10 +1,9 @@
-import { useState } from 'react'
-import TableUser from '../../../Components/Dashboard/DashBoardItem/Table/TableUser'
+import {useState} from 'react'
 import { Search } from 'lucide-react'
+import TableUser from '../../../Components/Dashboard/DashBoardItem/Table/TableUser'
 
-export default function ManagerUsers() {
-
-    const [search,setSearch] = useState("")
+export default function AdminUser() {
+    const [search, setSearch] = useState("")
 
     return (
         <div className='p-5'>
@@ -15,7 +14,7 @@ export default function ManagerUsers() {
                         onChange={(e) => setSearch(e.target.value)} />
                 </div>
             </div>
-            <TableUser search={search}/>
+            <TableUser search={search} />
         </div>
     )
 }

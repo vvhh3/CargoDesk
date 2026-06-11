@@ -39,10 +39,10 @@ export function Sidebar() {
   ]
 
   const adminLinks = [
-    { icon: BarChart3, label: 'Analytics', path: '/admin/analytics' },
-    { icon: Users, label: 'Users', path: '/admin/users' },
-    { icon: ShoppingCart, label: 'Orders', path: '/admin/orders' },
-    { icon: Settings, label: 'Settings', path: '/admin/settings' },
+    { icon: BarChart3, label: 'Analytics', path: '/dashboard/admin/analytics' },
+    { icon: Users, label: 'Users', path: '/dashboard/admin/users' },
+    { icon: ShoppingCart, label: 'Orders', path: '/dashboard/admin/orders' },
+    { icon: Settings, label: 'Settings', path: '/dashboard/admin/settings' },
   ]
 
   const links = user.role === 'admin' ? adminLinks : user.role === 'manager' ? managerLinks : clientLinks
