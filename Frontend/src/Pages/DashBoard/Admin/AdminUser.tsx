@@ -10,7 +10,6 @@ import {
     User,
     Pencil,
     Trash2,
-    Filter,
     Download,
     Users,
     UserPlus,
@@ -60,7 +59,7 @@ export default function AdminUser() {
                     { label: "Admins", value: stats.admins, icon: Crown, color: "text-purple-400", bg: "bg-purple-500/10" },
                     { label: "Pending", value: stats.pending, icon: UserPlus, color: "text-yellow-400", bg: "bg-yellow-500/10" },
                 ].map((s) => (
-                    <div key={s.label} className=" border border-white/8 rounded-2xl p-5 flex items-center gap-4">
+                    <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex items-center gap-4">
                         <div className={`w-10 h-10 rounded-xl ${s.bg} flex items-center justify-center`}>
                             <s.icon className={`w-5 h-5 ${s.color}`} />
                         </div>
@@ -70,6 +69,18 @@ export default function AdminUser() {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="flex items-center gap-5 justify-between w-full mt-10">
+
+                <div className="relative w-full flex items-center">
+                    <Search className="absolute left-3 w-5 h-5 text-zinc-400" />
+                    <input placeholder="Search users..." className="px-10 py-2 w-full text-white bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/30 placeholder:text-zinc-400" />
+                </div>
+                <button className="w-35 rounded-2xl bg-white/5 border  border-white/10 cursor-pointer flex justify-center items-center py-2 text-white gap-3 hover:bg-white/10">
+                    <Download className="w-3.5 h-3.5" />
+                    Export
+                </button>
             </div>
         </div>
     )

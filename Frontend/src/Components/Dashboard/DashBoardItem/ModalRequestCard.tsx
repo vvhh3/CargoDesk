@@ -18,15 +18,12 @@ type ModalRequestCardProps = {
 
 export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: ModalRequestCardProps) {
 
-
     return (
         <div>
             {selectedOrder && (
-                <div
-                    className="fixed inset-0 bg-black/60 flex items-center justify-center"
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center"
                     onClick={() => setSelectedOrder(null)}>
-                    <div
-                        className="bg-[#111113] rounded-2xl p-6 w-150 border border-white/10"
+                    <div className="bg-white rounded-2xl p-6 w-150 border border-white/10"
                         onClick={(e) => e.stopPropagation()}>
                         <h2 className="text-2xl font-bold mb-4">Order {selectedOrder.id}</h2>
 

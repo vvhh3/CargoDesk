@@ -104,7 +104,6 @@ export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
                     </tbody>
                 </table>
             </div>
-
         </div>
     )
 }
