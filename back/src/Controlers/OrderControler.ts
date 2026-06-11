@@ -67,6 +67,7 @@ export const getAllOrderManager = async (req: AuthRequest,res: Response) => {
         })
     }
 }
+
 export const getAllOrderUser = async (req: AuthRequest,res: Response) => {
     try{
 

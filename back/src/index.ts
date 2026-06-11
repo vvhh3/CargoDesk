@@ -44,7 +44,7 @@ app.get("/client/orders", authMiddleware , RoleMiddleware([UserRole.client]), ge
 
 app.get("/manager/orders", authMiddleware , RoleMiddleware([UserRole.manager]), getAllOrderManager)
 app.get("/manager/users", authMiddleware , RoleMiddleware([UserRole.manager]), getUsersByManager)
-app.get("/manager/request",authMiddleware, RoleMiddleware([UserRole.manager]), getRequsetByManager)
+app.get("/manager/request",authMiddleware, RoleMiddleware([UserRole.manager,UserRole.admin]), getRequsetByManager)
 
 app.get("/admin/users", authMiddleware , RoleMiddleware([UserRole.admin]), getAllUser)
 

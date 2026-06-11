@@ -39,7 +39,7 @@ export function Sidebar() {
   ]
 
   const adminLinks = [
-    { icon: BarChart3, label: 'Analytics', path: '/dashboard/admin/analytics' },
+    { icon: BarChart3, label: 'Analytics', path: '/dashboard/admin' },
     { icon: Users, label: 'Users', path: '/dashboard/admin/users' },
     { icon: ShoppingCart, label: 'Orders', path: '/dashboard/admin/orders' },
     { icon: Settings, label: 'Settings', path: '/dashboard/admin/settings' },

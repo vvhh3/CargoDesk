@@ -23,6 +23,7 @@ import DashboardManager from "./Pages/DashBoard/Manager/DashboardManager"
 import ClientOrders from "./Pages/DashBoard/User/ClientOrders"
 import { ClientNotifications } from "./Pages/DashBoard/User/ClientNotifications"
 import AdminUser from "./Pages/DashBoard/Admin/AdminUser"
+import AdminOrders from "./Pages/DashBoard/Admin/AdminOrders"
 
 function App() {
 
@@ -101,6 +102,7 @@ function App() {
 
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
             <Route path="/dashboard/admin/users" element={<AdminUser />} />
+            <Route path="/dashboard/admin/orders" element={<AdminOrders />} />
 
             <Route path="/dashboard/manager" element={<DashboardManager />} />
             <Route path="/dashboard/manager/orders" element={<ManagerOrders />} />

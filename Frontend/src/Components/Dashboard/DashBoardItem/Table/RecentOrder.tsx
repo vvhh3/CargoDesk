@@ -23,25 +23,26 @@ const statusConfig: Record<string, { label: string, color: string }> = {
     cancelled: { label: "Cancelled", color: "text-[#EF4444] bg-[#EF4444]/10" },
 }
 
-type PropsOrder ={
+type PropsOrder = {
     search?: string | undefined
-    onOrderLoader?: (orders: Order[]) => void 
+    onOrderLoader?: (orders: Order[]) => void
 }
 
-export default function RecentOrder({search, onOrderLoader}: PropsOrder) {
+export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
 
     const [orders, setOrders] = useState<Order[]>([])
     const user = useStoreAuth(store => store.user)
 
     const getOrder = async () => {
         try {
+            console.log(user)
             const res = await axios.get(`http://localhost:5000/${user.role === "manager" ?
-                "manager/orders" : "client/orders"}`,
+                "manager/orders" : user.role === "admin" ? "/manager/request" : "client/orders"}`,
                 {
                     withCredentials: true
                 })
             setOrders(res.data.orders)
-            //Зачем точка и почему именно так? и как рабоатет вообще это 
+
             onOrderLoader?.(res.data.orders)
         } catch (e) {
             console.log(e)
@@ -52,12 +53,12 @@ export default function RecentOrder({search, onOrderLoader}: PropsOrder) {
         const searchLower = search?.toLowerCase() || ''
 
         return order.id.toString().includes(searchLower) ||
-        order.product.toLowerCase().includes(searchLower) ||
-        order.brand.toString().toLowerCase().includes(searchLower) ||
-        order.quantity.toString().includes(searchLower) ||
-        order.status.toString().toLowerCase().includes(searchLower)||
-        order.whenCamedate?.toString().toLowerCase().includes(searchLower) ||
-        order.price?.toString().includes(searchLower)
+            order.product.toLowerCase().includes(searchLower) ||
+            order.brand.toString().toLowerCase().includes(searchLower) ||
+            order.quantity.toString().includes(searchLower) ||
+            order.status.toString().toLowerCase().includes(searchLower) ||
+            order.whenCamedate?.toString().toLowerCase().includes(searchLower) ||
+            order.price?.toString().includes(searchLower)
     })
 
     useEffect(() => {
