@@ -15,25 +15,8 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import * as XLSX from "xlsx";
 
-const USERS = [
-    { id: "U001", name: "Alexei Petrov", email: "a.petrov@example.com", role: "Admin", status: "Active", orders: 0, joined: "Jan 2024", avatar: "AP" },
-    { id: "U002", name: "Maria Ivanova", email: "m.ivanova@example.com", role: "Manager", status: "Active", orders: 47, joined: "Feb 2024", avatar: "MI" },
-    { id: "U003", name: "John Smith", email: "j.smith@example.com", role: "Client", status: "Active", orders: 12, joined: "Mar 2024", avatar: "JS" },
-    { id: "U004", name: "Li Wei", email: "l.wei@example.com", role: "Client", status: "Active", orders: 8, joined: "Mar 2024", avatar: "LW" },
-    { id: "U005", name: "Omar Hassan", email: "o.hassan@example.com", role: "Manager", status: "Suspended", orders: 31, joined: "Apr 2024", avatar: "OH" },
-    { id: "U006", name: "Sofia Müller", email: "s.muller@example.com", role: "Client", status: "Active", orders: 5, joined: "Apr 2024", avatar: "SM" },
-    { id: "U007", name: "Priya Sharma", email: "p.sharma@example.com", role: "Client", status: "Pending", orders: 0, joined: "May 2024", avatar: "PS" },
-    { id: "U008", name: "Carlos Ruiz", email: "c.ruiz@example.com", role: "Client", status: "Active", orders: 22, joined: "May 2024", avatar: "CR" },
-    { id: "U009", name: "Nina Kozlova", email: "n.kozlova@example.com", role: "Manager", status: "Active", orders: 18, joined: "Jun 2024", avatar: "NK" },
-    { id: "U010", name: "David Kim", email: "d.kim@example.com", role: "Client", status: "Suspended", orders: 3, joined: "Jun 2024", avatar: "DK" },
-];
-const stats = {
-    total: USERS.length,
-    active: USERS.filter((u) => u.status === "Active").length,
-    admins: USERS.filter((u) => u.role === "Admin").length,
-    pending: USERS.filter((u) => u.status === "Pending").length,
-};
 
 type UserType = {
     id: number
@@ -43,6 +26,7 @@ type UserType = {
     email: string
     companyName: string
     avatar: string
+    createdAt: Date
     isDeleted: boolean
 }
 
@@ -50,6 +34,7 @@ export default function AdminUser() {
 
     const [openMenu, setOpenMenu] = useState<number | null>()
     const [users, setUsers] = useState<UserType[]>([])
+    const [search, setSearch] = useState("")
 
     const getAllUsers = async () => {
         try {
@@ -59,9 +44,53 @@ export default function AdminUser() {
             toast.error("ошибка получения пользоватлей")
         }
     }
+
+    const ExportUsers = async () => {
+        try {
+            const rows = users.map(user => ({
+                "id": user.id,
+                "role": user.role,
+                "name": user.name,
+                "lastName": user.lastName,
+                "email": user.email,
+                "companyName": user.companyName,
+                "isDeleted": user.isDeleted,
+                "createdAt": new Date(user.createdAt).toLocaleDateString("ru-RU")
+            }))
+
+            // данные в лсит exel
+            const worksheet = XLSX.utils.json_to_sheet(rows)
+
+            const book = XLSX.utils.book_new()
+
+            XLSX.utils.book_append_sheet(book, worksheet, "Users")
+
+            worksheet["!cols"] = [
+                { wch: 6 }, { wch: 25 }, { wch: 25 },
+                { wch: 30 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, {wch: 15}
+            ]
+
+            XLSX.writeFile(book, "Orders.xlsx")
+            toast.success("Succees")
+        } catch (e) {
+            toast.error("error export users, try again later")
+            console.log(e)
+        }
+    }
+    const filteredUsers = users.filter((u) => {
+        const s = search.toLowerCase()
+        return u.id.toString().includes(s) ||
+            u.role.toLowerCase().includes(s) ||
+            u.name.toLowerCase().includes(s) ||
+            u.lastName.toLowerCase().includes(s) ||
+            u.email.toLowerCase().includes(s) ||
+            u.companyName.toLowerCase().includes(s)
+    })
+
     useEffect(() => {
         getAllUsers()
     }, [])
+
     return (
         <div className='p-10'>
 
@@ -71,7 +100,7 @@ export default function AdminUser() {
                     <span className="text-zinc-400">Manage accounts, roles, and access.</span>
                 </div>
                 <div>
-                    <button className="flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] rounded-xl text-sm text-white hover:opacity-90 transition-opacity">
+                    <button className="flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] rounded-xl text-sm text-white hover:opacity-90  cursor-pointer">
                         Add User
                     </button>
                 </div>
@@ -79,10 +108,10 @@ export default function AdminUser() {
 
             <div className="grid grid-cols-4 gap-5 mt-10">
                 {[
-                    { label: "Total Users", value: stats.total, icon: Users, color: "text-zinc-300", bg: "bg-white/5" },
-                    { label: "Active", value: stats.active, icon: UserCheck, color: "text-green-400", bg: "bg-green-500/10" },
-                    { label: "Admins", value: stats.admins, icon: Crown, color: "text-purple-400", bg: "bg-purple-500/10" },
-                    { label: "Pending", value: stats.pending, icon: UserPlus, color: "text-yellow-400", bg: "bg-yellow-500/10" },
+                    { label: "Total Users", value: users.length, icon: Users, color: "text-zinc-300", bg: "bg-white/5" },
+                    { label: "Active", value: 4, icon: UserCheck, color: "text-green-400", bg: "bg-green-500/10" },
+                    { label: "Admins", value: 1, icon: Crown, color: "text-purple-400", bg: "bg-purple-500/10" },
+                    { label: "Pending", value: 2, icon: UserPlus, color: "text-yellow-400", bg: "bg-yellow-500/10" },
                 ].map((s) => (
                     <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex items-center gap-4">
                         <div className={`w-10 h-10 rounded-xl ${s.bg} flex items-center justify-center`}>
@@ -100,9 +129,12 @@ export default function AdminUser() {
 
                 <div className="relative w-full flex items-center">
                     <Search className="absolute left-3 w-5 h-5 text-zinc-400" />
-                    <input placeholder="Search users..." className="px-10 py-2 w-full text-white bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/30 placeholder:text-zinc-400" />
+                    <input placeholder="Search users..." className="px-10 py-2 w-full text-white bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/30 placeholder:text-zinc-400"
+                        onChange={(e) => setSearch(e.target.value)} />
                 </div>
-                <button className="w-35 rounded-2xl bg-white/5 border  border-white/10 cursor-pointer flex justify-center items-center py-2 text-white gap-3 hover:bg-white/10">
+
+                <button className="w-35 rounded-2xl bg-white/5 border  border-white/10 cursor-pointer flex justify-center items-center py-2 text-white gap-3 hover:bg-white/10"
+                    onClick={ExportUsers}>
                     <Download className="w-3.5 h-3.5" />
                     Export
                 </button>
@@ -131,7 +163,7 @@ export default function AdminUser() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
+                        {filteredUsers.map((user) => (
                             <tr key={user.id}
                                 className={`border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors`}>
 
@@ -149,11 +181,10 @@ export default function AdminUser() {
                                     </div>
                                 </td>
                                 <td className="px-4 py-3.5">
-                                    <span className={`text-xs px-2.5 py-1 rounded-full border ${
-                                        user.role === "admin" ? "text-purple-400 bg-purple-500/10 border-purple-500/20" :
+                                    <span className={`text-xs px-2.5 py-1 rounded-full border ${user.role === "admin" ? "text-purple-400 bg-purple-500/10 border-purple-500/20" :
                                         user.role === "manager" ? "text-blue-400 bg-blue-500/10 border-blue-500/20" :
-                                        "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
-                                    }`}>
+                                            "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+                                        }`}>
                                         {user.role}
                                     </span>
                                 </td>
@@ -163,11 +194,10 @@ export default function AdminUser() {
                                     </span>
                                 </td>
                                 <td className="px-4 py-3.5">
-                                    <span className={`text-xs px-2.5 py-1 rounded-full border ${
-                                        user.isDeleted
-                                            ? "text-red-400 bg-red-500/10 border-red-500/20"
-                                            : "text-green-400 bg-green-500/10 border-green-500/20"
-                                    }`}>
+                                    <span className={`text-xs px-2.5 py-1 rounded-full border ${user.isDeleted
+                                        ? "text-red-400 bg-red-500/10 border-red-500/20"
+                                        : "text-green-400 bg-green-500/10 border-green-500/20"
+                                        }`}>
                                         {user.isDeleted ? "true" : "false"}
                                     </span>
                                 </td>
