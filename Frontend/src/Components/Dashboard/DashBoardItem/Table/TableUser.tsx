@@ -13,7 +13,11 @@ type UserType = {
     isDeleted: boolean
 }
 
-export default function TableUser() {
+type TableUserProps = {
+    search: string 
+}
+
+export default function TableUser({search} : TableUserProps) {
 
     const [users, setUsers] = useState<UserType[]>([])
 
@@ -36,6 +40,18 @@ export default function TableUser() {
         getUsers()
     }, [])
 
+    const filterUser = users.filter((user) => {
+        const s = search?.toLowerCase()
+
+        return user.id.toString().includes(s) ||
+        user.role.toString().toLowerCase().includes(s) || 
+        user.name.toString().toLowerCase().includes(s) || 
+        user.lastName.toString().toLowerCase().includes(s) || 
+        user.email.toString().toLowerCase().includes(s) ||
+        user.companyName.toString().toLowerCase().includes(s) ||
+        user.isDeleted.toString().toLowerCase().includes(s) 
+    })
+
     return (
         <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-5 text-white">
             <div className="mb-5 flex items-center justify-between">
@@ -56,7 +72,7 @@ export default function TableUser() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, i) => (
+                        {filterUser.map((user, i) => (
                             <tr key={i} className="border-b border-white/5 hover:bg-white/5">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{user.id}</td>
                                 <td className="p-4 text-sm">{user.role}</td>
