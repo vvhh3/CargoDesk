@@ -143,10 +143,12 @@ export default function DashboardManager() {
                 </div>
               </div>
             ))}
-            <ModalRequestCard selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
           </div>
         </div>
       </div>
+
+      <ModalRequestCard selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
+      
     </div>
   );
 }

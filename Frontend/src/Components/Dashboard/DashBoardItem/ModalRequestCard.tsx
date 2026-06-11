@@ -20,60 +20,40 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
 
 
     return (
-        <div>{selectedOrder && (
-            <div
-                className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-                onClick={() => setSelectedOrder(null)}
-            >
+        <div>
+            {selectedOrder && (
                 <div
-                    className="bg-[#111113] rounded-2xl p-6 w-150 border border-white/10"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <h2 className="text-2xl font-bold mb-4">
-                        Order #{selectedOrder.id}
-                    </h2>
+                    className="fixed inset-0 bg-black/60 flex items-center justify-center"
+                    onClick={() => setSelectedOrder(null)}>
+                    <div
+                        className="bg-[#111113] rounded-2xl p-6 w-150 border border-white/10"
+                        onClick={(e) => e.stopPropagation()}>
+                        <h2 className="text-2xl font-bold mb-4">Order {selectedOrder.id}</h2>
 
-                    <div className="space-y-3">
-                        <p>
-                            <strong>User:</strong> {selectedOrder.userId}
-                        </p>
+                        <div className="space-y-3">
+                            <p><strong>UserId:</strong> {selectedOrder.userId}</p>
 
-                        <p>
-                            <strong>Product:</strong> {selectedOrder.product}
-                        </p>
+                            <p><strong>Product:</strong> {selectedOrder.product}</p>
 
-                        <p>
-                            <strong>Brand:</strong> {selectedOrder.brand}
-                        </p>
+                            <p><strong>Brand:</strong> {selectedOrder.brand}</p>
 
-                        <p>
-                            <strong>Quantity:</strong> {selectedOrder.quantity}
-                        </p>
+                            <p><strong>Quantity:</strong> {selectedOrder.quantity}</p>
 
-                        <p>
-                            <strong>Status:</strong> {selectedOrder.status}
-                        </p>
+                            <p><strong>Status:</strong> {selectedOrder.status}</p>
 
-                        <p>
-                            <strong>Price:</strong>{" "}
-                            {selectedOrder.price ?? "—"}
-                        </p>
+                            <p><strong>Price:</strong> {selectedOrder.price ?? "—"}</p>
 
-                        <p>
-                            <strong>Date:</strong>{" "}
-                            {new Date(selectedOrder.createdAt
-                            ).toLocaleDateString("ru-RU")}
-                        </p>
+                            <p><strong>Date:</strong> {new Date(selectedOrder.createdAt).toLocaleDateString("ru-RU")}</p>
+                        </div>
+
+                        <button
+                            onClick={() => setSelectedOrder(null)}
+                            className="mt-6 px-4 py-2 rounded-lg bg-red-500 cursor-pointer"
+                        >
+                            Close
+                        </button>
                     </div>
-
-                    <button
-                        onClick={() => setSelectedOrder(null)}
-                        className="mt-6 px-4 py-2 rounded-lg bg-red-500"
-                    >
-                        Close
-                    </button>
                 </div>
-            </div>
-        )}</div>
+            )}</div>
     )
 }
