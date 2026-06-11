@@ -1,21 +1,20 @@
 
+import axios from "axios";
 import {
     Search,
-    Plus,
     MoreHorizontal,
     ChevronDown,
     Mail,
-    Shield,
     UserCheck,
-    User,
     Pencil,
     Trash2,
     Download,
     Users,
     UserPlus,
     Crown,
-    X,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const USERS = [
     { id: "U001", name: "Alexei Petrov", email: "a.petrov@example.com", role: "Admin", status: "Active", orders: 0, joined: "Jan 2024", avatar: "AP" },
@@ -36,12 +35,37 @@ const stats = {
     pending: USERS.filter((u) => u.status === "Pending").length,
 };
 
+type UserType = {
+    id: number
+    role: string
+    name: string
+    lastName: string
+    email: string
+    companyName: string
+    avatar: string
+    isDeleted: boolean
+}
+
 export default function AdminUser() {
 
+    const [openMenu, setOpenMenu] = useState<number | null>()
+    const [users, setUsers] = useState<UserType[]>([])
+
+    const getAllUsers = async () => {
+        try {
+            const res = await axios.get("http://localhost:5000/admin/users", { withCredentials: true })
+            setUsers(res.data)
+        } catch (e) {
+            toast.error("ошибка получения пользоватлей")
+        }
+    }
+    useEffect(() => {
+        getAllUsers()
+    }, [])
     return (
         <div className='p-10'>
-            <div className="flex w-full justify-between text-white">
 
+            <div className="flex w-full justify-between text-white">
                 <div className="flex flex-col">
                     <h1 className="text-2xl">Users</h1>
                     <span className="text-zinc-400">Manage accounts, roles, and access.</span>
@@ -52,6 +76,7 @@ export default function AdminUser() {
                     </button>
                 </div>
             </div>
+
             <div className="grid grid-cols-4 gap-5 mt-10">
                 {[
                     { label: "Total Users", value: stats.total, icon: Users, color: "text-zinc-300", bg: "bg-white/5" },
@@ -81,6 +106,98 @@ export default function AdminUser() {
                     <Download className="w-3.5 h-3.5" />
                     Export
                 </button>
+            </div>
+
+            <div className="bg-white/3 border border-white/8 rounded-2xl mt-10">
+                <table className="w-full">
+                    <thead>
+                        <tr className="border-b border-white/8">
+                            <th className="text-left text-xs font-medium text-zinc-500 px-4 py-3 uppercase tracking-wider">
+                                Id
+                            </th>
+                            <th className="text-left text-xs font-medium text-zinc-500 px-4 py-3 uppercase tracking-wider">
+                                User
+                            </th>
+                            <th className="text-left text-xs font-medium text-zinc-500 px-4 py-3 uppercase tracking-wider">
+                                Role
+                            </th>
+                            <th className="text-left text-xs font-medium text-zinc-500 px-4 py-3 uppercase tracking-wider">
+                                companyName
+                            </th>
+                            <th className="text-left text-xs font-medium text-zinc-500 px-4 py-3 uppercase tracking-wider">
+                                isDeleted
+                            </th>
+                            <th className="w-10 px-4 py-3" />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user) => (
+                            <tr key={user.id}
+                                className={`border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors`}>
+
+                                <td className="px-4 py-3.5">
+                                    <span className="text-xs px-2.5 py-1 rounded-full border text-[#7C3AED] bg-[#7C3AED]/10 border-[#7C3AED]/20">
+                                        {user.id}
+                                    </span>
+                                </td>
+                                <td className="px-4 py-3.5">
+                                    <div className="flex items-center gap-3">
+                                        <div>
+                                            <div className="text-sm font-medium text-white">{user.name} {user.lastName}</div>
+                                            <div className="text-xs text-zinc-500">{user.email}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="px-4 py-3.5">
+                                    <span className={`text-xs px-2.5 py-1 rounded-full border ${
+                                        user.role === "admin" ? "text-purple-400 bg-purple-500/10 border-purple-500/20" :
+                                        user.role === "manager" ? "text-blue-400 bg-blue-500/10 border-blue-500/20" :
+                                        "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+                                    }`}>
+                                        {user.role}
+                                    </span>
+                                </td>
+                                <td className="px-4 py-3.5">
+                                    <span className="text-xs px-2.5 py-1 rounded-full border text-cyan-400 bg-cyan-500/10 border-cyan-500/20">
+                                        {user.companyName}
+                                    </span>
+                                </td>
+                                <td className="px-4 py-3.5">
+                                    <span className={`text-xs px-2.5 py-1 rounded-full border ${
+                                        user.isDeleted
+                                            ? "text-red-400 bg-red-500/10 border-red-500/20"
+                                            : "text-green-400 bg-green-500/10 border-green-500/20"
+                                    }`}>
+                                        {user.isDeleted ? "true" : "false"}
+                                    </span>
+                                </td>
+                                <td className="px-4 py-3.5 relative">
+                                    <button onClick={() => setOpenMenu(openMenu === user.id ? null : user.id)}
+                                        className="p-1 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-colors">
+                                        <MoreHorizontal className="w-4 h-4" />
+                                    </button>
+                                    {openMenu === user.id && (
+                                        <div className="absolute right-4 top-10 z-20 bg-[#18181B] border border-white/10 rounded-xl shadow-xl py-1 w-44">
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
+                                                <Pencil className="w-4 h-4" /> Edit Profile
+                                            </button>
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
+                                                <ChevronDown className="w-4 h-4" /> Change Role
+                                            </button>
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
+                                                <Mail className="w-4 h-4" /> Send Email
+                                            </button>
+                                            <div className="border-t border-white/5 my-1" />
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors">
+                                                <Trash2 className="w-4 h-4" /> Delete User
+                                            </button>
+                                        </div>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     )

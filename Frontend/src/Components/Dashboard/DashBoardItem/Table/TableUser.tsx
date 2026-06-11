@@ -75,12 +75,16 @@ export default function TableUser({search} : TableUserProps) {
                         {filterUser.map((user, i) => (
                             <tr key={i} className="border-b border-white/5 hover:bg-white/5 dark:border-black">
                                 <td className="p-4 text-sm font-medium text-[#7C3AED]">{user.id}</td>
-                                <td className="p-4 text-sm">{user.role}</td>
+                                <td className={`p-4 text-sm font-medium ${
+                                    user.role === "admin" ? "text-purple-400" :
+                                    user.role === "manager" ? "text-blue-400" :
+                                    "text-emerald-400"
+                                }`}>{user.role}</td>
                                 <td className="p-4 text-sm">{user.name}</td>
                                 <td className="text-sm font-medium">{user.lastName}</td>
                                 <td className="p-4 text-sm font-medium ">{user.email}</td>
-                                <td className="p-4 text-sm font-medium ">{user.companyName}</td>
-                                <td className="p-4 text-sm font-medium ">{user.isDeleted ? "удалён" : "не удалён"}</td>
+                                <td className="p-4 text-sm font-medium text-cyan-400">{user.companyName}</td>
+                                <td className={`p-4 text-sm font-medium ${user.isDeleted ? "text-red-400" : "text-green-400"}`}>{user.isDeleted ? "удалён" : "не удалён"}</td>
                             </tr>
                         ))}
                     </tbody>

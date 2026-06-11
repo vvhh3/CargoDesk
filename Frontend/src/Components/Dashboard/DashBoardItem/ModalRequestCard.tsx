@@ -51,6 +51,7 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
                         </button>
                     </div>
                 </div>
-            )}</div>
+            )}
+        </div>
     )
 }
