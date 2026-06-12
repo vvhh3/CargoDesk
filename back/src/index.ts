@@ -15,6 +15,7 @@ import { logout } from "./Controlers/ProfileController.ts"
 import { getAllUser, getRequsetByManager, getUsersByManager } from "./Controlers/GetControler.ts"
 
 import {generateData} from "./seed.ts"
+import { DeleteUser } from "./utils/DeleteUser.tsx"
 
 dotenv.config()
 
@@ -36,7 +37,8 @@ app.post("/logout",logout)
 app.post("/order", authMiddleware, createRequest)
 
 //PATCH
-app.patch("/users/role", authMiddleware, RoleMiddleware([UserRole.admin]),setRole) // ПРОВЕРИТЬ
+app.patch("/users/role", authMiddleware, RoleMiddleware([UserRole.admin]), setRole) 
+app.patch("/users/delete", authMiddleware, RoleMiddleware([UserRole.admin]), DeleteUser)
 
 //GET
 app.get("/auth/me",authMiddleware, getUser)

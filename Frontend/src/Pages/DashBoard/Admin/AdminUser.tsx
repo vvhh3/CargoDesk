@@ -91,7 +91,22 @@ export default function AdminUser() {
             setOpenMenu(null)
             toast.success(res.data.message)
         } catch (e: any) {
-            toast.error(e.responce.data.message || "error")
+            toast.error(e.response.data.message || "error")
+        }
+    }
+
+    const DeleteUser = async (del: boolean) => {
+        try {
+            const res = await axios.patch("http://localhost:5000/users/delete", {
+                id: openMenu,
+                isDeleted: del
+            }, {
+                withCredentials: true
+            })
+            setOpenMenu(null)
+            toast.success(res.data || "1")
+        } catch (e: any) {
+            toast.error(e.response.data.message || "error")
         }
     }
 
@@ -107,7 +122,7 @@ export default function AdminUser() {
 
     useEffect(() => {
         getAllUsers()
-    }, [ChangeRole])
+    }, [ChangeRole,DeleteUser])
 
     return (
         <div className='p-10'>
@@ -232,7 +247,7 @@ export default function AdminUser() {
 
 
                                             <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white "
-                                            onClick={() => setOpenChangeRole(openChangeRole ? false : true)}>
+                                                onClick={() => setOpenChangeRole(openChangeRole ? false : true)}>
                                                 <ChevronDown className="w-4 h-4" /> Change Role
                                             </button>
 
@@ -255,9 +270,19 @@ export default function AdminUser() {
                                                 <Mail className="w-4 h-4" /> Send Email
                                             </button>
                                             <div className="border-t border-white/5 my-1" />
-                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 ">
-                                                <Trash2 className="w-4 h-4" /> Delete User
-                                            </button>
+
+                                            {user.isDeleted ? <>
+                                                <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-green-400 hover:bg-red-500/10 "
+                                                onClick={() => DeleteUser(false)}>
+                                                    UnBan User
+                                                </button>
+                                            </> : <>
+                                                <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 "
+                                                onClick={() => DeleteUser(true)}>
+                                                    <Trash2 className="w-4 h-4" /> Delete User
+                                                </button>
+                                            </>}
+                                            
                                         </div>
                                     )}
                                 </td>
