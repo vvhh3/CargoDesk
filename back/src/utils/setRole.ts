@@ -17,7 +17,7 @@ export const setRole = async (req: Request,res: Response) => {
 
         await user.update({role})
 
-        return res.json({user})
+        return res.json({ message: "succees"})
     }catch(e){
         console.log(e)
         return res.status(500).json({message:"server error"})

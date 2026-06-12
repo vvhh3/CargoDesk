@@ -33,6 +33,8 @@ type UserType = {
 export default function AdminUser() {
 
     const [openMenu, setOpenMenu] = useState<number | null>()
+    const [openChangeRole, setOpenChangeRole] = useState(false)
+
     const [users, setUsers] = useState<UserType[]>([])
     const [search, setSearch] = useState("")
 
@@ -67,7 +69,7 @@ export default function AdminUser() {
 
             worksheet["!cols"] = [
                 { wch: 6 }, { wch: 25 }, { wch: 25 },
-                { wch: 30 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, {wch: 15}
+                { wch: 30 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, { wch: 15 }
             ]
 
             XLSX.writeFile(book, "Orders.xlsx")
@@ -77,6 +79,22 @@ export default function AdminUser() {
             console.log(e)
         }
     }
+
+    const ChangeRole = async (changeRole: string) => {
+        try {
+            const res = await axios.patch("http://localhost:5000/users/role", {
+                id: openMenu,
+                role: changeRole
+            }, {
+                withCredentials: true
+            })
+            setOpenMenu(null)
+            toast.success(res.data.message)
+        } catch (e: any) {
+            toast.error(e.responce.data.message || "error")
+        }
+    }
+
     const filteredUsers = users.filter((u) => {
         const s = search.toLowerCase()
         return u.id.toString().includes(s) ||
@@ -89,7 +107,7 @@ export default function AdminUser() {
 
     useEffect(() => {
         getAllUsers()
-    }, [])
+    }, [ChangeRole])
 
     return (
         <div className='p-10'>
@@ -203,22 +221,41 @@ export default function AdminUser() {
                                 </td>
                                 <td className="px-4 py-3.5 relative">
                                     <button onClick={() => setOpenMenu(openMenu === user.id ? null : user.id)}
-                                        className="p-1 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 transition-colors">
+                                        className="p-1 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5 ">
                                         <MoreHorizontal className="w-4 h-4" />
                                     </button>
                                     {openMenu === user.id && (
                                         <div className="absolute right-4 top-10 z-20 bg-[#18181B] border border-white/10 rounded-xl shadow-xl py-1 w-44">
-                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white ">
                                                 <Pencil className="w-4 h-4" /> Edit Profile
                                             </button>
-                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
+
+
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white "
+                                            onClick={() => setOpenChangeRole(openChangeRole ? false : true)}>
                                                 <ChevronDown className="w-4 h-4" /> Change Role
                                             </button>
-                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
+
+                                            {openChangeRole ? <>
+                                                <button onClick={() => ChangeRole("client")}
+                                                    className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white ">
+                                                    client
+                                                </button>
+                                                <button onClick={() => ChangeRole("manager")}
+                                                    className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white ">
+                                                    manager
+                                                </button>
+                                                <button onClick={() => ChangeRole("admin")}
+                                                    className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white ">
+                                                    admin
+                                                </button>
+                                            </> : null}
+
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white ">
                                                 <Mail className="w-4 h-4" /> Send Email
                                             </button>
                                             <div className="border-t border-white/5 my-1" />
-                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors">
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 ">
                                                 <Trash2 className="w-4 h-4" /> Delete User
                                             </button>
                                         </div>
