@@ -128,7 +128,7 @@ const LogIn = () => {
                                 placeholder="email"
                                 value={loginForm.email}
                                 onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                                className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED] transition-all" />
+                                className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED]" />
                         </div>
                         {/* password */}
                         <div className="relative flex  flex-col gap-3">
@@ -138,7 +138,7 @@ const LogIn = () => {
                                 placeholder="password"
                                 value={loginForm.password}
                                 onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                                className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED] transition-all" />
+                                className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED]" />
                         </div>
                     </div>
 

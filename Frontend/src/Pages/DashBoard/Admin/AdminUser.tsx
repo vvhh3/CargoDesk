@@ -16,7 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
-
+import ModalUserEdit from "../../../Components/Dashboard/DashBoardItem/Modal/ModalUserEdit";
 
 type UserType = {
     id: number
@@ -37,6 +37,8 @@ export default function AdminUser() {
 
     const [users, setUsers] = useState<UserType[]>([])
     const [search, setSearch] = useState("")
+
+    const [selectUser,setSelectUser] = useState<UserType | null>(null)
 
     const getAllUsers = async () => {
         try {
@@ -241,7 +243,8 @@ export default function AdminUser() {
                                     </button>
                                     {openMenu === user.id && (
                                         <div className="absolute right-4 top-10 z-20 bg-[#18181B] border border-white/10 rounded-xl shadow-xl py-1 w-44">
-                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white ">
+                                            <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white "
+                                            onClick={() => setSelectUser(user)}>
                                                 <Pencil className="w-4 h-4" /> Edit Profile
                                             </button>
 
@@ -291,6 +294,7 @@ export default function AdminUser() {
                     </tbody>
                 </table>
             </div>
+            <ModalUserEdit user={selectUser} onSelectedUser={setSelectUser}/>
         </div>
     )
 }

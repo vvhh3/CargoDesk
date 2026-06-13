@@ -1,16 +1,11 @@
-import { Search, Eye, CheckCircle, AlertCircle, Clock } from "lucide-react";
+import { Search, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
-import ModalRequestCard from "./ModalRequestCard";
+import ModalRequestCard from "./Modal/ModalRequestCard";
 import axios from "axios";
 import toast from "react-hot-toast";
 const tabs = ['waitingManager', 'approved', 'rejected', 'processing', 'inTransit', 'delivered', 'cancelled'];
 
-const stats = [
-    { label: 'На рассмотрении', value: '12', color: 'from-[#F59E0B] to-[#D97706]', icon: AlertCircle },
-    { label: 'В работе', value: '28', color: 'from-[#3B82F6] to-[#2563EB]', icon: Clock },
-    { label: 'Ожидает оплаты', value: '8', color: 'from-[#8B5CF6] to-[#7C3AED]', icon: Clock },
-    { label: 'Завершено сегодня', value: '45', color: 'from-[#22C55E] to-[#16A34A]', icon: CheckCircle },
-];
+
 type RequestOrder = {
     id: number,
     userId: number,
