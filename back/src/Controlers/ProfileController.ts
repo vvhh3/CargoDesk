@@ -22,7 +22,7 @@ export const logout = async (req: Request, res: Response) => {
     }
 }
 
-//Проверить!
+
 export const deleteProfile = async (req: AuthRequest, res: Response) => {
     try {
 

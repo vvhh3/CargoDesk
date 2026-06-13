@@ -38,7 +38,7 @@ export default function AdminUser() {
     const [users, setUsers] = useState<UserType[]>([])
     const [search, setSearch] = useState("")
 
-    const [selectUser,setSelectUser] = useState<UserType | null>(null)
+    const [selectUser, setSelectUser] = useState<UserType | null>(null)
 
     const getAllUsers = async () => {
         try {
@@ -124,7 +124,7 @@ export default function AdminUser() {
 
     useEffect(() => {
         getAllUsers()
-    }, [ChangeRole,DeleteUser])
+    }, [ChangeRole, DeleteUser])
 
     return (
         <div className='p-10'>
@@ -244,7 +244,10 @@ export default function AdminUser() {
                                     {openMenu === user.id && (
                                         <div className="absolute right-4 top-10 z-20 bg-[#18181B] border border-white/10 rounded-xl shadow-xl py-1 w-44">
                                             <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white "
-                                            onClick={() => setSelectUser(user)}>
+                                                onClick={() => {
+                                                    setSelectUser(user)
+                                                    setOpenMenu(null)
+                                                }}>
                                                 <Pencil className="w-4 h-4" /> Edit Profile
                                             </button>
 
@@ -276,16 +279,16 @@ export default function AdminUser() {
 
                                             {user.isDeleted ? <>
                                                 <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-green-400 hover:bg-red-500/10 "
-                                                onClick={() => DeleteUser(false)}>
+                                                    onClick={() => DeleteUser(false)}>
                                                     UnBan User
                                                 </button>
                                             </> : <>
                                                 <button className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 "
-                                                onClick={() => DeleteUser(true)}>
+                                                    onClick={() => DeleteUser(true)}>
                                                     <Trash2 className="w-4 h-4" /> Delete User
                                                 </button>
                                             </>}
-                                            
+
                                         </div>
                                     )}
                                 </td>
@@ -294,7 +297,7 @@ export default function AdminUser() {
                     </tbody>
                 </table>
             </div>
-            <ModalUserEdit user={selectUser} onSelectedUser={setSelectUser}/>
+            {selectUser && <ModalUserEdit user={selectUser} onSelectedUser={setSelectUser} />}
         </div>
     )
 }
