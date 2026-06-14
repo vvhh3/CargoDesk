@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { Package } from "lucide-react"
+
 const Logo = () => {
     return (
         <div className="flex gap-3 items-center">
@@ -10,4 +11,5 @@ const Logo = () => {
         </div>
     )
 }
+
 export default Logo
