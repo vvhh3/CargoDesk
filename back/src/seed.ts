@@ -34,7 +34,6 @@ export const generateData = async () => {
             const userIds = users.map((user: any) => user.id)
 
             for (let i = 0; i < 10; i++) {
-
                 await Order.create({
                     userId: faker.helpers.arrayElement(userIds),
                     link: faker.internet.url(),
@@ -43,9 +42,7 @@ export const generateData = async () => {
                     quantity: faker.number.int({ min: 1, max: 100 }),
                     price: faker.number.int({ min: 1000, max: 50000 }),
                     status: faker.helpers.arrayElement(Object.values(OrderStatus)),
-                    productImages: [
-                        faker.image.url()
-                    ]
+                    productImages: [faker.image.url()]
                 })
             }
         }
