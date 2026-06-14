@@ -9,7 +9,6 @@ type UserType = {
     lastName: string
     email: string
     companyName: string
-    avatar: string
     createdAt: Date
     isDeleted: boolean
 }
@@ -53,6 +52,7 @@ export default function ModalUserEdit({ user, onSelectedUser }: ModalUserProps) 
             toast.error(e.response.data.message)
         }
     }
+
     return (
         <div >
             {user && (
