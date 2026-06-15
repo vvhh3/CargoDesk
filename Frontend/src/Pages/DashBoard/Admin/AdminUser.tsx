@@ -90,6 +90,7 @@ export default function AdminUser() {
             }, {
                 withCredentials: true
             })
+            setOpenChangeRole(false)
             setOpenMenu(null)
             toast.success(res.data.message)
         } catch (e: any) {
