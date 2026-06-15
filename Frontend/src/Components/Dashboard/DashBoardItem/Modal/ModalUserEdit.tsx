@@ -9,9 +9,11 @@ type UserType = {
     lastName: string
     email: string
     companyName: string
+    avatar: string
     createdAt: Date
     isDeleted: boolean
 }
+
 
 type ModalUserProps = {
     user: UserType | null
