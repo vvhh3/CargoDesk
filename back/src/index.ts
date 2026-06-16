@@ -17,6 +17,7 @@ import { getAllUser, getRequsetByManager, getUsersByManager } from "./Controlers
 import {generateData} from "./seed.ts"
 import { DeleteUser } from "./utils/DeleteUser.ts"
 import { EditUser } from "./Controlers/UserControler.ts"
+import { AcceptOrder } from "./Controlers/OrderControler.ts"
 
 dotenv.config()
 
@@ -42,6 +43,8 @@ app.patch("/users/role", authMiddleware, RoleMiddleware([UserRole.admin]), setRo
 app.patch("/users/delete", authMiddleware, RoleMiddleware([UserRole.admin]), DeleteUser)
 
 app.put("/users/edit", authMiddleware, RoleMiddleware([UserRole.admin]), EditUser)
+
+app.put("/order/accept", authMiddleware, RoleMiddleware([UserRole.manager, UserRole.admin]), AcceptOrder)
 
 //GET
 app.get("/auth/me",authMiddleware, getUser)

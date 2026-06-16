@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import ModalRequestCard from "./Modal/ModalRequestCard";
 import axios from "axios";
 import toast from "react-hot-toast";
-const tabs = ['waitingManager', 'approved', 'rejected', 'processing', 'inTransit', 'delivered', 'cancelled'];
 
+const tabs = ['waitingManager', 'approved', 'rejected', 'processing', 'inTransit', 'delivered', 'cancelled'];
 
 type RequestOrder = {
     id: number,
@@ -35,6 +35,7 @@ export default function RequestTab() {
             req.quantity.toString().includes(s) ||
             req.status.toLowerCase().includes(s)
     })
+
     const getRequests = async () => {
         try {
             const res = await axios.get("http://localhost:5000/manager/request", {
@@ -50,17 +51,18 @@ export default function RequestTab() {
     useEffect(() => {
         getRequests()
     }, [])
-    
+
     return (
-        <div><div className="mb-6">
-            <div className="flex items-center gap-2 p-1 rounded-xl bg-white/5 border border-white/10 w-fit">
-                {tabs.map((tab) => (
-                    <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-2.5 rounded-lg transition-all text-sm ${activeTab === tab ? 'bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white' : 'text-zinc-400 hover:text-white'}`}>
-                        {tab}
-                    </button>
-                ))}
+        <div>
+            <div className="mb-6">
+                <div className="flex items-center gap-2 p-1 rounded-xl bg-white/5 border border-white/10 w-fit">
+                    {tabs.map((tab) => (
+                        <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-2.5 rounded-lg transition-all text-sm ${activeTab === tab ? 'bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white' : 'text-zinc-400 hover:text-white'}`}>
+                            {tab}
+                        </button>
+                    ))}
+                </div>
             </div>
-        </div>
 
             <div className="flex items-center gap-4 mb-6">
                 <div className="relative flex-1">
@@ -113,6 +115,7 @@ export default function RequestTab() {
                     </div>
                 ))}
             </div>
+            
             <ModalRequestCard selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
         </div>
     )

@@ -69,8 +69,8 @@ export const getAllOrderManager = async (req: AuthRequest,res: Response) => {
 }
 
 export const getAllOrderUser = async (req: AuthRequest,res: Response) => {
-    try{
 
+    try{
         const orders = await Order.findAll({
             where: {userId: req.id}
         })
@@ -79,6 +79,43 @@ export const getAllOrderUser = async (req: AuthRequest,res: Response) => {
             message: "success",
             orders
         })
+    }catch(e){
+        return res.status(500).json({
+            message: "server error"
+        })
+    }
+}
+
+export const AcceptOrder = async (req: AuthRequest,res: Response) => {
+    try{
+        const {id,idOrder, whenDate, price} = req.body
+
+        if(!idOrder|| !id || !whenDate || !price){
+            return res.status(400).json({
+                message:" data is failid"
+            })
+        }
+
+        const order = await Order.findByPk(idOrder)
+
+        if(!order){
+            return res.status(400).json({
+                message:" order not found"
+            }) 
+        }
+
+        await order.update({
+            status: OrderStatus.approved,
+            managerId: id,
+            whenCamedate: whenDate,
+            price: price,
+            approvedAt: new Date(),
+        })
+        
+        return res.status(200).json({
+            message: "success"
+        })
+
     }catch(e){
         return res.status(500).json({
             message: "server error"
