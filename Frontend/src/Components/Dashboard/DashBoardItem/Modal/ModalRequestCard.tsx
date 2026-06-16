@@ -28,10 +28,6 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
     const AcceptOrder = async (idOrder: number) => {
 
         try {
-            console.log("dataId",user.id)
-            console.log("idOrder",idOrder)
-            console.log("whenDate",acceptDate.whenDate)
-            console.log("price",acceptDate.price)
             const res = await axios.put("http://localhost:5000/order/accept", {
                 id: user.id,
                 idOrder: idOrder,
