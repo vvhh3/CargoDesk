@@ -15,8 +15,8 @@ import { logout } from "./Controlers/ProfileController.ts"
 import { getAllUser, getRequsetByManager, getUsersByManager } from "./Controlers/GetControler.ts"
 
 import {generateData} from "./seed.ts"
-import { DeleteUser } from "./utils/DeleteUser.tsx"
-import { EditUser } from "./Controlers/UserControler.tsx"
+import { DeleteUser } from "./utils/DeleteUser.ts"
+import { EditUser } from "./Controlers/UserControler.ts"
 
 dotenv.config()
 

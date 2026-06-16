@@ -43,10 +43,8 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
                             <p><strong>Date:</strong> {new Date(selectedOrder.createdAt).toLocaleDateString("ru-RU")}</p>
                         </div>
 
-                        <button
-                            onClick={() => setSelectedOrder(null)}
-                            className="mt-6 px-4 py-2 rounded-lg bg-red-500 cursor-pointer"
-                        >
+                        <button onClick={() => setSelectedOrder(null)}
+                            className="mt-6 px-4 py-2 rounded-lg bg-red-500 cursor-pointer">
                             Close
                         </button>
                     </div>

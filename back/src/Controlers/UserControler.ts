@@ -2,6 +2,7 @@ import type { Request, Response } from "express"
 import { User } from "../Models/User"
 
 export const EditUser = async (req: Request,res: Response) => {
+    
     try{
         const {
             id,
