@@ -96,8 +96,8 @@ export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
                                         {statusConfig[order.status].label}
                                     </span>
                                 </td>
-                                <td className="p-4 text-sm text-zinc-400">{order.whenCamedate}</td>
-                                <td className="p-4 text-sm font-medium text-right">{order.price}</td>
+                                <td className="p-4 text-sm text-zinc-400">{ order.whenCamedate ? new Date(order.whenCamedate).toLocaleDateString("ru-RU") : "—" }</td>
+                                <td className="p-4 text-sm font-medium text-right">{order.price ? order.price : '-'}</td>
                             </tr>
                         ))}
                     </tbody>

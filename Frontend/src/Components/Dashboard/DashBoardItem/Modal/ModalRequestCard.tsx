@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { useStoreAuth } from "../../../../Store/AuthStore"
 
@@ -26,7 +26,6 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
     const user = useStoreAuth(store => store.user)
 
     const AcceptOrder = async (idOrder: number) => {
-
         try {
             const res = await axios.put("http://localhost:5000/order/accept", {
                 id: user.id,
@@ -46,7 +45,6 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
 
     const RejestOrder = async (idOrder: number) => {
         try {
-
             const res = await axios.put("http://localhost:5000/order/rejest", {
                 id: user.id,
                 idOrder: idOrder
@@ -60,8 +58,13 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
             toast.error(e.response.data.message)
         }
     }
+
+    useEffect(() => {
+        setAcceptDate({ whenDate: selectedOrder?.whenCamedate, price: selectedOrder?.price })
+    }, [selectedOrder])
+
     return (
-        <div>
+        <div >
             {selectedOrder && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
                     <div className="bg-white rounded-2xl p-6 w-150 border border-white/10 text-black"
@@ -90,7 +93,7 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
                             </div>
                             <div>
                                 <label className="text-xs text-gray-500 mb-1 block">Price</label>
-                                <input value={acceptDate.whenDate ?? 0}
+                                <input value={acceptDate.whenDate ?? ""}
                                     type="date"
                                     onChange={(e) => setAcceptDate({ ...acceptDate, whenDate: e.target.value })}
                                     className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-black placeholder:text-gray-600 focus:outline-none focus:border-purple-500 " />
