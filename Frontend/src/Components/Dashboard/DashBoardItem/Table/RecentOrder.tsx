@@ -35,7 +35,6 @@ export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
 
     const getOrder = async () => {
         try {
-            console.log(user)
             const res = await axios.get(`http://localhost:5000/${user.role === "manager" ?
                 "manager/orders" : user.role === "admin" ? "/manager/request" : "client/orders"}`,
                 {

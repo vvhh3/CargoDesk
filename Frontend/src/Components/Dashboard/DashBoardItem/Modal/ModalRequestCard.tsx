@@ -23,7 +23,7 @@ type ModalRequestCardProps = {
 export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: ModalRequestCardProps) {
 
     const [acceptDate, setAcceptDate] = useState({ whenDate: selectedOrder?.whenCamedate, price: selectedOrder?.price })
-    const user =  useStoreAuth(store => store.user)
+    const user = useStoreAuth(store => store.user)
 
     const AcceptOrder = async (idOrder: number) => {
 
@@ -38,12 +38,28 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
             })
 
             toast.success(res.data.message)
-
+            setSelectedOrder(null)
         } catch (e: any) {
             toast.error(e.response.data.message)
         }
     }
-    
+
+    const RejestOrder = async (idOrder: number) => {
+        try {
+
+            const res = await axios.put("http://localhost:5000/order/rejest", {
+                id: user.id,
+                idOrder: idOrder
+            }, {
+                withCredentials: true
+            })
+
+            toast.success(res.data.message)
+            setSelectedOrder(null)
+        } catch (e: any) {
+            toast.error(e.response.data.message)
+        }
+    }
     return (
         <div>
             {selectedOrder && (
@@ -91,7 +107,8 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
                                     Подтвердить
                                 </button>
 
-                                <button className="mt-6 px-4 py-2 rounded-lg bg-red-500 cursor-pointer">
+                                <button className="mt-6 px-4 py-2 rounded-lg bg-red-500 cursor-pointer"
+                                    onClick={() => RejestOrder(selectedOrder.id)}>
                                     Отклонить
                                 </button>
                             </div>

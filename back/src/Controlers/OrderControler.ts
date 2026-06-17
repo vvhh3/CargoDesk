@@ -122,3 +122,31 @@ export const AcceptOrder = async (req: AuthRequest,res: Response) => {
         })
     }
 }
+export const RejestOrder = async (req: AuthRequest,res: Response) => {
+    try{
+        const {id,idOrder} = req.body
+
+        if(!id || !idOrder){
+            return res.status(400).json({
+                message: "data is failid"
+            })
+        }
+        
+        const order = await Order.findByPk(idOrder)
+        
+        if(!order){
+            return res.status(400).json({
+                message: "not found order"
+            })
+        }
+        await order.update({
+            status: OrderStatus.rejected,
+            managerId: id
+        })
+        return res.status(200).json({
+            message: "success"
+        })
+    }catch(e){
+        return
+    }
+}

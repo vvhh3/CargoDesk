@@ -50,7 +50,7 @@ export default function RequestTab() {
 
     useEffect(() => {
         getRequests()
-    }, [])
+    }, [selectedOrder,setSelectedOrder])
 
     return (
         <div>

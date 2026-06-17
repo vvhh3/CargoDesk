@@ -3,7 +3,7 @@ import cors from "cors"
 import dotenv from 'dotenv'
 import {register, login,getUser,registryGoogle} from "./Controlers/AuthControler.ts"
 import {authMiddleware} from "./middleware/AuthMiddleware.ts"
-import {createRequest,getAllOrderUser,getAllOrderManager} from "./Controlers/OrderControler.ts"
+import {createRequest,getAllOrderUser,getAllOrderManager, RejestOrder} from "./Controlers/OrderControler.ts"
 import { setRole } from "./utils/setRole.ts"
 
 import { sequelize } from "./db.ts"
@@ -45,6 +45,7 @@ app.patch("/users/delete", authMiddleware, RoleMiddleware([UserRole.admin]), Del
 app.put("/users/edit", authMiddleware, RoleMiddleware([UserRole.admin]), EditUser)
 
 app.put("/order/accept", authMiddleware, RoleMiddleware([UserRole.manager, UserRole.admin]), AcceptOrder)
+app.put("/order/rejest", authMiddleware, RoleMiddleware([UserRole.manager, UserRole.admin]), RejestOrder)
 
 //GET
 app.get("/auth/me",authMiddleware, getUser)
