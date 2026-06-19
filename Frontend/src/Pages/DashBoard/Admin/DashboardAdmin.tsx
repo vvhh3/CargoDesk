@@ -1,6 +1,5 @@
 import {
   TrendingUp,
-  TrendingDown,
   DollarSign,
   Package,
   Users,
@@ -288,7 +287,7 @@ const  DashboardAdmin = () => {
 
                     <div className="w-24 h-12">
                       <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={Array.from({ length: 7 }, (_, idx) => ({ value: Math.random() * 50 + 50 }))}>
+                        <LineChart data={Array.from({ length: 7 }, (_) => ({ value: Math.random() * 50 + 50 }))}>
                           <Line type="monotone" dataKey="value" stroke="#7C3AED" strokeWidth={2} dot={false} />
                         </LineChart>
                       </ResponsiveContainer>
