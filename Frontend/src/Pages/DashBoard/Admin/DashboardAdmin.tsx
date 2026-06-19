@@ -1,5 +1,3 @@
-import { Sidebar } from "../components/Sidebar";
-import { Topbar } from "../components/Topbar";
 import {
   TrendingUp,
   TrendingDown,
@@ -15,8 +13,6 @@ import {
 import {
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   LineChart,
   Line,
   PieChart,
@@ -27,7 +23,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 
 const revenueData = [
@@ -107,24 +102,21 @@ const recentActivity = [
   { action: 'New user registered', user: 'Emma Davis', amount: '-', time: '12 min ago' },
   { action: 'Refund processed', user: 'Lisa Wilson', amount: '$349', time: '15 min ago' },
 ];
-
-export function AdminAnalyticsPage() {
+const  DashboardAdmin = () => {
   return (
     <div className="flex h-screen bg-[#09090B] text-white overflow-hidden">
-      <Sidebar role="admin" />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Topbar title="Analytics Dashboard" />
 
         <div className="flex-1 overflow-y-auto p-8">
           {/* Top Stats */}
           <div className="grid grid-cols-4 gap-6 mb-8">
             {stats.map((stat, i) => (
               <div key={i} className="relative group">
-                <div className={`absolute -inset-0.5 bg-gradient-to-r ${stat.color} rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity`}></div>
+                <div className={`absolute -inset-0.5 bg-linear-to-r ${stat.color} rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity`}></div>
                 <div className="relative p-6 rounded-2xl bg-[#111113] border border-white/10 backdrop-blur-xl">
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
+                    <div className={`w-12 h-12 rounded-xl bg-linear-to-br ${stat.color} flex items-center justify-center`}>
                       <stat.icon className="w-6 h-6" />
                     </div>
                     <div className={`flex items-center gap-1 px-2 py-1 rounded-lg ${stat.trend === 'up' ? 'bg-[#22C55E]/10 text-[#22C55E]' : 'bg-[#EF4444]/10 text-[#EF4444]'}`}>
@@ -141,7 +133,7 @@ export function AdminAnalyticsPage() {
                     {stat.chartData.map((value, idx) => (
                       <div
                         key={idx}
-                        className={`flex-1 rounded-t bg-gradient-to-t ${stat.color} opacity-60`}
+                        className={`flex-1 rounded-t bg-linear-to-t ${stat.color} opacity-60`}
                         style={{ height: `${(value / Math.max(...stat.chartData)) * 100}%` }}
                       ></div>
                     ))}
@@ -160,7 +152,7 @@ export function AdminAnalyticsPage() {
                   <p className="text-sm text-zinc-400">Monthly revenue and profit trends</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] text-sm">
+                  <button className="px-3 py-1.5 rounded-lg bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-sm">
                     Revenue
                   </button>
                   <button className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-sm text-zinc-400">
@@ -265,14 +257,14 @@ export function AdminAnalyticsPage() {
                     key={i}
                     className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"
                   >
-                    <div className="flex items-center gap-1 text-zinc-500 font-medium min-w-[24px]">
+                    <div className="flex items-center gap-1 text-zinc-500 font-medium min-w-6">
                       {i === 0 && <span className="text-xl">🥇</span>}
                       {i === 1 && <span className="text-xl">🥈</span>}
                       {i === 2 && <span className="text-xl">🥉</span>}
                       {i > 2 && <span className="text-sm">#{i + 1}</span>}
                     </div>
 
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#3B82F6] flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-linear-to-br from-[#7C3AED] to-[#3B82F6] flex items-center justify-center">
                       <span className="text-sm font-semibold">{manager.avatar}</span>
                     </div>
 
@@ -319,7 +311,7 @@ export function AdminAnalyticsPage() {
               <div className="space-y-4">
                 {recentActivity.map((activity, i) => (
                   <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
-                    <div className="w-2 h-2 rounded-full bg-[#7C3AED] mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#7C3AED] mt-2 shrink-0"></div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm text-white mb-1">{activity.action}</p>
                       <div className="flex items-center justify-between">
@@ -366,5 +358,6 @@ export function AdminAnalyticsPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
+export default DashboardAdmin
