@@ -284,14 +284,6 @@ const  DashboardAdmin = () => {
                       <div className="text-sm font-medium text-zinc-400 mb-1">Orders</div>
                       <div className="font-semibold">{manager.orders}</div>
                     </div>
-
-                    <div className="w-24 h-12">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={Array.from({ length: 7 }, (_) => ({ value: Math.random() * 50 + 50 }))}>
-                          <Line type="monotone" dataKey="value" stroke="#7C3AED" strokeWidth={2} dot={false} />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
                   </div>
                 ))}
               </div>
