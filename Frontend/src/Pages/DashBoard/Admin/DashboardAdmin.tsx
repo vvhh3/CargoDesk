@@ -12,8 +12,6 @@ import {
 import {
   AreaChart,
   Area,
-  LineChart,
-  Line,
   PieChart,
   Pie,
   Cell,

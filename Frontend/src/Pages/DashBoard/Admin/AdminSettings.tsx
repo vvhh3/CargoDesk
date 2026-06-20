@@ -12,6 +12,8 @@ import {
   Check,
   AlertTriangle,
 } from "lucide-react";
+import { useSetingStore } from "../../../Store/SettingsStore";
+import toast from "react-hot-toast";
 
 type SettingsSection =
   | "general"
@@ -89,7 +91,10 @@ const AdminSettings = () =>  {
   const [saved, setSaved] = useState(false);
 
   // General
-  const [platformName, setPlatformName] = useState("CargoDesk");
+  const title = useSetingStore(s => s.title)
+  const setTitle = useSetingStore(s => s.setTitle)
+
+  const [platformName, setPlatformName] = useState(title!);
   const [timezone, setTimezone] = useState("UTC+3 (Moscow)");
   const [language, setLanguage] = useState("English");
   const [currency, setCurrency] = useState("USD");
@@ -118,9 +123,16 @@ const AdminSettings = () =>  {
   const [backupFreq, setBackupFreq] = useState("Daily");
   const [retentionDays, setRetentionDays] = useState("90");
 
-  function handleSave() {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+  const handleSave = async () => {
+    try{
+      setSaved(true);
+      setTitle(platformName)
+      toast.success("Success")
+      setTimeout(() => setSaved(false), 2500);
+      
+    }catch(e){
+      toast.error("Error, check data and repeat")
+    }
   }
 
   return (
