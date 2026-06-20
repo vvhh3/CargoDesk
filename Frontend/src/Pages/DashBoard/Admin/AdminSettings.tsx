@@ -393,7 +393,7 @@ const AdminSettings = () =>  {
                   </button>
                   <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] rounded-xl text-sm text-white hover:opacity-90 transition-opacity"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] rounded-xl text-sm text-white hover:opacity-90 cursor-pointer"
                   >
                     {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
                     {saved ? "Saved!" : "Save Changes"}
