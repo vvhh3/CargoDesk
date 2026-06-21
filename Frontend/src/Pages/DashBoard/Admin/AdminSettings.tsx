@@ -168,7 +168,6 @@ const AdminSettings = () =>  {
                 ))}
               </div>
 
-              {/* Content */}
               <div className="flex-1">
                 <div className="bg-white/3 border border-white/8 rounded-2xl p-6 backdrop-blur-sm">
                   {active === "general" && (
