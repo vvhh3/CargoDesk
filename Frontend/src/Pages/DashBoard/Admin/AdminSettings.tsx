@@ -149,7 +149,7 @@ const AdminSettings = () =>  {
             </div>
 
             <div className="flex gap-6">
-              {/* Sidebar nav */}
+
               <div className="w-56 shrink-0 space-y-1">
                 {sections.map((s) => (
                   <button
