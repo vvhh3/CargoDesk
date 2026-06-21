@@ -11,9 +11,9 @@ import {
   RotateCcw,
   Check,
   AlertTriangle,
-} from "lucide-react";
-import { useSetingStore } from "../../../Store/SettingsStore";
-import toast from "react-hot-toast";
+} from "lucide-react"
+import { useSetingStore } from "../../../Store/SettingsStore"
+import toast from "react-hot-toast"
 
 type SettingsSection =
   | "general"
@@ -30,21 +30,19 @@ const sections: { id: SettingsSection; label: string; icon: React.ElementType; d
   { id: "integrations", label: "Integrations", icon: Webhook, desc: "Webhooks, API keys, external services" },
   { id: "billing", label: "Billing", icon: CreditCard, desc: "Plan, invoices, usage limits" },
   { id: "data", label: "Data & Storage", icon: Database, desc: "Backups, retention, export" },
-];
+]
 
 function Toggle({ enabled, onChange }: { enabled: boolean; onChange: (v: boolean) => void }) {
   return (
     <button
       onClick={() => onChange(!enabled)}
-      className={`relative w-11 h-6 rounded-full transition-colors ${enabled ? "bg-[#7C3AED]" : "bg-white/10"}`}
-    >
+      className={`relative w-11 h-6 rounded-full transition-colors ${enabled ? "bg-[#7C3AED]" : "bg-white/10"}`}>
       <span
         className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition-transform shadow ${
           enabled ? "translate-x-5" : "translate-x-0"
-        }`}
-      />
+        }`}/>
     </button>
-  );
+  )
 }
 
 function Input({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder?: string }) {
@@ -53,9 +51,8 @@ function Input({ value, onChange, placeholder }: { value: string; onChange: (v: 
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#7C3AED]/60 transition-colors"
-    />
-  );
+      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#7C3AED]/60 transition-colors"/>
+  )
 }
 
 function Select({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: string[] }) {
@@ -63,15 +60,14 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#7C3AED]/60 transition-colors appearance-none cursor-pointer"
-    >
+      className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#7C3AED]/60 transition-colors appearance-none cursor-pointer">
       {options.map((o) => (
         <option key={o} value={o} className="bg-[#18181B]">
           {o}
         </option>
       ))}
     </select>
-  );
+  )
 }
 
 function SettingRow({ label, desc, children }: { label: string; desc?: string; children: React.ReactNode }) {
@@ -83,7 +79,7 @@ function SettingRow({ label, desc, children }: { label: string; desc?: string; c
       </div>
       <div className="ml-8 shrink-0">{children}</div>
     </div>
-  );
+  )
 }
 
 const AdminSettings = () =>  {
