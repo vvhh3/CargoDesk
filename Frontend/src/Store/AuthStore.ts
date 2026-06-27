@@ -13,7 +13,6 @@ export const useStoreAuth = create<AuthStore>((set) => ({
     user: null,
     isAuth: false,
     isLoading: true,
-
     setUser: (user) => set({
         user,
         isAuth: true
