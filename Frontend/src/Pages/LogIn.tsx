@@ -1,3 +1,6 @@
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import Logo from "../Components/Logo/Logo";
 import { Mail, Lock, ArrowRight } from "lucide-react";
@@ -14,27 +17,47 @@ import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle";
 
 import { toast } from "react-hot-toast"
 
+const LoginShema = z.object({
+    email: z.string().min(1, "Email обязателен").email("Не корректный email"),
+    password: z.string().min(3, "Пароль обязателен")
+})
+
+type LoginFormType = z.infer<typeof LoginShema>
+
+
 const LogIn = () => {
 
     const [loginForm, setLoginForm] = useState({ email: "", password: "" })
+
+    const { register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        reset } = useForm<LoginFormType>({
+            resolver: zodResolver(LoginShema),
+            defaultValues: {
+                email: "",
+                password: ""
+            }
+        })
 
     const setUser = useStoreAuth((state) => state.setUser)
     const navigate = useNavigate()
 
 
-    const login = async (email: string, password: string) => {
+    const login = async (data: LoginFormType) => {
         try {
+            console.log(data)
             const res = await axios.post("http://localhost:5000/auth/login", {
-                email: email,
-                password: password
+                email: data.email,
+                password: data.password
             }, {
                 withCredentials: true //разрешает работать с cookie
             })
 
+            reset()
             setUser(res.data.user)
             toast.success(res.data.message)
             navigate(`/dashboard/${res.data.user.role}`)
-
         } catch (e: any) {
             const message = e?.response?.data?.message || "Попробуйте ещё раз"
             toast.error(message)
@@ -106,7 +129,7 @@ const LogIn = () => {
 
             {/* Right screen */}
             <div className="flex justify-center w-full min-h-screen">
-                {/* <Notifications type={true} text={"Успешно!"} /> */}
+
                 <div className="flex-col items-start w-6/10 py-20">
 
                     <div>
@@ -119,15 +142,15 @@ const LogIn = () => {
 
                     {/* inputs */}
 
-                    <div className="flex flex-col mt-10 gap-5">
+                    <form className="flex flex-col mt-10 gap-5"
+                        onSubmit={handleSubmit(login)}>
                         {/* email */}
                         <div className="relative flex flex-col gap-3">
                             <label className="text-zinc-300">Email</label>
                             <Mail className="absolute top-2/3 left-4 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                             <input type="email"
                                 placeholder="email"
-                                value={loginForm.email}
-                                onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                                {...register("email")}
                                 className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED]" />
                         </div>
                         {/* password */}
@@ -136,28 +159,28 @@ const LogIn = () => {
                             <Lock className="absolute top-2/3 left-4 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                             <input type="password"
                                 placeholder="password"
-                                value={loginForm.password}
-                                onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                                {...register("password")}
                                 className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED]" />
                         </div>
-                    </div>
 
-                    <div className="w-full flex justify-between mt-5">
-                        <label className="text-zinc-400 cursor-pointer">
-                            <input type="checkBox" />
-                            <span> Remember me</span>
-                        </label>
-                        <Link to="/" className="text-[#7C3AED] hover:text-[#8B5CF6] transition-colors">Forgot password?</Link>
-                    </div>
+                        <div className="w-full flex justify-between mt-5">
+                            <label className="text-zinc-400 cursor-pointer">
+                                <input type="checkBox" />
+                                <span> Remember me</span>
+                            </label>
+                            <Link to="/" className="text-[#7C3AED] hover:text-[#8B5CF6] transition-colors">Forgot password?</Link>
+                        </div>
 
-                    <div className="w-full mt-5">
-                        <button className="flex w-full p-3 cursor-pointer justify-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] 
+                        <div className="w-full mt-5">
+                            <button className="flex w-full p-3 cursor-pointer justify-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] 
                             items-center rounded-2xl text-white hover:from-[#8B5CF6] hover:to-[#7C3AED]"
-                            onClick={() => login(loginForm.email, loginForm.password)}>
-                            Sign In
-                            <ArrowRight className="w-5 h-5" />
-                        </button>
-                    </div>
+                                disabled={isSubmitting}>
+                                {isSubmitting ? "Signing in..." : "Sign In"}
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                        </div>
+                    </form>
+
 
                     <div className="relative flex mt-10 justify-center items-center">
                         <div className="absolute inset-0 flex items-center">

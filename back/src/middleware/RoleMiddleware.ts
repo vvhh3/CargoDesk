@@ -4,7 +4,6 @@ import { AuthRequest } from "./AuthMiddleware"
 
 export const RoleMiddleware = (roles: UserRole[]) => {
     return async (req: AuthRequest, res: Response, next: NextFunction) => {
-
         try {
             const user = await User.findByPk(req.id)
 
