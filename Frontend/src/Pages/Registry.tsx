@@ -50,9 +50,15 @@ const Registry = () => {
             email: "",
             companyName: "",
             password: ""
-        }
+        },
+        mode: "onBlur"
     })
-
+    // onSubmit - ошибки появятся только после нажатия Submit
+    // onBlur - Ошибки появляются, когда пользователь ушел из поля.
+    // onChange - Каждый символ вызывает валидацию
+    // onTouched - Сначала пользователь один раз покинул поле ,После этого оно начинает валидироваться на каждый ввод
+    // all - Валидация происходит вообще всегда
+    
     const reg = async (data: registryShemaType) => {
 
         try {
@@ -178,6 +184,7 @@ const Registry = () => {
                                         {...register("email")}
                                         placeholder="email"
                                         type="email"
+                                        autoComplete="email"
                                         className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
                                 </div>
                                 {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}

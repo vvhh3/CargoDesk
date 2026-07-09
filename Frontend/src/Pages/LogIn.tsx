@@ -34,7 +34,8 @@ const LogIn = () => {
             defaultValues: {
                 email: "",
                 password: ""
-            }
+            },
+            mode: "onBlur"
         })
 
     const setUser = useStoreAuth((state) => state.setUser)
