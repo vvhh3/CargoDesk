@@ -11,7 +11,6 @@ import github from "../assets/github.svg"
 import axios from "axios";
 
 import { useStoreAuth } from "../Store/AuthStore"
-import { useState } from "react";
 
 import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle";
 
@@ -26,8 +25,6 @@ type LoginFormType = z.infer<typeof LoginShema>
 
 
 const LogIn = () => {
-
-    const [loginForm, setLoginForm] = useState({ email: "", password: "" })
 
     const { register,
         handleSubmit,

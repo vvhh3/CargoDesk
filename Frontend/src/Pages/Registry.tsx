@@ -1,3 +1,7 @@
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 
 import Logo from "../Components/Logo/Logo"
 import { User, Mail, Building, Lock, ArrowRight } from "lucide-react"
@@ -21,42 +25,56 @@ type RegistryType = {
     companyName: string
     password: string
 }
-const Registry = () => {
 
-    const [refistryForm, setRegistryForm] = useState<RegistryType>({
-        name: "",
-        lastName: "",
-        email: "",
-        companyName: "",
-        password: ""
-    })
+const registryShema = z.object({
+    name: z.string().min(2, "Имя обязательно"),
+    lastName: z.string().min(2, "Фамилия обязательна"),
+    email: z.string().min(2, "Email обязателен").email("Неверный формат email"),
+    companyName: z.string().min(2, "Название компании обязательно"),
+    password: z.string().min(3, "Пароль должен содержать не менее 3 символов")
+})
+
+type registryShemaType = z.infer<typeof registryShema>
+
+const Registry = () => {
 
     const navigate = useNavigate()
     const setUser = useStoreAuth((state) => state.setUser)
 
-    const registry = async (
-        name: string,
-        lastName: string,
-        email: string,
-        companyName: string,
-        password: string
-    ) => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        reset 
+    } = useForm<registryShemaType>({
+            resolver: zodResolver(registryShema),
+            defaultValues: {
+                name: "",
+                lastName: "",
+                email: "",
+                companyName: "",
+                password: ""
+            }
+        })
+
+    const reg = async (data: registryShemaType) => {
+
         try {
             const res = await axios.post("http://localhost:5000/auth/register",
                 {
-                    name: name,
-                    lastName: lastName,
-                    email: email,
-                    companyName: companyName,
-                    password: password
+                    name: data.name,
+                    lastName: data.lastName,
+                    email: data.email,
+                    companyName: data.companyName,
+                    password: data.password
                 }, {
                 withCredentials: true
             })
 
+            reset()
             setUser(res.data.user)
             navigate(`/dashboard/${res.data.user.role}`)
             toast.success(res.data.message)
-
         } catch (e: any) {
             const mes = e.response.data.message || "Попробуйте ещё раз"
             toast.error(mes)
@@ -126,95 +144,93 @@ const Registry = () => {
                     </div>
 
                     <div className="mt-10 flex flex-wrap w-full flex-col gap-5">
-                        <div className="flex gap-5 w-full">
-                            {/* name */}
-                            <div className="w-1/2">
-                                <label className="block text-sm text-zinc-300 mb-2">First name</label>
-                                <div className="relative">
-                                    <User className="absolute top-1/3 left-4 w-5 h-5 text-zinc-500" />
-                                    <input
-                                        value={refistryForm.name}
-                                        onChange={(e) => setRegistryForm({ ...refistryForm, name: e.target.value })}
-                                        placeholder="Matvei"
-                                        className="w-full bg-white/5 pl-12 p-4 border border-white/10 placeholder:text-zinc-400 rounded-xl text-white 
+                        <form className="flex flex-col gap-5 w-full"
+                            onSubmit={handleSubmit(reg)}>
+
+                            <div className="flex w-full gap-5">
+                                {/* name */}
+                                <div className="w-1/2">
+                                    <label className="block text-sm text-zinc-300 mb-2">First name</label>
+                                    <div className="relative">
+                                        <User className="absolute top-1/3 left-4 w-5 h-5 text-zinc-500" />
+                                        <input
+                                            {...register("name")}
+                                            placeholder="Matvei"
+                                            className="w-full bg-white/5 pl-12 p-4 border border-white/10 placeholder:text-zinc-400 rounded-xl text-white 
                                             focus:outline-none   focus:border-[#7C3AED] transition-all"/>
+                                        {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+                                    </div>
+                                </div>
+                                {/* last name */}
+                                <div className="w-1/2">
+                                    <label className="block text-sm text-zinc-300 mb-2">Last name</label>
+                                    <input
+                                        {...register("lastName")}
+                                        placeholder="Doe"
+                                        className="p-4 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#7C3AED] transition-all" />
+                                    {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
                                 </div>
                             </div>
-                            {/* last name */}
-                            <div className="w-1/2">
-                                <label className="block text-sm text-zinc-300 mb-2">Last name</label>
-                                <input
-                                    value={refistryForm.lastName}
-                                    onChange={(e) => setRegistryForm({ ...refistryForm, lastName: e.target.value })}
-                                    placeholder="Doe"
-                                    className="p-4 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#7C3AED] transition-all" />
+
+                            {/* Email */}
+                            <div>
+                                <label className="block text-sm text-zinc-300 mb-2">Email</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+                                    <input
+                                        {...register("email")}
+                                        placeholder="email"
+                                        type="email"
+                                        className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                                    {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                                </div>
                             </div>
 
-                        </div>
-
-                        {/* Email */}
-                        <div>
-                            <label className="block text-sm text-zinc-300 mb-2">Email</label>
-                            <div className="relative">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                                <input
-                                    value={refistryForm.email}
-                                    onChange={(e) => setRegistryForm({ ...refistryForm, email: e.target.value })}
-                                    placeholder="email"
-                                    type="email"
-                                    className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                            {/* Company name */}
+                            <div>
+                                <label className="block text-sm text-zinc-300 mb-2">Company name</label>
+                                <div className="relative">
+                                    <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+                                    <input
+                                        {...register("companyName")}
+                                        placeholder="Acme Inc."
+                                        className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                                    {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName.message}</p>}
+                                </div>
                             </div>
-                        </div>
-
-                        {/* Company name */}
-                        <div>
-                            <label className="block text-sm text-zinc-300 mb-2">Company name</label>
-                            <div className="relative">
-                                <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                                <input
-                                    value={refistryForm.companyName}
-                                    onChange={(e) => setRegistryForm({ ...refistryForm, companyName: e.target.value })}
-                                    placeholder="Acme Inc."
-                                    className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                            {/* password */}
+                            <div>
+                                <label className="block text-sm text-zinc-300 mb-2">Password</label>
+                                <div className="relative">
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+                                    <input
+                                        {...register("password")}
+                                        placeholder="Create a strong password"
+                                        type="password"
+                                        className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                                    {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                                </div>
                             </div>
-                        </div>
-                        {/* password */}
-                        <div>
-                            <label className="block text-sm text-zinc-300 mb-2">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                                <input
-                                    value={refistryForm.password}
-                                    onChange={(e) => setRegistryForm({ ...refistryForm, password: e.target.value })}
-                                    placeholder="Create a strong password"
-                                    type="password"
-                                    className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
+                            {/* checkbox */}
+                            <div>
+                                <label className="block text-sm text-zinc-300 mb-2 ml-2 cursor-pointer">
+                                    <input type="checkbox" className="mt-1 w-4 h-4 rounded border-white/10 bg-white/5 text-[#7C3AED] focus:ring-[#7C3AED]/50" />
+                                    <span className="pl-2 ">I agree to the </span>
+                                    <a href="#" className="text-purple-500 hover:underline">Terms of Service</a>
+                                    <span> and </span>
+                                    <a href="#" className="text-purple-500 hover:underline">Privacy Policy</a>
+                                </label>
                             </div>
-                        </div>
-                        {/* checkbox */}
-                        <div>
-                            <label className="block text-sm text-zinc-300 mb-2 ml-2 cursor-pointer">
-                                <input type="checkbox" className="mt-1 w-4 h-4 rounded border-white/10 bg-white/5 text-[#7C3AED] focus:ring-[#7C3AED]/50" />
-                                <span className="pl-2 ">I agree to the </span>
-                                <a href="#" className="text-purple-500 hover:underline">Terms of Service</a>
-                                <span> and </span>
-                                <a href="#" className="text-purple-500 hover:underline">Privacy Policy</a>
-                            </label>
-                        </div>
 
-                        <div>
-                            <button className="p-3 gap-3 w-full flex justify-center items-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white
+                            <div>
+                                <button className="p-3 gap-3 w-full flex justify-center items-center bg-linear-to-r from-[#7C3AED] to-[#8B5CF6] text-white
                             hover:from-[#8B5CF6] hover:to-[#7C3AED] rounded-2xl cursor-pointer"
-                                onClick={() => registry(refistryForm.name,
-                                    refistryForm.lastName,
-                                    refistryForm.email,
-                                    refistryForm.companyName,
-                                    refistryForm.password
-                                )}>
-                                Create Account
-                                <ArrowRight className="w-5 h-5" />
-                            </button>
-                        </div>
+                                    disabled={isSubmitting}>
+                                    {isSubmitting ? "Creating Account..." : "Create Account"}
+                                    <ArrowRight className="w-5 h-5" />
+                                </button>
+                            </div>
+                        </form>
 
                         {/* Sign In */}
                         <div className="relative mt-5">
