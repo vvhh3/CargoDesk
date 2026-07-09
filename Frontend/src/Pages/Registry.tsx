@@ -12,26 +12,22 @@ import github from "../assets/github.svg"
 
 
 import axios from "axios"
-import { useState } from "react"
+
 import { useStoreAuth } from "../Store/AuthStore"
 
 import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle"
 import toast from "react-hot-toast"
 
-type RegistryType = {
-    name: string
-    lastName: string
-    email: string
-    companyName: string
-    password: string
-}
 
 const registryShema = z.object({
-    name: z.string().min(2, "Имя обязательно"),
-    lastName: z.string().min(2, "Фамилия обязательна"),
-    email: z.string().min(2, "Email обязателен").email("Неверный формат email"),
-    companyName: z.string().min(2, "Название компании обязательно"),
-    password: z.string().min(3, "Пароль должен содержать не менее 3 символов")
+    name: z.string().trim().min(2, "Имя обязательно"),
+    lastName: z.string().trim().min(2, "Фамилия обязательна"),
+    email: z.string().trim().min(2, "Email обязателен").email("Неверный формат email"),
+    companyName: z.string().trim().min(2, "Название компании обязательно"),
+    password: z.string().trim().min(3, "Пароль должен содержать не менее 3 символов")
+        .regex(/[A-Z]/, "Должна быть хотя бы одна заглавная буква")
+        .regex(/[a-z]/, "Должна быть хотя бы одна строчная буква")
+        .regex(/[0-9]/, "Должна быть хоотя бы одна цифра")
 })
 
 type registryShemaType = z.infer<typeof registryShema>
@@ -45,17 +41,17 @@ const Registry = () => {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        reset 
+        reset
     } = useForm<registryShemaType>({
-            resolver: zodResolver(registryShema),
-            defaultValues: {
-                name: "",
-                lastName: "",
-                email: "",
-                companyName: "",
-                password: ""
-            }
-        })
+        resolver: zodResolver(registryShema),
+        defaultValues: {
+            name: "",
+            lastName: "",
+            email: "",
+            companyName: "",
+            password: ""
+        }
+    })
 
     const reg = async (data: registryShemaType) => {
 
@@ -75,10 +71,11 @@ const Registry = () => {
             setUser(res.data.user)
             navigate(`/dashboard/${res.data.user.role}`)
             toast.success(res.data.message)
-        } catch (e: any) {
-            const mes = e.response.data.message || "Попробуйте ещё раз"
-            toast.error(mes)
-            console.log(e)
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                toast.error(e.response?.data.message ?? "Ошибка при регистрации")
+                console.log(e)
+            }
         }
     }
 
@@ -157,9 +154,9 @@ const Registry = () => {
                                             {...register("name")}
                                             placeholder="Matvei"
                                             className="w-full bg-white/5 pl-12 p-4 border border-white/10 placeholder:text-zinc-400 rounded-xl text-white 
-                                            focus:outline-none   focus:border-[#7C3AED] transition-all"/>
-                                        {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+                                            focus:outline-none  focus:border-[#7C3AED] transition-all"/>
                                     </div>
+                                    {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
                                 </div>
                                 {/* last name */}
                                 <div className="w-1/2">
@@ -168,7 +165,7 @@ const Registry = () => {
                                         {...register("lastName")}
                                         placeholder="Doe"
                                         className="p-4 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#7C3AED] transition-all" />
-                                    {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
+                                {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
                                 </div>
                             </div>
 
@@ -182,8 +179,8 @@ const Registry = () => {
                                         placeholder="email"
                                         type="email"
                                         className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
-                                    {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                                 </div>
+                                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                             </div>
 
                             {/* Company name */}
@@ -195,8 +192,8 @@ const Registry = () => {
                                         {...register("companyName")}
                                         placeholder="Acme Inc."
                                         className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
-                                    {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName.message}</p>}
                                 </div>
+                                {errors.companyName && <p className="text-red-500 text-sm">{errors.companyName.message}</p>}
                             </div>
                             {/* password */}
                             <div>
@@ -208,8 +205,8 @@ const Registry = () => {
                                         placeholder="Create a strong password"
                                         type="password"
                                         className="p-4 pl-12 w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-400 focus:outline-none  focus:border-[#7C3AED] transition-all" />
-                                    {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
                                 </div>
+                                {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
                             </div>
                             {/* checkbox */}
                             <div>
@@ -248,7 +245,7 @@ const Registry = () => {
                             </button>
                             <AuthGoogle />
                         </div>
-                        <div className="w-full flex justify-center ">
+                        <div className="w-full flex justify-center mb-10 ">
                             <span className="text-zinc-400">Already have an account? <Link to="/login" className="text-purple-500">Sign in</Link></span>
                         </div>
                     </div>

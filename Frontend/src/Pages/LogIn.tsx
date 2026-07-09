@@ -17,8 +17,8 @@ import AuthGoogle from "../Components/ButtonGoogle/AuthGoogle";
 import { toast } from "react-hot-toast"
 
 const LoginShema = z.object({
-    email: z.string().min(1, "Email обязателен").email("Не корректный email"),
-    password: z.string().min(3, "Пароль обязателен")
+    email: z.string().trim().min(1, "Email обязателен").email("Не корректный email"),
+    password: z.string().trim().min(3, "Пароль обязателен")
 })
 
 type LoginFormType = z.infer<typeof LoginShema>
@@ -149,6 +149,7 @@ const LogIn = () => {
                                 placeholder="email"
                                 {...register("email")}
                                 className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED]" />
+                            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                         </div>
                         {/* password */}
                         <div className="relative flex  flex-col gap-3">
@@ -158,6 +159,7 @@ const LogIn = () => {
                                 placeholder="password"
                                 {...register("password")}
                                 className="relative rounded-xl bg-white/5 placeholder:text-zinc-500 pl-12 p-4 text-white border border-white/10 focus:outline-none focus:border-[#7C3AED]" />
+                            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
                         </div>
 
                         <div className="w-full flex justify-between mt-5">
