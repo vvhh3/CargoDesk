@@ -60,7 +60,6 @@ const Registry = () => {
     // all - Валидация происходит вообще всегда
     
     const reg = async (data: registryShemaType) => {
-
         try {
             const res = await axios.post("http://localhost:5000/auth/register",
                 {

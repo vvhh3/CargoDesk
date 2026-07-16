@@ -26,10 +26,12 @@ type LoginFormType = z.infer<typeof LoginShema>
 
 const LogIn = () => {
 
-    const { register,
+    const { 
+        register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        reset } = useForm<LoginFormType>({
+        reset 
+    } = useForm<LoginFormType>({
             resolver: zodResolver(LoginShema),
             defaultValues: {
                 email: "",

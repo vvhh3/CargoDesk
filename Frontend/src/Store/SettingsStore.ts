@@ -8,17 +8,14 @@ type Setting = {
 
 
 export const useSetingStore = create<Setting>()(
-    
     persist((set) => ({
         title: "CargoDesk",
 
         setTitle: (title) => set({
             title
         })
-
     }),{
         name: "setting-store"
-    }
-    )
+    })
 )
 

@@ -11,9 +11,9 @@ const Home = () => {
 
     return (
         <div>
-            
+
             <header>
-                
+
                 <Header />
             </header>
 
@@ -225,7 +225,7 @@ const Home = () => {
                     </div>
 
                     <div className="mt-40 border border-t-white/10 flex justify-between py-5 px-20">
-                        <Logo/>
+                        <Logo />
                         <div>
                             <span className="text-white/50">© 2026 CargoDesk. All rights reserved.</span>
                         </div>

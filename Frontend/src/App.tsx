@@ -25,6 +25,7 @@ import { ClientNotifications } from "./Pages/DashBoard/User/ClientNotifications"
 import AdminUser from "./Pages/DashBoard/Admin/AdminUser"
 import AdminOrders from "./Pages/DashBoard/Admin/AdminOrders"
 import AdminSettings from "./Pages/DashBoard/Admin/AdminSettings"
+import { useQuery } from "@tanstack/react-query"
 
 function App() {
 
@@ -32,24 +33,41 @@ function App() {
   const logout = useStoreAuth((state) => state.logout)
   const setLoading = useStoreAuth((state) => state.setLoading)
 
-  useEffect(() => {
 
-    const checkAuth = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/auth/me", {
-          withCredentials: true
-        })
-        setUser(res.data.user)
-      } catch {
-        logout()
-      } finally {
-        setLoading(false)
-      }
+  const checkAuth = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/auth/me", {
+        withCredentials: true
+      })
+      setUser(res.data.user)
+      
+      return res.data
+    } catch {
+      logout()
+    } finally {
+      setLoading(false)
     }
+  }
 
-    checkAuth()
-  }, [])
+  // useEffect(() => {
 
+  //   checkAuth()
+  // }, [])
+
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+    isFetching
+  } = useQuery({
+    queryKey: ["auth"],
+    queryFn: checkAuth,
+    staleTime: 5000,
+  })
+
+  if(isError) return <p className="text-red-500">Ошибка Запроса</p>
 
   return (
 
