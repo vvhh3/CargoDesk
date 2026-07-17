@@ -22,6 +22,8 @@ export function DataTable<T>({
   onRowClick,
   className = "",
 }: DataTableProps<T>) {
+
+
   return (
     <div className={`w-full rounded-2xl border border-white/10 bg-white/5 overflow-hidden ${className}`}>
       <table className="w-full">

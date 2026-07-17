@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { Package } from "lucide-react"
-import { useSetingStore } from "../../Store/SettingsStore"
-
+// import { useSetingStore } from "../../Store/SettingsStore"
+import { useSettingsStore } from "../../entities/settings"
 const Logo = () => {
-    const title = useSetingStore(s => s.title)
+    const title = useSettingsStore(s => s.title)
 
     return (
         <div className="flex gap-3 items-center">

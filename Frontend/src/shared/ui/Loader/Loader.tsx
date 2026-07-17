@@ -9,14 +9,13 @@ const sizeStyles = {
   lg: "w-12 h-12",
 }
 
-export function Loader({ size = "md", text }: LoaderProps) {
+export function Loader({ size = "lg", text }: LoaderProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <svg
         className={`animate-spin text-[#7C3AED] ${sizeStyles[size]}`}
         viewBox="0 0 24 24"
-        fill="none"
-      >
+        fill="none">
         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path
           className="opacity-75"

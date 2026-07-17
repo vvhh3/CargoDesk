@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { DataTable } from "../../../shared/ui/Table"
 import { Badge } from "../../../shared/ui/Badge"
 import type { Order, OrderStatus } from "../../../shared/types"
@@ -15,14 +14,9 @@ const statusConfig: Record<OrderStatus, { label: string; variant: "warning" | "s
 
 type OrdersTableProps = {
   orders: Order[]
-  onOrderLoader?: (orders: Order[]) => void
 }
 
-export function OrdersTable({ orders, onOrderLoader }: OrdersTableProps) {
-  useState(() => {
-    onOrderLoader?.(orders)
-  })
-
+export function OrdersTable({ orders }: OrdersTableProps) {
   const columns = [
     {
       key: "id",
@@ -78,6 +72,7 @@ export function OrdersTable({ orders, onOrderLoader }: OrdersTableProps) {
       columns={columns}
       data={orders}
       keyExtractor={(o) => o.id}
+      className="text-white"
     />
   )
 }

@@ -10,10 +10,12 @@ type OrderDetailModalProps = {
 }
 
 export function OrderDetailModal({ selectedOrder, setSelectedOrder }: OrderDetailModalProps) {
+  
   const [acceptDate, setAcceptDate] = useState({
-    whenDate: selectedOrder?.whenCamedate,
-    price: selectedOrder?.price,
+    whenDate: selectedOrder?.whenCamedate ?? null,
+    price: selectedOrder?.price ?? null,
   })
+
   const user = useAuthStore((store) => store.user)
 
   const handleAccept = async (idOrder: number) => {
@@ -41,12 +43,12 @@ export function OrderDetailModal({ selectedOrder, setSelectedOrder }: OrderDetai
     }
   }
 
-  useEffect(() => {
-    setAcceptDate({
-      whenDate: selectedOrder?.whenCamedate,
-      price: selectedOrder?.price,
-    })
-  }, [selectedOrder])
+  // useEffect(() => {
+  //   setAcceptDate({
+  //     whenDate: selectedOrder?.whenCamedate,
+  //     price: selectedOrder?.price,
+  //   })
+  // }, [selectedOrder])
 
   if (!selectedOrder) return null
 

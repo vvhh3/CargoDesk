@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useStoreAuth } from "../../../../Store/AuthStore";
+import { useAuthStore } from "../../../../entities/user";
 
 type Order = {
     id: number,
@@ -31,10 +31,11 @@ type PropsOrder = {
 export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
 
     const [orders, setOrders] = useState<Order[]>([])
-    const user = useStoreAuth(store => store.user)
+    const user = useAuthStore(store => store.user)
 
     const getOrder = async () => {
         try {
+            if(!user) return
             const res = await axios.get(`http://localhost:5000/${user.role === "manager" ?
                 "manager/orders" : user.role === "admin" ? "/manager/request" : "client/orders"}`,
                 {
