@@ -26,51 +26,11 @@ import AdminUser from "./Pages/DashBoard/Admin/AdminUser"
 import AdminOrders from "./Pages/DashBoard/Admin/AdminOrders"
 import AdminSettings from "./Pages/DashBoard/Admin/AdminSettings"
 import { useQuery } from "@tanstack/react-query"
+import { Navigate } from "react-router-dom"
 
 function App() {
 
-  const setUser = useStoreAuth((state) => state.setUser)
-  const logout = useStoreAuth((state) => state.logout)
-  const setLoading = useStoreAuth((state) => state.setLoading)
-
-
-  const checkAuth = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/auth/me", {
-        withCredentials: true
-      })
-      setUser(res.data.user)
-      
-      return res.data
-    } catch {
-      logout()
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // useEffect(() => {
-
-  //   checkAuth()
-  // }, [])
-
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isFetching
-  } = useQuery({
-    queryKey: ["auth"],
-    queryFn: checkAuth,
-    staleTime: 5000,
-  })
-
-  if(isError) return <p className="text-red-500">Ошибка Запроса</p>
-
   return (
-
     <div className="bg-[#09090B] min-h-screen dark:bg-white">
 
       {/* уведомления */}

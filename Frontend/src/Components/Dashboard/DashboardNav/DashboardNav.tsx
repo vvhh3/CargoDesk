@@ -21,8 +21,7 @@ export function Sidebar() {
   const navigation = useNavigate()
 
   const user = useStoreAuth(store => store.user)
-
-  const avatar = user.avatar
+  console.log("user",user)
   
   const clientLinks = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard/client' },
@@ -94,7 +93,7 @@ export function Sidebar() {
         <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
           {user.avatar ?
             <div className="w-10 h-10">
-              <img src={avatar}
+              <img src={user.avatar}
                 crossOrigin="anonymous"
                 alt="avatar"
                 className="rounded-full" />

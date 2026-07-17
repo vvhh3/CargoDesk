@@ -183,8 +183,14 @@ export const login = async (req: Request, res: Response) => {
         })
 
         return res.json({
-            user:{
-                role: user.dataValues.role,
+            user: {
+                id: user?.dataValues.id,
+                role: user?.dataValues.role,
+                name: user?.dataValues.name,
+                lastName: user?.dataValues.lastName,
+                email: user?.dataValues.email,
+                companyName: user?.dataValues.companyName,
+                avatar: user?.dataValues.avatar,
             },
             message: "Успешно!"
         })

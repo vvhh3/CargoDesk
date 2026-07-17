@@ -55,6 +55,7 @@ const LogIn = () => {
             })
 
             reset()
+            console.log('log in',res.data)
             setUser(res.data.user)
             toast.success(res.data.message)
             navigate(`/dashboard/${res.data.user.role}`)
