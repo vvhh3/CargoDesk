@@ -74,7 +74,7 @@ export default function AdminUser() {
                 { wch: 30 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, { wch: 15 }
             ]
 
-            XLSX.writeFile(book, "Orders.xlsx")
+            XLSX.writeFile(book, "Users.xlsx")
             toast.success("Succees")
         } catch (e) {
             toast.error("error export users, try again later")

@@ -20,7 +20,6 @@ const ProtectedRoute = (props: ProtectedType) => {
             const res = await axios.get("http://localhost:5000/auth/me", {
                 withCredentials: true
             })
-            // setUser(res.data.user)
             return res.data.user
         },
         staleTime: 5000,
@@ -29,22 +28,17 @@ const ProtectedRoute = (props: ProtectedType) => {
 
     useEffect(() => {
         if (!data) return
-        console.log("data", data)
         setUser(data)
     }, [data])
 
     if (isError) return <Navigate to="/login" replace />
     if (isLoading) return <p className="text-red-500">loading.....</p>
 
-    const children = props.children
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
     if (!data) {
         return <Navigate to="/login" replace />
     }
-    return children
+
+    return props.children
 }
 
 export default ProtectedRoute

@@ -7,10 +7,6 @@ import LogIn from "./Pages/LogIn"
 // import DashboardAdmin from "./Pages/DashBoard/Admin/DashboardAdmin"
 import ClientCreateRequest from "./Pages/DashBoard/User/ClientCreateRequest"
 
-import { useEffect } from "react"
-import { useStoreAuth } from "./Store/AuthStore"
-
-import axios from "axios"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import DashBoardLayout from "./Components/Dashboard/DashBoardlayout/DashBoardLayout"
 
@@ -25,8 +21,7 @@ import { ClientNotifications } from "./Pages/DashBoard/User/ClientNotifications"
 import AdminUser from "./Pages/DashBoard/Admin/AdminUser"
 import AdminOrders from "./Pages/DashBoard/Admin/AdminOrders"
 import AdminSettings from "./Pages/DashBoard/Admin/AdminSettings"
-import { useQuery } from "@tanstack/react-query"
-import { Navigate } from "react-router-dom"
+
 
 function App() {
 
