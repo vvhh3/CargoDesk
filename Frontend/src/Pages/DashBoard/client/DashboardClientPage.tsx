@@ -2,7 +2,7 @@ import { Package, Clock, CheckCircle2, TrendingUp } from "lucide-react"
 import { StatCard } from "../../../shared/ui/Card"
 import { Graf } from "../../../shared/ui/Graf/Graf"
 import { RecentActivity } from "../../../shared/ui/RecentActivity/RecentActivity"
-import RecentOrder from "../../../Components/Dashboard/DashBoardItem/Table/RecentOrder"
+import { RecentOrder } from "../../../features/orders/components/RecentOrder"
 
 export function DashboardClientPage() {
   return (

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../../../../entities/user";
+import { useAuthStore } from "../../../entities/user";
+import { api } from "../../../shared/api/axios";
 
 type Order = {
     id: number,
@@ -28,7 +28,7 @@ type PropsOrder = {
     onOrderLoader?: (orders: Order[]) => void
 }
 
-export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
+export function RecentOrder({ search, onOrderLoader }: PropsOrder) {
 
     const [orders, setOrders] = useState<Order[]>([])
     const user = useAuthStore(store => store.user)
@@ -36,11 +36,12 @@ export default function RecentOrder({ search, onOrderLoader }: PropsOrder) {
     const getOrder = async () => {
         try {
             if(!user) return
-            const res = await axios.get(`http://localhost:5000/${user.role === "manager" ?
-                "manager/orders" : user.role === "admin" ? "/manager/request" : "client/orders"}`,
-                {
-                    withCredentials: true
-                })
+            const endpoint = user.role === "manager"
+                ? "/manager/orders"
+                : user.role === "admin"
+                    ? "/manager/request"
+                    : "/client/orders"
+            const res = await api.get<{ orders: Order[] }>(endpoint, { withCredentials: true })
             setOrders(res.data.orders)
 
             onOrderLoader?.(res.data.orders)
