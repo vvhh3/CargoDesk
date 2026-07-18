@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Search, MoreHorizontal, ChevronDown, Mail, Pencil, Trash2, Download, Users, UserCheck, UserPlus, Crown } from "lucide-react"
+import { MoreHorizontal, ChevronDown, Mail, Pencil, Trash2, Download, Users, UserCheck, UserPlus, Crown } from "lucide-react"
 import { SearchInput } from "../../../shared/ui/SearchInput"
 import { Button } from "../../../shared/ui/Button"
 import { Dropdown } from "../../../shared/ui/Dropdown"
