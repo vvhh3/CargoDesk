@@ -18,10 +18,10 @@ export function ManagerOrdersPage() {
     retry: 2
   })
 
+  const dataFilter = useFilter(data!, search, ['id', 'product', 'brand', 'status', 'price'])
   if (isError) toast.error("Ошибка загрузки заказов")
   if (isLoading) return <Loader size="lg" text="Loader...." />
 
-  const dataFilter = useFilter(data!, search, ['id', 'product', 'brand', 'status', 'price'])
 
   return (
     <div className="p-5">
