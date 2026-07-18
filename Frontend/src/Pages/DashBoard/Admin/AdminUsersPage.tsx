@@ -157,7 +157,7 @@ export function AdminUsersPage() {
         </table>
       </div>
 
-      {selectUser && <UserEditModal user={selectUser} onClose={() => setSelectUser(null)} onSaved={getUsers} />}
+      {selectUser && <UserEditModal user={selectUser} onSelectedUser={() => setSelectUser(null)} />}
     </div>
   )
 }

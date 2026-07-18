@@ -1,8 +1,11 @@
-import axios from "axios"
-import { useState } from "react"
 import toast from "react-hot-toast"
+import { usersApi } from "../../../../features/users"
+import z from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Input } from "../../../../shared/ui/Input"
 
-type UserType = {
+interface UserType {
     id: number
     role: string
     name: string
@@ -14,41 +17,46 @@ type UserType = {
     isDeleted: boolean
 }
 
-
 type ModalUserProps = {
     user: UserType | null
     onSelectedUser: (user: UserType | null) => void
 }
 
+const formShema = z.object({
+    name: z.string().trim().min(2, 'Имя обязательно'),
+    lastName: z.string().trim().min(2, "Фамилия обязательна"),
+    email: z.string().trim().min(2, "Почта обязательна").email("Не верный формат email"),
+    companyName: z.string().trim().min(2, "Название комании обязательно")
+})
+
+
+type formType = z.infer<typeof formShema>
+
+
 export default function ModalUserEdit({ user, onSelectedUser }: ModalUserProps) {
 
-    const [form, setForm] = useState({
-        name: user!.name,
-        lastName: user!.lastName,
-        email: user!.email,
-        companyName: user!.companyName,
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitted },
+        reset
+    } = useForm<formType>({
+        resolver: zodResolver(formShema),
+        defaultValues: { name: "", lastName: "", email: "", companyName: "" },
+        mode: "onBlur"
     })
 
-    const EditUser = async () => {
-        
-        if(!form.name.trim() ||!form.lastName.trim()|| !form.email.trim() || !form.companyName.trim()){
+
+    const EditUser = async (data: formType) => {
+        if (!data) {
             toast.error("there should not be an empty line")
-            return 
+            return
         }
-
         try {
-            const res = await axios.put("http://localhost:5000/users/edit", {
-                id: user!.id,
-                name: form.name,
-                lastName: form.lastName,
-                email: form.email,
-                companyName: form.companyName,
-            }, {
-                withCredentials: true
-            })
-
+            const res = await usersApi.edit({ id: user!.id, ...data })
             console.log("res", res)
             toast.success(res.data.message)
+            reset()
         } catch (e: any) {
             console.log(e)
             toast.error(e.response.data.message)
@@ -74,29 +82,32 @@ export default function ModalUserEdit({ user, onSelectedUser }: ModalUserProps) 
                             </button>
                         </div>
 
-                        <div className="space-y-3">
+                        <form className="space-y-3"
+                            onSubmit={handleSubmit( EditUser)}>
                             <div>
-                                <label className="text-xs text-gray-500 mb-1 block">Email</label>
-                                <input value={form.email}
-                                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                {/* <label className="text-xs text-gray-500 mb-1 block">Email</label> */}
+                                {errors.form?.message && <p>{errors.email?.message}</p>}
+                                <Input {...register("email")}
+                                // label="Email"
+                                    error={errors.email?.message}
                                     className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 " />
                             </div>
                             <div>
                                 <label className="text-xs text-gray-500 mb-1 block">Name</label>
-                                <input value={form.name}
-                                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                                <Input {...register("name")}
+                                    error={errors.name?.message}
                                     className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 " />
                             </div>
                             <div>
                                 <label className="text-xs text-gray-500 mb-1 block">LastName</label>
-                                <input value={form.lastName}
-                                onChange={(e) => setForm({...form, lastName: e.target.value})}
+                                <Input {...register("lastName")}
+                                    error={errors.lastName?.message}
                                     className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 " />
                             </div>
                             <div>
                                 <label className="text-xs text-gray-500 mb-1 block">CompanyName</label>
-                                <input value={form.companyName}
-                                onChange={(e) => setForm({...form, companyName: e.target.value})}
+                                <Input {...register("companyName")}
+                                    error={errors.companyName?.message}
                                     className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 " />
                             </div>
                             <div className="flex gap-3">
@@ -119,18 +130,18 @@ export default function ModalUserEdit({ user, onSelectedUser }: ModalUserProps) 
                                     defaultValue={user.isDeleted ? "Yes" : "No"}
                                     className={`w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm focus:outline-none cursor-default ${user.isDeleted ? "text-red-400" : "text-emerald-400"}`} />
                             </div>
-                        </div>
 
-                        <div className="flex gap-2 mt-6">
-                            <button onClick={() => onSelectedUser(null)}
-                                className="flex-1 py-2.5 rounded-xl text-sm text-gray-400 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-                                Close
-                            </button>
-                            <button className="flex-1 py-2.5 rounded-xl text-sm  text-white bg-linear-to-r from-purple-600 to-indigo-500 hover:opacity-90 transition-opacity cursor-pointer"
-                                onClick={EditUser}>
-                                Save
-                            </button>
-                        </div>
+                            <div className="flex gap-2 mt-6">
+                                <button onClick={() => onSelectedUser(null)}
+                                    className="flex-1 py-2.5 rounded-xl text-sm text-gray-400 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                                    Close
+                                </button>
+                                <button className="flex-1 py-2.5 rounded-xl text-sm  text-white bg-linear-to-r from-purple-600 to-indigo-500 hover:opacity-90 transition-opacity cursor-pointer"
+                                    disabled={isSubmitted}>
+                                    Save
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}

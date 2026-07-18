@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { useStoreAuth } from "../../../../Store/AuthStore"
+import { useAuthStore } from "../../../../entities/user"
 
 type RequestOrder = {
     id: number,
@@ -23,9 +23,10 @@ type ModalRequestCardProps = {
 export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: ModalRequestCardProps) {
 
     const [acceptDate, setAcceptDate] = useState({ whenDate: selectedOrder?.whenCamedate, price: selectedOrder?.price })
-    const user = useStoreAuth(store => store.user)
+    const user = useAuthStore(store => store.user)
 
     const AcceptOrder = async (idOrder: number) => {
+        if(!user) return
         try {
             const res = await axios.put("http://localhost:5000/order/accept", {
                 id: user.id,
@@ -44,6 +45,7 @@ export default function ModalRequestCard({ selectedOrder, setSelectedOrder }: Mo
     }
 
     const RejestOrder = async (idOrder: number) => {
+        if(!user) return
         try {
             const res = await axios.put("http://localhost:5000/order/rejest", {
                 id: user.id,
