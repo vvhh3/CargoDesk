@@ -21,13 +21,10 @@ const registrySchema = z.object({
     .min(2, "Email обязателен")
     .email("Неверный формат email"),
   companyName: z.string().trim().min(2, "Название компании обязательно"),
-  password: z
-    .string()
-    .trim()
-    .min(3, "Пароль должен содержать не менее 3 символов")
-    .regex(/[A-Z]/, "Должна быть хотя бы одна заглавная буква")
-    .regex(/[a-z]/, "Должна быть хотя бы одна строчная буква")
-    .regex(/[0-9]/, "Должна быть хотя бы одна цифра"),
+  password: z.string().trim().min(3, "Пароль должен содержать не менее 3 символов")
+    // .regex(/[A-Z]/, "Должна быть хотя бы одна заглавная буква")
+    // .regex(/[a-z]/, "Должна быть хотя бы одна строчная буква")
+    // .regex(/[0-9]/, "Должна быть хотя бы одна цифра"),
 })
 
 type RegistryFormType = z.infer<typeof registrySchema>
@@ -40,7 +37,7 @@ export function RegisterPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
+    reset
   } = useForm<RegistryFormType>({
     resolver: zodResolver(registrySchema),
     defaultValues: {

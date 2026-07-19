@@ -28,19 +28,14 @@ export function AppRouter() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route
-          element={
+        <Route element={
             <ProtectedRoute>
               <DashboardLayout />
             </ProtectedRoute>
-          }
-        >
+          }>
           <Route path="/dashboard/client" element={<DashboardClientPage />} />
           <Route path="/dashboard/client/orders" element={<ClientOrdersPage />} />
-          <Route
-            path="/dashboard/client/create-request"
-            element={<ClientCreateRequestPage />}
-          />
+          <Route path="/dashboard/client/create-request"element={<ClientCreateRequestPage />}/>
           <Route path="/notifications" element={<ClientNotificationsPage />} />
 
           <Route path="/dashboard/admin" element={<DashboardAdminPage />} />
@@ -50,10 +45,8 @@ export function AppRouter() {
 
           <Route path="/dashboard/manager" element={<DashboardManagerPage />} />
           <Route path="/dashboard/manager/orders" element={<ManagerOrdersPage />} />
-          <Route
-            path="/dashboard/manager/clients"
-            element={<ManagerUsersPage />}
-          />
+          <Route path="/dashboard/manager/clients"element={<ManagerUsersPage />} />
+          
         </Route>
       </Routes>
     </BrowserRouter>

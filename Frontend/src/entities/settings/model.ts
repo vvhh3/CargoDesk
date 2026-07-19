@@ -7,12 +7,10 @@ type SettingsStore = {
 }
 
 export const useSettingsStore = create<SettingsStore>()(
-  persist(
-    (set) => ({
+  persist((set) => ({
       title: "CargoDesk",
       setTitle: (title) => set({ title }),
-    }),
-    {
+    }),{
       name: "setting-store",
     }
   )

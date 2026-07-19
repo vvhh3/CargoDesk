@@ -135,16 +135,14 @@ export function LoginPage() {
               type="email"
               placeholder="email"
               error={errors.email?.message}
-              {...register("email")}
-            />
+              {...register("email")}/>
             <Input
               label="Password"
               icon={Lock}
               type="password"
               placeholder="password"
               error={errors.password?.message}
-              {...register("password")}
-            />
+              {...register("password")}/>
 
             <div className="w-full flex justify-between mt-5">
               <label className="text-zinc-400 cursor-pointer">

@@ -89,8 +89,7 @@ export function Sidebar() {
                 alt="avatar"
                 className="rounded-full"
               />
-            </div>
-          ) : (
+            </div>) : (
             <div className="w-10 h-10 rounded-full bg-linear-to-br from-[#7C3AED] to-[#3B82F6] flex items-center justify-center">
               <span className="text-sm font-semibold">
                 {user?.name?.charAt(0) || "U"}
