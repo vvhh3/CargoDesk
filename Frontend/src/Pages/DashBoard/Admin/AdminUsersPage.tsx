@@ -43,18 +43,22 @@ export function AdminUsersPage() {
     } catch { toast.error("Error exporting users") }
   }
 
-  const changeRole = async (role: string) => {
+  const changeRole = async (id: number,role: string) => {
     try {
-      await usersApi.changeRole({ id: openMenu!, role })
+      await usersApi.changeRole({ id: id, role })
+      
       setOpenChangeRole(false); setOpenMenu(null)
       toast.success("Role updated")
+      getUsers()
     } catch (e: any) { toast.error(e.response?.data?.message || "Error") }
   }
-
-  const deleteUser = async (del: boolean) => {
+  
+  const deleteUser = async (id: number, del: boolean) => {
     try {
-      await usersApi.delete({ id: openMenu!, isDeleted: del })
+      console.log(id)
+      await usersApi.delete({ id: id, isDeleted: del })
       setOpenMenu(null); toast.success("User updated")
+      getUsers()
     } catch (e: any) { toast.error(e.response?.data?.message || "Error") }
   }
 
@@ -142,12 +146,12 @@ export function AdminUsersPage() {
                       { label: "Edit Profile", icon: <Pencil className="w-4 h-4" />, onClick: () => { setSelectUser(user); setOpenMenu(null) } },
                       { label: "Change Role", icon: <ChevronDown className="w-4 h-4" />, onClick: () => setOpenChangeRole(!openChangeRole) },
                       ...(openChangeRole ? [
-                        { label: "client", onClick: () => changeRole("client") },
-                        { label: "manager", onClick: () => changeRole("manager") },
-                        { label: "admin", onClick: () => changeRole("admin") },
+                        { label: "client", onClick: () => changeRole(user.id, "client") },
+                        { label: "manager", onClick: () => changeRole(user.id, "manager") },
+                        { label: "admin", onClick: () => changeRole(user.id, "admin") },
                       ] : []),
                       { label: "Send Email", icon: <Mail className="w-4 h-4" />, onClick: () => {} },
-                      { label: user.isDeleted ? "UnBan User" : "Delete User", icon: <Trash2 className="w-4 h-4" />, onClick: () => deleteUser(!user.isDeleted), color: user.isDeleted ? "text-green-400" : "text-red-400" },
+                      { label: user.isDeleted ? "UnBan User" : "Delete User", icon: <Trash2 className="w-4 h-4" />, onClick: () => deleteUser(user.id, user.isDeleted ? false : true), color: user.isDeleted ? "text-green-400" : "text-red-400" },
                     ]}
                   />
                 </td>
