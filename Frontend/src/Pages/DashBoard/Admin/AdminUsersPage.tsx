@@ -16,7 +16,7 @@ type UserType = {
 export function AdminUsersPage() {
   const [users, setUsers] = useState<UserType[]>([])
   const [search, setSearch] = useState("")
-  const [openMenu, setOpenMenu] = useState<number | null>(null)
+  // const [openMenu, setOpenMenu] = useState<number | null>(null)
   const [openChangeRole, setOpenChangeRole] = useState(false)
   const [selectUser, setSelectUser] = useState<UserType | null>(null)
 
@@ -47,7 +47,8 @@ export function AdminUsersPage() {
     try {
       await usersApi.changeRole({ id: id, role })
       
-      setOpenChangeRole(false); setOpenMenu(null)
+      setOpenChangeRole(false); 
+      // setOpenMenu(null)
       toast.success("Role updated")
       getUsers()
     } catch (e: any) { toast.error(e.response?.data?.message || "Error") }
@@ -57,7 +58,8 @@ export function AdminUsersPage() {
     try {
       console.log(id)
       await usersApi.delete({ id: id, isDeleted: del })
-      setOpenMenu(null); toast.success("User updated")
+      // setOpenMenu(null); 
+      toast.success("User updated")
       getUsers()
     } catch (e: any) { toast.error(e.response?.data?.message || "Error") }
   }
@@ -143,7 +145,7 @@ export function AdminUsersPage() {
                   <Dropdown
                     trigger={<button className="p-1 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5"><MoreHorizontal className="w-4 h-4" /></button>}
                     items={[
-                      { label: "Edit Profile", icon: <Pencil className="w-4 h-4" />, onClick: () => { setSelectUser(user); setOpenMenu(null) } },
+                      { label: "Edit Profile", icon: <Pencil className="w-4 h-4" />, onClick: () => { setSelectUser(user) } },
                       { label: "Change Role", icon: <ChevronDown className="w-4 h-4" />, onClick: () => setOpenChangeRole(!openChangeRole) },
                       ...(openChangeRole ? [
                         { label: "client", onClick: () => changeRole(user.id, "client") },
